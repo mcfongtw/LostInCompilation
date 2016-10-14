@@ -1,0 +1,8 @@
+.cproject
+.project*
+.settings/
+.idea/
+Release/
+Debug/
+debug*.log
+.externalToolBuilders/
