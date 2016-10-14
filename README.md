@@ -11,3 +11,5 @@ apps/
         Useful visualization tool for development
     calculator/
         Sample calculator application
+==================
+Test PostReceive hook for mirroring to Github
