@@ -60,9 +60,10 @@ SET(CORE_SOURCE_FILES
         ${BISON_OUTPUT_DIR}/calc.tab.hpp
         )
 
-# Since parser.c does not exists yet when cmake is run, mark
-# it as generated
+# Since the following cpp/hpp do not exists yet when cmake is run, mark it as generated
 SET_SOURCE_FILES_PROPERTIES(${BISON_OUTPUT_DIR}/calc.tab.cpp GENERATED)
+SET_SOURCE_FILES_PROPERTIES(${BISON_OUTPUT_DIR}/calc.tab.hpp GENERATED)
+SET_SOURCE_FILES_PROPERTIES(${FLEX_OUTPUT_DIR}/calc.lex.cpp GENERATED)
 
 # Include binary directory to include lexer.c in parser.c
 #INCLUDE_DIRECTORIES(${Foo_BINARY_DIR}/src)

@@ -1,3 +1,7 @@
 debug*.log
 .idea/
 build/
+
+#Flex/Bison generated files
+calc.*.cpp
+calc.*.hpp
