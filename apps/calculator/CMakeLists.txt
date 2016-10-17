@@ -50,7 +50,9 @@ ADD_CUSTOM_COMMAND(
                 ${BISON_OUTPUT_DIR}/calc.y
         TARGET ParserCodeGen
         DEPENDS ${FLEX_OUTPUT_DIR}/calc.lex.cpp
-        OUTPUTS ${BISON_OUTPUT_DIR}/calc.tab.cpp)
+        OUTPUTS ${BISON_OUTPUT_DIR}/calc.tab.cpp
+        COMMENT "Generating calc.tab.cpp / calc.tab.hpp"
+)
 
 # Add parser.c to the list of sources
 SET(CORE_SOURCE_FILES

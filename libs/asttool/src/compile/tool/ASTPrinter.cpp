@@ -5,7 +5,7 @@
  *      Author: Michael Fong
  */
 
-#include "ASTPrinter.h"
+#include "compile/tool/ASTPrinter.h"
 
 ASTPrinter::ASTPrinter() {
 

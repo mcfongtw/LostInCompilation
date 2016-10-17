@@ -5,7 +5,7 @@
  *      Author: Michael Fong
  */
 
-#include "ParseTreePrinter.h"
+#include "compile/tool/ParseTreePrinter.h"
 
 #include <cstring>
 #include <iostream>

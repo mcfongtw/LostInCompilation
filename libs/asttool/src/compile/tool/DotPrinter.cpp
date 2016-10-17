@@ -5,7 +5,7 @@
  *      Author: shannaracat
  */
 
-#include "DotPrinter.h"
+#include "compile/tool/DotPrinter.h"
 
 #include "common/Utils.h"
 
