@@ -24,7 +24,7 @@ public:
 	virtual void eval(VisitedTreeNodePtr root);
 
 private:
-	Analyzer _analyzer;
+	TreeWalkerPtr _walker;
 };
 
 #endif /* MATHEVALUATOR_H_ */

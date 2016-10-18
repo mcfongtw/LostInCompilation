@@ -11,6 +11,8 @@
 #include "log/Logger.h"
 #include "error/StackTraceUtils.h"
 
+#include "cli/Console.h"
+
 
 
 int main(int argc, char **argv) {
@@ -19,4 +21,8 @@ int main(int argc, char **argv) {
     LOG(Logger::LEVEL_INFO, "Logging starts");
 
     StackTraceUtils::setupStackTraceAgent();
+
+    Console console;
+
+    console.run();
 }
