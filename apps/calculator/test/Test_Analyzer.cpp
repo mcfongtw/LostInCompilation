@@ -11,6 +11,23 @@
 #include "compile/parser/MathParser.h"
 #include "compile/eval/Analyzer.h"
 
+TEST(ANALYZER, First_Expr) {
+	MathParser parser;
+	ASTNodePtr root;
+	std::shared_ptr<Analyzer> analyzer = std::make_shared<Analyzer>();
+
+	std::string expr = "777";
+	parser.parse(root, expr);
+	root->apply(analyzer, DEPTH_FIRST);
+//	std::cout << root->toString() << std::endl;
+
+	RuntimeStack stack = analyzer->getRunTimeStack();
+	ObjectValue answer = stack.top();
+	EXPECT_EQ(777, answer.get<double>());
+	stack.pop();
+	EXPECT_TRUE(stack.isEmpty());
+}
+
 TEST(ANALYZER, Simple_Expr) {
 	MathParser parser;
 	ASTNodePtr root;
