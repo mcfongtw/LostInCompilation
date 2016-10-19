@@ -42,10 +42,15 @@ target_link_libraries (ASTTool shacat compiler ${GMOCK_LIBRARY_PATH} ${CMAKE_THR
 #####################################################################
 enable_testing()
 
+# Variable to store verify files
+file(MAKE_DIRECTORY ${PRJ_BIN_DIR}/verify)
+file(GLOB MOD_VERIFY_FILES "${MOD_TEST_DIR}/verify/*")
+file(COPY ${MOD_VERIFY_FILES} DESTINATION ${PRJ_BIN_DIR}/verify)
+
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/TestMain.cpp
-        )
+        ${MOD_TEST_DIR}/Test_DotPrinter.cpp)
 
 include_directories(${GTEST_INCLUDE_DIR})
 include_directories(${GMOCK_INCLUDE_DIR})
@@ -54,4 +59,4 @@ add_executable(AstToolTest ${TEST_SOURCE_FILES} ${CORE_SOURCE_FILES})
 target_link_libraries (AstToolTest shacat compiler ${GMOCK_LIBRARY_PATH} ${CMAKE_THREAD_LIBS_INIT})
 
 
-add_dependencies(AstToolTest shacat compiler ${GMOCK_LIBRARY} ${${GTEST_LIBRARY}} ParserCodeGen)
+add_dependencies(AstToolTest shacat compiler ${GMOCK_LIBRARY} ${${GTEST_LIBRARY}})
