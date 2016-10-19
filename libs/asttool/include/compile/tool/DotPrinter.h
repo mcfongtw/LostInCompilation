@@ -29,7 +29,7 @@ public:
 
 	virtual int stopWalking();
 
-	virtual int walk(ASTNodePtr ptr);
+	virtual int walk(VisitedTreeNodePtr ptr);
 
 private:
 	std::ofstream _fout;
