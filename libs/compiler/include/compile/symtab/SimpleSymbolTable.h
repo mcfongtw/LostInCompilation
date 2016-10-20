@@ -31,7 +31,7 @@ public:
 
     virtual SymbolScope getScope();
 
-private:
+protected:
     std::map<std::string, SymbolPtr> symbol_map;
 
     SymbolScope _level;

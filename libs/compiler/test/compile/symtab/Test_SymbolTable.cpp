@@ -90,6 +90,13 @@ TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Type) {
 }
 
 TEST(SYMBOL_TABLE_FACTORY, UNIT_Simple) {
-	SymbolTableFactory factory;
-    EXPECT_TRUE(dynamic_cast<SimpleSymbolTable*>(factory.getSymbolTable(ST_Simple).get()));
+    SymbolTablePtr ptr = nullptr;
+
+    ptr = SymbolTableFactory::getSymbolTable(ST_Simple);
+    EXPECT_EQ(ptr->getScope(), ST_GLOBAL);
+    EXPECT_TRUE(dynamic_cast<SimpleSymbolTable*>(ptr.get()));
+
+    ptr = SymbolTableFactory::getSymbolTable(ST_Simple, ST_FUNCTIONAL);
+    EXPECT_EQ(ptr->getScope(), ST_FUNCTIONAL);
+    EXPECT_TRUE(dynamic_cast<SimpleSymbolTable*>(ptr.get()));
 }

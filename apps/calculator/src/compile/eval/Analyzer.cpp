@@ -16,8 +16,7 @@
 
 Analyzer::Analyzer() :
 		ASTreeWalker() {
-    SymbolTableFactory factor;
-    this->_table = factor.getSymbolTable(ST_Simple);
+    this->_table = SymbolTableFactory::getSymbolTable(ST_Simple);
 }
 
 Analyzer::~Analyzer() {

@@ -1,5 +1,5 @@
 //
-// Created by shannaracat on 2016/10/19.
+// Created by Michael Fong on 2016/10/19.
 //
 
 #include "compile/symtab/SymbolTableFactory.h"
@@ -8,6 +8,16 @@
 
 SymbolTablePtr SymbolTableFactory::getSymbolTable(SymbolTableStrategy choice) {
     if(choice == ST_Simple) {
-        return std::shared_ptr<SymbolTable>(new SimpleSymbolTable());
+        return std::make_shared<SimpleSymbolTable>();
+    } else {
+        return nullptr;
+    }
+}
+
+SymbolTablePtr SymbolTableFactory::getSymbolTable(SymbolTableStrategy choice, SymbolScope scope) {
+    if(choice == ST_Simple) {
+        return std::make_shared<SimpleSymbolTable>(scope);
+    } else {
+        return nullptr;
     }
 }

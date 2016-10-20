@@ -15,7 +15,9 @@ enum SymbolTableStrategy {
 
 class SymbolTableFactory {
 public:
-    SymbolTablePtr getSymbolTable(SymbolTableStrategy);
+    static SymbolTablePtr getSymbolTable(SymbolTableStrategy);
+
+    static SymbolTablePtr getSymbolTable(SymbolTableStrategy, SymbolScope);
 
 };
 
