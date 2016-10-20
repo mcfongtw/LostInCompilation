@@ -11,7 +11,7 @@
 #include "common/Utils.h"
 
 SimpleSymbolTable::SimpleSymbolTable() : SymbolTable() {
-	this->_level = ST_GLOBAL;
+	this->_level = SCOPE_GLOBAL;
 }
 
 SimpleSymbolTable::SimpleSymbolTable(SymbolScope lvl) : SymbolTable() {
