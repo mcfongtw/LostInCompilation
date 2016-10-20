@@ -8,6 +8,7 @@
 #include "compile/symtab/ObjectValue.h"
 #include "compile/symtab/Symbol.h"
 #include "compile/symtab/SimpleSymbolTable.h"
+#include "compile/symtab/SymbolTableTreeNode.h"
 #include "compile/symtab/SymbolTableFactory.h"
 
 #include "gtest/gtest.h"
@@ -99,4 +100,34 @@ TEST(SYMBOL_TABLE_FACTORY, UNIT_Simple) {
     ptr = SymbolTableFactory::getSymbolTable(ST_Simple, ST_FUNCTIONAL);
     EXPECT_EQ(ptr->getScope(), ST_FUNCTIONAL);
     EXPECT_TRUE(dynamic_cast<SimpleSymbolTable*>(ptr.get()));
+}
+
+TEST(SYMBOL_TABLE_FACTORY, UNIT_Hierarchical) {
+    SymbolTablePtr ptr = nullptr;
+
+    ptr = SymbolTableFactory::getSymbolTable(ST_Tree);
+    EXPECT_EQ(ptr->getScope(), ST_GLOBAL);
+    EXPECT_TRUE(dynamic_cast<SymbolTableTreeNode*>(ptr.get()));
+
+    ptr = SymbolTableFactory::getSymbolTable(ST_Tree, ST_LOCAL);
+    EXPECT_EQ(ptr->getScope(), ST_LOCAL);
+    EXPECT_TRUE(dynamic_cast<SymbolTableTreeNode*>(ptr.get()));
+}
+
+TEST(SYMBOL_TABLE, UNIT_Hierarchical_Symbol_Table) {
+    HierarchicalSymbolTablePtr root = std::make_shared<SymbolTableTreeNode>(ST_GLOBAL);
+    HierarchicalSymbolTablePtr child = std::make_shared<SymbolTableTreeNode>(ST_FUNCTIONAL);
+    HierarchicalSymbolTablePtr grandchild = std::make_shared<SymbolTableTreeNode>(ST_LOCAL);
+    root->insertChild(child);
+    child->insertChild(grandchild);
+
+    EXPECT_EQ(1, root->getNumOfChildren());
+    EXPECT_EQ(0, root->getChildIndexOf(child));
+
+    EXPECT_EQ(1, child->getNumOfChildren());
+    EXPECT_EQ(0, child->getChildIndexOf(grandchild));
+    EXPECT_EQ(root.get(), child->getParent());
+
+    EXPECT_EQ(0, grandchild->getNumOfChildren());
+    EXPECT_EQ(child.get(), grandchild->getParent());
 }

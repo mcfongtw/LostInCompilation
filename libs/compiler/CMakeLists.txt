@@ -32,6 +32,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/compile/symtab/SimpleSymbolTable.cpp
         ${MOD_SRC_DIR}/error/ParseException.cpp
         ${MOD_SRC_DIR}/compile/symtab/SymbolTableFactory.cpp
+        ${MOD_SRC_DIR}/compile/symtab/SymbolTableTreeNode.cpp
         )
 
 #TODO: More graceful way to handle include_directories from other targets
