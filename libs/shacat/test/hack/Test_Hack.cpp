@@ -37,7 +37,7 @@ template class HackPrivate<PoorGuyPrivate_getAge, &PoorGuy::getAge>;
 struct PoorGuyPrivate_plusOne { typedef int(PoorGuy::*type)(int i); };
 template class HackPrivate<PoorGuyPrivate_plusOne, &PoorGuy::plusOne>;
 
-TEST(HACK, Access_Private_Member) {
+TEST(Hack, UNIT_Access_Private_Member) {
 	PoorGuy who;
 	EXPECT_STREQ((who.*HackProxy<PoorGuyPrivate_getName>::privateFuncPtr)(), "John");
 	EXPECT_TRUE((who.*HackProxy<PoorGuyPrivate_isMale>::privateFuncPtr)());

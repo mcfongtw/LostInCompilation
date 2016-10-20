@@ -47,18 +47,18 @@ add_library(shacat SHARED ${CORE_SOURCE_FILES})
 enable_testing()
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
+        ${MOD_TEST_DIR}/algorithm/tree/Test_Tree_Basic.cpp
+        ${MOD_TEST_DIR}/algorithm/tree/traditional/Test_Tree_Traverse.cpp
+        ${MOD_TEST_DIR}/algorithm/tree/visitor/Test_Tree_Visitor.cpp
+        ${MOD_TEST_DIR}/common/Test_Conditions.cpp
+        ${MOD_TEST_DIR}/common/Test_Converts.cpp
+        ${MOD_TEST_DIR}/common/Test_Strings.cpp
+        ${MOD_TEST_DIR}/error/Test_Exception.cpp
+        ${MOD_TEST_DIR}/hack/Test_Hack.cpp
+        ${MOD_TEST_DIR}/lang/Test_Object.cpp
+        ${MOD_TEST_DIR}/lang/TestDerivedObject.hpp
+        ${MOD_TEST_DIR}/log/Test_Logger.cpp
         ${MOD_TEST_DIR}/Test_Basics.cpp
-        ${MOD_TEST_DIR}/Test_Conditions.cpp
-        ${MOD_TEST_DIR}/Test_Converts.cpp
-        ${MOD_TEST_DIR}/Test_Exception.cpp
-        ${MOD_TEST_DIR}/Test_Hack.cpp
-        ${MOD_TEST_DIR}/Test_Logger.cpp
-        ${MOD_TEST_DIR}/Test_Object.cpp
-        ${MOD_TEST_DIR}/Test_Strings.cpp
-        ${MOD_TEST_DIR}/Test_Tree_Basic.cpp
-        ${MOD_TEST_DIR}/Test_Tree_Traverse.cpp
-        ${MOD_TEST_DIR}/Test_Tree_Visitor.cpp
-        ${MOD_TEST_DIR}/TestDerivedObject.hpp
         ${MOD_TEST_DIR}/TestMain.cpp
         )
 

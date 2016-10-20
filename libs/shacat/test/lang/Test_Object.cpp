@@ -14,17 +14,17 @@
 #include "lang/Object.h"
 #include "TestDerivedObject.hpp"
 
-TEST(OBJECT, Simple) {
-	Object base;
-
-	std::cout << base.toString() << std::endl;
-}
-
-TEST(OBJECT, Derived) {
-	TestDerivedObject derived;
-
-	std::cout << derived.toString() << std::endl;
-}
+//TEST(OBJECT, Simple) {
+//	Object base;
+//
+//	std::cout << base.toString() << std::endl;
+//}
+//
+//TEST(OBJECT, Derived) {
+//	TestDerivedObject derived;
+//
+//	std::cout << derived.toString() << std::endl;
+//}
 
 //TEST(OBJECT, Copy) {
 //	Object base;

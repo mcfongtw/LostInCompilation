@@ -101,7 +101,7 @@ std::vector<int> collect(TreeNodeStack& stack) {
 	return result;
 }
 
-TEST_F(TREE_TRAVERSE, In_Order_Traversal) {
+TEST_F(TREE_TRAVERSE, Functional_In_Order_Traversal) {
 	TreeNodePtr root = _builders[0].toTree();
 
 	TreeTraverse traverse;
@@ -118,7 +118,7 @@ TEST_F(TREE_TRAVERSE, In_Order_Traversal) {
 	ASSERT_THAT(result, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_TRAVERSE, Pre_Order_Traversal) {
+TEST_F(TREE_TRAVERSE, Functional_Pre_Order_Traversal) {
 	TreeNodePtr root = _builders[0].toTree();
 
 	TreeTraverse traverse;
@@ -135,7 +135,7 @@ TEST_F(TREE_TRAVERSE, Pre_Order_Traversal) {
 	ASSERT_THAT(result, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_TRAVERSE, Post_Order_Traversal) {
+TEST_F(TREE_TRAVERSE, Functional_Post_Order_Traversal) {
 	TreeNodePtr root = _builders[0].toTree();
 
 	TreeTraverse traverse;
@@ -152,7 +152,7 @@ TEST_F(TREE_TRAVERSE, Post_Order_Traversal) {
 	ASSERT_THAT(result, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_TRAVERSE, Depth_First_Traversal) {
+TEST_F(TREE_TRAVERSE, Functional_Depth_First_Traversal) {
 	TreeNodePtr root = _builders[0].toTree();
 
 	TreeTraverse traverse;
@@ -169,7 +169,7 @@ TEST_F(TREE_TRAVERSE, Depth_First_Traversal) {
 	ASSERT_THAT(result, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_TRAVERSE, Breadt_First_Traversal) {
+TEST_F(TREE_TRAVERSE, Functional_Breadt_First_Traversal) {
 	TreeNodePtr root = _builders[0].toTree();
 
 	TreeTraverse traverse;

@@ -16,7 +16,7 @@
  * TODO: Think of a way to test Logger
  * i.e. Logging some messages into a file and compare contents by string-match.
  */
-TEST(LOGGER, Simple_Logging) {
+TEST(Logger, Functional_Simple_Logging) {
 	LOG(Logger::LEVEL_TRACE, "This is a TRACE message");
 	LOG(Logger::LEVEL_DEBUG, "This is a DEBUG message");
 	LOG(Logger::LEVEL_INFO, "This is a INFO message");
@@ -28,7 +28,7 @@ void throwExceptionPleaseCatch() {
 	throw IllegalStateException("Test");
 }
 
-TEST(LOGGER, Exception_Logging) {
+TEST(Logger, Functional_Exception_Logging) {
 	try {
 		throwExceptionPleaseCatch();
 	} catch(Exception& e) {

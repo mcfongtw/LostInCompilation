@@ -16,36 +16,36 @@
 
 //Test std::string -> <type>
 
-TEST(STRING_TO_BOOL, Simple) {
+TEST(Converts, UNIT_STRING_TO_BOOL_Simple) {
 	EXPECT_TRUE(util::Converts::stringToBool("true"));
 	EXPECT_FALSE(util::Converts::stringToBool("false"));
 }
 
-TEST(STRING_TO_BOOL, Exception) {
+TEST(Converts, UNIT_STRING_TO_BOOL_Exception) {
 	EXPECT_THROW(util::Converts::stringToBool("1"), IllegalArgumentException);
 	EXPECT_THROW(util::Converts::stringToBool("0"), IllegalArgumentException);
 	EXPECT_THROW(util::Converts::stringToBool("-1"), IllegalArgumentException);
 }
 
-TEST(STRING_TO_INT, Simple) {
+TEST(Converts, UNIT_STRING_TO_INT_Simple) {
 	EXPECT_EQ(1, util::Converts::stringToNumber<int>("1"));
 	EXPECT_EQ(0, util::Converts::stringToNumber<int>("0"));
 	EXPECT_EQ(-1, util::Converts::stringToNumber<int>("-1"));
 }
 
-TEST(STRING_TO_INT, Down_Cast) {
+TEST(Converts, UNIT_STRING_TO_INT_Down_Cast) {
 	EXPECT_EQ(1, util::Converts::stringToNumber<int>("1.1"));
 	EXPECT_EQ(0, util::Converts::stringToNumber<int>("0.2"));
 	EXPECT_EQ(-1, util::Converts::stringToNumber<int>("-1.3"));
 }
 
-TEST(STRING_TO_DOUBLE, Simple) {
+TEST(Converts, UNIT_STRING_TO_DOUBLE_Simple) {
 	EXPECT_EQ(1.1, util::Converts::stringToNumber<double>("1.1"));
 	EXPECT_EQ(0.2, util::Converts::stringToNumber<double>("0.2"));
 	EXPECT_EQ(-1.3, util::Converts::stringToNumber<double>("-1.3"));
 }
 
-TEST(STRING_TO_DOUBLE, Up_Cast) {
+TEST(Converts, UNIT_STRING_TO_DOUBLE_Up_Cast) {
 	EXPECT_EQ(1.0, util::Converts::stringToNumber<double>("1"));
 	EXPECT_EQ(0.0, util::Converts::stringToNumber<double>("0"));
 	EXPECT_EQ(-1.0, util::Converts::stringToNumber<double>("-1"));
@@ -67,7 +67,7 @@ long double         |    12  |    16
 //Test hex std::string -> <type>
 
 //TODO: expect negative, but become unsigned
-TEST(HEX_STRING_TO_TYPE, Short_2_Bytes) {
+TEST(Converts, UNIT_HEX_STRING_TO_TYPE_Short_2_Bytes) {
 	EXPECT_EQ(1, util::Converts::hexStringToNumber<short>("1"));
 
 	EXPECT_EQ(1, util::Converts::hexStringToNumber<short>("0x1"));
@@ -90,7 +90,7 @@ TEST(HEX_STRING_TO_TYPE, Short_2_Bytes) {
 }
 
 //TODO: expect negative, but become unsigned
-TEST(HEX_STRING_TO_TYPE, Integer_4_Bytes) {
+TEST(Converts, UNIT_HEX_STRING_TO_TYPE_Integer_4_Bytes) {
 	EXPECT_EQ(1, util::Converts::hexStringToNumber<int>("1"));
 
 	EXPECT_EQ(1, util::Converts::hexStringToNumber<int>("0x1"));
@@ -117,7 +117,7 @@ TEST(HEX_STRING_TO_TYPE, Integer_4_Bytes) {
 }
 
 //TODO: expect negative, but become unsigned
-TEST(HEX_STRING_TO_TYPE, Long_8_Bytes) {
+TEST(Converts, UNIT_HEX_STRING_TO_TYPE_Long_8_Bytes) {
 	EXPECT_EQ(1, util::Converts::hexStringToNumber<long>("1"));
 
 	EXPECT_EQ(1, util::Converts::hexStringToNumber<long>("0x1"));
@@ -150,30 +150,30 @@ TEST(HEX_STRING_TO_TYPE, Long_8_Bytes) {
 }
 //Test <type> -> std::string
 
-TEST(BOOL_TO_STRING, Simple) {
+TEST(Converts, UNIT_BOOL_TO_STRING_Simple) {
 	EXPECT_STREQ("true", util::Converts::boolToString(true).c_str());
 	EXPECT_STREQ("false", util::Converts::boolToString(false).c_str());
 }
 
-TEST(INT_TO_STRING, Simple) {
+TEST(Converts, UNIT_INT_TO_STRING_Simple) {
 	EXPECT_STREQ("1", util::Converts::numberToString<int>(1).c_str());
 	EXPECT_STREQ("0", util::Converts::numberToString<int>(0).c_str());
 	EXPECT_STREQ("-1", util::Converts::numberToString<int>(-1).c_str());
 }
 
-TEST(INT_TO_STRING, Down_Cast) {
+TEST(Converts, UNIT_INT_TO_STRING_Down_Cast) {
 	EXPECT_STREQ("1", util::Converts::numberToString<int>(1.1).c_str());
 	EXPECT_STREQ("0", util::Converts::numberToString<int>(0.2).c_str());
 	EXPECT_STREQ("-1", util::Converts::numberToString<int>(-1.3).c_str());
 }
 
-TEST(DOUBLE_TO_STRING, Simple) {
+TEST(Converts, UNIT_DOUBLE_TO_STRING_Simple) {
 	EXPECT_STREQ("1.1", util::Converts::numberToString<double>(1.1).c_str());
 	EXPECT_STREQ("0.2", util::Converts::numberToString<double>(0.2).c_str());
 	EXPECT_STREQ("-1.3", util::Converts::numberToString<double>(-1.3).c_str());
 }
 
-TEST(DOUBLE_TO_STRING, Up_Cast) {
+TEST(Converts, UNIT_DOUBLE_TO_STRING_Up_Cast) {
 	EXPECT_STREQ("1", util::Converts::numberToString<double>(1.0).c_str());
 	EXPECT_STREQ("0", util::Converts::numberToString<double>(0.0).c_str());
 	EXPECT_STREQ("-1", util::Converts::numberToString<double>(-1.0).c_str());
@@ -194,7 +194,7 @@ long double         |    12  |    16
  */
 
 //Test <type> -> hex std::string
-TEST(TYPE_TO_HEX_STRING, Short_2_Bytes) {
+TEST(Converts, UNIT_TYPE_TO_HEX_STRING_Short_2_Bytes) {
 	EXPECT_STREQ("0x0000", util::Converts::numberToHexString<short>(0).c_str());
 
 	EXPECT_STREQ("0x0001", util::Converts::numberToHexString<short>(1).c_str());
@@ -219,7 +219,7 @@ TEST(TYPE_TO_HEX_STRING, Short_2_Bytes) {
 
 }
 
-TEST(TYPE_TO_HEX_STRING, Integer_4_Bytes) {
+TEST(Converts, UNIT_TYPE_TO_HEX_STRING_Integer_4_Bytes) {
 	EXPECT_STREQ("0x00000000", util::Converts::numberToHexString<int>(0).c_str());
 
 	EXPECT_STREQ("0x00000001", util::Converts::numberToHexString<int>(1).c_str());
@@ -248,7 +248,7 @@ TEST(TYPE_TO_HEX_STRING, Integer_4_Bytes) {
 
 }
 
-TEST(TYPE_TO_HEX_STRING, Long_8_Byte) {
+TEST(Converts, UNIT_TYPE_TO_HEX_STRING_Long_8_Byte) {
 	EXPECT_STREQ("0x0000000000000000", util::Converts::numberToHexString<long>(0).c_str());
 
 	EXPECT_STREQ("0x0000000000000001", util::Converts::numberToHexString<long>(1).c_str());

@@ -60,7 +60,7 @@ protected:
 	std::vector<TreeBuilder<TreeNode, TreeNodePtr>> _builders;
 };
 
-TEST_F(TREE_BASIC, Simple) {
+TEST_F(TREE_BASIC, UNIT_Simple) {
 	TreeNodePtr root = _builders[0].toTree();
 
 //	std::cout << root->toString() << std::endl;
@@ -110,7 +110,7 @@ TEST_F(TREE_BASIC, Simple) {
 	EXPECT_EQ(granddaughter2->getParent(), daughter.get());
 }
 
-TEST_F(TREE_BASIC, ReplaceRoot) {
+TEST_F(TREE_BASIC, UNIT_ReplaceRoot) {
 	TreeNodePtr root = _builders[0].toTree();
 	TreeNodePtr son = root->getChildAt(0);
 
@@ -125,7 +125,7 @@ TEST_F(TREE_BASIC, ReplaceRoot) {
 	EXPECT_EQ(son->getParent(), newRoot.get());
 }
 
-TEST_F(TREE_BASIC, ReplaceIntermediate) {
+TEST_F(TREE_BASIC, UNIT_ReplaceIntermediate) {
 	TreeNodePtr root = _builders[0].toTree();
 	TreeNodePtr son = root->getChildAt(0);
 
@@ -138,7 +138,7 @@ TEST_F(TREE_BASIC, ReplaceIntermediate) {
 	EXPECT_EQ(root->getChildAt(0), newSon);
 }
 
-TEST_F(TREE_BASIC, ReplaceLeaf) {
+TEST_F(TREE_BASIC, UNIT_ReplaceLeaf) {
 	TreeNodePtr root = _builders[0].toTree();
 
 	TreeBuilder<TreeNode, TreeNodePtr> builder;

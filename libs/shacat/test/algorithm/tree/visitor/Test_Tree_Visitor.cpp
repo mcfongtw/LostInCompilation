@@ -125,7 +125,7 @@ protected:
 	std::vector<TreeBuilder<TestVisitedTreeNode, VisitedTreeNodePtr>> _builders;
 };
 
-TEST_F(TREE_VISITOR, In_Order_Traversal) {
+TEST_F(TREE_VISITOR, Functional_In_Order_Traversal) {
 	VisitedTreeNodePtr root = _builders[0].toTree();
 
 	TreeWalkerPtr walker = std::make_shared<TestTreeWalker>();
@@ -138,7 +138,7 @@ TEST_F(TREE_VISITOR, In_Order_Traversal) {
 	ASSERT_THAT(staticNodeIDSequence, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_VISITOR, Pre_Order_Traversal) {
+TEST_F(TREE_VISITOR, Functional_Pre_Order_Traversal) {
 	VisitedTreeNodePtr root = _builders[0].toTree();
 
 	TreeWalkerPtr walker = std::make_shared<TestTreeWalker>();
@@ -151,7 +151,7 @@ TEST_F(TREE_VISITOR, Pre_Order_Traversal) {
 	ASSERT_THAT(staticNodeIDSequence, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_VISITOR, Post_Order_Traversal) {
+TEST_F(TREE_VISITOR, Functional_Post_Order_Traversal) {
 	VisitedTreeNodePtr root = _builders[0].toTree();
 
 	TreeWalkerPtr walker = std::make_shared<TestTreeWalker>();
@@ -164,7 +164,7 @@ TEST_F(TREE_VISITOR, Post_Order_Traversal) {
 	ASSERT_THAT(staticNodeIDSequence, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_VISITOR, Depth_First_Traversal) {
+TEST_F(TREE_VISITOR, Functional_Depth_First_Traversal) {
 	VisitedTreeNodePtr root = _builders[0].toTree();
 
 	TreeWalkerPtr walker = std::make_shared<TestTreeWalker>();
@@ -177,7 +177,7 @@ TEST_F(TREE_VISITOR, Depth_First_Traversal) {
 	ASSERT_THAT(staticNodeIDSequence, testing::ElementsAreArray(expected));
 }
 
-TEST_F(TREE_VISITOR, Breadt_First_Traversal) {
+TEST_F(TREE_VISITOR, Functional_Breadt_First_Traversal) {
 	VisitedTreeNodePtr root = _builders[0].toTree();
 
 	TreeWalkerPtr walker = std::make_shared<TestTreeWalker>();

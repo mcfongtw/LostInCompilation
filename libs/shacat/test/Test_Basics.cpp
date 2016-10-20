@@ -37,7 +37,7 @@ long long	64	64	64	64
 size_t	32	64	64	64
 pointer	32	64	64	64
  */
-TEST(GCC_BASIC, Data_Type_Size) {
+TEST(Basics, UNIT_Data_Type_Size) {
 	EXPECT_EQ(1, sizeof(bool));
 
 	EXPECT_EQ(1, sizeof(char));
