@@ -13,7 +13,7 @@
 #include "compile/symtab/ObjectValue.h"
 #include "compile/traverse/ast/ASTreeWalker.h"
 #include "compile/symtab/RuntimeStack.h"
-#include "compile/symtab/SymbolTable.h"
+#include "compile/symtab/SimpleSymbolTable.h"
 #include "common/Utils.h"
 #include "log/Logger.h"
 
@@ -40,7 +40,7 @@ public:
 
 	RuntimeStack& getRunTimeStack();
 
-	SymbolTable& getSymbolTable();
+    SymbolTablePtr getSymbolTable();
 
 protected:
 	virtual int startWalking();
@@ -66,7 +66,7 @@ private:
 
 	RuntimeStack _stack;
 
-	SymbolTable _table;
+	SymbolTablePtr _table;
 };
 
 class MathOperationHandle {

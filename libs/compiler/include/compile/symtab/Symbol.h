@@ -34,4 +34,6 @@ protected:
 	ObjectValue _value;
 };
 
+
+typedef std::shared_ptr<Symbol> SymbolPtr;
 #endif /* SYMBOL_H_ */

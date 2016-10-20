@@ -79,16 +79,16 @@ TEST(ANALYZER, Simple_Symbol_Expr) {
 	//	std::cout << root->toString() << std::endl;
 
 	RuntimeStack stack = analyzer->getRunTimeStack();
-	SymbolTable table = analyzer->getSymbolTable();
+    SymbolTablePtr table = analyzer->getSymbolTable();
 	ObjectValue answer = stack.top();
 
 	EXPECT_EQ(6, answer.get<double>());
 	stack.pop();
 	EXPECT_TRUE(stack.isEmpty());
 
-	EXPECT_TRUE(table.lookup("x") != nullptr);
-	EXPECT_STREQ("x", table.lookup("x")->getName().c_str());
-	EXPECT_EQ(2, table.lookup("x")->getValue().get<double>());
+	EXPECT_TRUE(table.get()->lookup("x") != nullptr);
+	EXPECT_STREQ("x", table.get()->lookup("x")->getName().c_str());
+	EXPECT_EQ(2, table.get()->lookup("x")->getValue().get<double>());
 }
 
 TEST(ANALYZER, More_Symbol_Expr) {
@@ -112,18 +112,18 @@ TEST(ANALYZER, More_Symbol_Expr) {
 	//	std::cout << root->toString() << std::endl;
 
 	RuntimeStack stack = analyzer->getRunTimeStack();
-	SymbolTable table = analyzer->getSymbolTable();
+    SymbolTablePtr table = analyzer->getSymbolTable();
 	ObjectValue answer = stack.top();
 
 	EXPECT_EQ(35, answer.get<double>());
 	stack.pop();
 	EXPECT_TRUE(stack.isEmpty());
 
-	EXPECT_TRUE(table.lookup("x") != nullptr);
-	EXPECT_STREQ("x", table.lookup("x")->getName().c_str());
-	EXPECT_EQ(2, table.lookup("x")->getValue().get<double>());
+	EXPECT_TRUE(table.get()->lookup("x") != nullptr);
+	EXPECT_STREQ("x", table.get()->lookup("x")->getName().c_str());
+	EXPECT_EQ(2, table.get()->lookup("x")->getValue().get<double>());
 
-	EXPECT_TRUE(table.lookup("y") != nullptr);
-	EXPECT_STREQ("y", table.lookup("y")->getName().c_str());
-	EXPECT_EQ(3.3, table.lookup("y")->getValue().get<double>());
+	EXPECT_TRUE(table.get()->lookup("y") != nullptr);
+	EXPECT_STREQ("y", table.get()->lookup("y")->getName().c_str());
+	EXPECT_EQ(3.3, table.get()->lookup("y")->getValue().get<double>());
 }

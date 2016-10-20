@@ -5,20 +5,20 @@
  *      Author: Michael Fong
  */
 
-#include <compile/symtab/SymbolTable.h>
+#include <compile/symtab/SimpleSymbolTable.h>
 #include <iostream>
 
 #include "common/Utils.h"
 
-SymbolTable::SymbolTable() {
+SimpleSymbolTable::SimpleSymbolTable() : SymbolTable() {
 	this->_level = ST_GLOBAL;
 }
 
-SymbolTable::SymbolTable(SymbolTableLevel lvl) {
+SimpleSymbolTable::SimpleSymbolTable(SymbolScope lvl) : SymbolTable() {
 	this->_level = lvl;
 }
 
-SymbolTable::~SymbolTable() {
+SimpleSymbolTable::~SimpleSymbolTable() {
 //	std::map<std::string, SymbolPtr>::iterator it;
 //
 //	for(it = this->symbol_map.begin(); it != this->symbol_map.end(); it++) {
@@ -29,14 +29,14 @@ SymbolTable::~SymbolTable() {
 	this->symbol_map.clear();
 }
 
-void SymbolTable::add(SymbolPtr ptr) {
+void SimpleSymbolTable::add(SymbolPtr ptr) {
 	util::Conditions::requireNotNull(ptr, "Symbol added into symbol table");
 
 //	this->symbol_map.insert(std::make_pair(ptr.get()->getName(), std::move(ptr)));
 	this->symbol_map[ptr.get()->getName()] = ptr;
 }
 
-void SymbolTable::remove(const std::string& name) {
+void SimpleSymbolTable::remove(const std::string& name) {
 	util::Conditions::requireNotEmpty(name, "symbol name");
 
 	SymbolPtr ptr = this->lookup(name);
@@ -48,7 +48,7 @@ void SymbolTable::remove(const std::string& name) {
 //	delete symbol;
 }
 
-SymbolPtr SymbolTable::lookup(const std::string& name) {
+SymbolPtr SimpleSymbolTable::lookup(const std::string& name) {
 	util::Conditions::requireNotEmpty(name, "symbol name");
 
 	std::map<std::string, SymbolPtr>::iterator it;
@@ -62,7 +62,7 @@ SymbolPtr SymbolTable::lookup(const std::string& name) {
 	}
 }
 
-std::string SymbolTable::toString() {
+std::string SimpleSymbolTable::toString() {
 	if(this->isEmpty()) {
 		return "..NO SYMBOL..";
 	}
@@ -80,14 +80,14 @@ std::string SymbolTable::toString() {
 	return result;
 }
 
-bool SymbolTable::isEmpty() {
+bool SimpleSymbolTable::isEmpty() {
 	return this->symbol_map.empty();
 }
 
-void SymbolTable::setLevel(SymbolTableLevel lvl) {
+void SimpleSymbolTable::setScope(SymbolScope lvl) {
 	this->_level = lvl;
 }
 
-SymbolTableLevel SymbolTable::getLevel() {
+SymbolScope SimpleSymbolTable::getScope() {
 	return this->_level;
 }

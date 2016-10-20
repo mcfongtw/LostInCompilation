@@ -29,9 +29,9 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTUtils.cpp
         ${MOD_SRC_DIR}/compile/symtab/RuntimeStack.cpp
         ${MOD_SRC_DIR}/compile/symtab/Symbol.cpp
-        ${MOD_SRC_DIR}/compile/symtab/SymbolTable.cpp
+        ${MOD_SRC_DIR}/compile/symtab/SimpleSymbolTable.cpp
         ${MOD_SRC_DIR}/error/ParseException.cpp
-        )
+        include/compile/symtab/SymbolTableFactory.h src/compile/symtab/SymbolTableFactory.cpp include/compile/symtab/SymbolTableFactory.h)
 
 #TODO: More graceful way to handle include_directories from other targets
 include_directories("${MOD_INC_DIR}")

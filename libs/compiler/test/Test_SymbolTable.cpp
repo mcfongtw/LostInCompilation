@@ -7,7 +7,7 @@
 
 #include <compile/symtab/ObjectValue.h>
 #include <compile/symtab/Symbol.h>
-#include <compile/symtab/SymbolTable.h>
+#include <compile/symtab/SimpleSymbolTable.h>
 #include "gtest/gtest.h"
 
 #include <typeinfo>
@@ -32,7 +32,7 @@ TEST(SYMBOL_TABLE, Simple_Symbol_Table) {
 	ObjectValue value2(i);
 	SymbolPtr symbPtr2 = SymbolPtr(new Symbol("y", value2));
 
-	SymbolTable table;
+    SimpleSymbolTable table;
 	table.add(symbPtr1);
 	table.add(symbPtr2);
 
@@ -46,7 +46,7 @@ TEST(SYMBOL_TABLE, Simple_Symbol_Table) {
 }
 
 TEST(SYMBOL_TABLE, Symbol_Table_Boundary_Condition) {
-	SymbolTable table;
+    SimpleSymbolTable table;
 
 	EXPECT_FALSE(table.lookup("z") != nullptr);
 }
@@ -56,7 +56,7 @@ TEST(SYMBOL_TABLE, Advanced_Symbol_Table_Change_Value) {
 	ObjectValue oldVal(d);
 	SymbolPtr ptr = SymbolPtr(new Symbol("x", oldVal));
 
-	SymbolTable table;
+    SimpleSymbolTable table;
 	table.add(ptr);
 
 	EXPECT_EQ(1.234, table.lookup("x").get()->getValue().get<double>());
@@ -73,7 +73,7 @@ TEST(SYMBOL_TABLE, Advanced_Symbol_Table_Change_Type) {
 	ObjectValue oldVal(d);
 	SymbolPtr ptr = SymbolPtr(new Symbol("x", oldVal));
 
-	SymbolTable table;
+    SimpleSymbolTable table;
 	table.add(ptr);
 
 	EXPECT_EQ(typeid(double), table.lookup("x").get()->getValue().getType());

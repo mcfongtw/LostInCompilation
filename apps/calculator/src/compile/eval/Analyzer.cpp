@@ -10,12 +10,14 @@
 
 #include "compile/eval/Analyzer.h"
 #include "algorithm/tree/ast/ASTNode.h"
+#include "compile/symtab/SymbolTableFactory.h"
 #include "../../compile/parser/grammar/bison/calc.tab.hpp"
 
 
 Analyzer::Analyzer() :
 		ASTreeWalker() {
-
+    SymbolTableFactory factor;
+    this->_table = factor.getSymbolTable(ST_Simple);
 }
 
 Analyzer::~Analyzer() {
@@ -35,7 +37,7 @@ int Analyzer::stopWalking() {
 	LOG(Logger::LEVEL_DEBUG,
 			"After walking, Runtime Call Stack has " + this->_stack.toString());
 	LOG(Logger::LEVEL_DEBUG,
-			"After walking, Symbol Table has " + this->_table.toString());
+			"After walking, Symbol Table has " + this->_table->toString());
 	return 1;
 }
 
@@ -94,12 +96,12 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 		std::shared_ptr<ASTNode> leftChildPtr = std::dynamic_pointer_cast<ASTNode>(ptr->getChildAt(0));
 		ObjectValue rhsValue = resolveOperand(ptr->getChildAt(1), false);
 
-		SymbolPtr ptr = this->_table.lookup(leftChildPtr->getText());
+		SymbolPtr ptr = this->_table->lookup(leftChildPtr->getText());
 		if (ptr != nullptr) {
 			ptr.get()->setValue(rhsValue);
 		} else {
 			ptr = SymbolPtr(new Symbol(leftChildPtr->getText(), rhsValue));
-			this->_table.add(ptr);
+			this->_table->add(ptr);
 		}
 
 		LOG(Logger::LEVEL_DEBUG,
@@ -109,7 +111,7 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 		LOG(Logger::LEVEL_TRACE,
 				"After walking [ASSIGN], Stack has " + this->_stack.toString());
 		LOG(Logger::LEVEL_TRACE,
-				"After walking [ASSIGN], Table has " + this->_table.toString());
+				"After walking [ASSIGN], Table has " + this->_table->toString());
 	}
 
 	return 1;
@@ -213,7 +215,7 @@ ObjectValue Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
 		result = this->_stack.top();
 		this->_stack.pop();
 	} else if (tokenType == TOKEN_ID) {
-		SymbolPtr ptr = this->_table.lookup(astPtr->getImage());
+		SymbolPtr ptr = this->_table->lookup(astPtr->getImage());
 		if (ptr != nullptr) {
 			result = ptr.get()->getValue();
 
@@ -239,7 +241,7 @@ RuntimeStack& Analyzer::getRunTimeStack() {
 	return this->_stack;
 }
 
-SymbolTable& Analyzer::getSymbolTable() {
+SymbolTablePtr Analyzer::getSymbolTable() {
 	return this->_table;
 }
 

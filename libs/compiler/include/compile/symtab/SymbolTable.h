@@ -14,43 +14,44 @@
 #include <map>
 
 
-enum SymbolTableLevel {
+enum SymbolScope {
 	ST_GLOBAL = 1,
 	ST_FUNCTIONAL,
 	ST_FUNCTIONAL_ANONYMOUS,
 	ST_LOCAL
 };
 
-
-typedef std::shared_ptr<Symbol> SymbolPtr;
-
-//case-Sensitive symbol table
+//Pure abstract SymbolTable class
 class SymbolTable {
 public:
-	SymbolTable();
+	SymbolTable() {
 
-	SymbolTable(SymbolTableLevel lvl);
+    };
 
-	virtual ~SymbolTable();
+	SymbolTable(SymbolScope lvl){
 
-	virtual void add(SymbolPtr ptr);
+    };
 
-	virtual void remove(const std::string& name);
+	virtual ~SymbolTable() {
 
-	virtual SymbolPtr lookup(const std::string& name);
+    };
 
-	virtual std::string toString();
+	virtual void add(SymbolPtr ptr) = 0;
 
-	virtual bool isEmpty();
+	virtual void remove(const std::string& name) = 0;
 
-	virtual void setLevel(SymbolTableLevel lvl);
+	virtual SymbolPtr lookup(const std::string& name) = 0;
 
-	virtual SymbolTableLevel getLevel();
+	virtual std::string toString() = 0;
 
-private:
-	std::map<std::string, SymbolPtr> symbol_map;
+	virtual bool isEmpty() = 0;
 
-	SymbolTableLevel _level;
+	virtual void setScope(SymbolScope lvl) = 0;
+
+	virtual SymbolScope getScope() = 0;
 };
+
+
+typedef std::shared_ptr<SymbolTable> SymbolTablePtr;
 
 #endif /* SYMBOLTABLE_H_ */
