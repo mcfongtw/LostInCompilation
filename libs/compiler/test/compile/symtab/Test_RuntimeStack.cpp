@@ -12,7 +12,7 @@
 #include <typeinfo>
 
 
-TEST(RUN_TIME_STACK, Simple) {
+TEST(RUN_TIME_STACK, UNIT_Simple) {
 	RuntimeStack stack;
 
 	EXPECT_TRUE(stack.isEmpty());

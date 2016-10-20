@@ -10,7 +10,7 @@
 
 #include "error/Exception.h"
 
-TEST(AST, Simple_Node) {
+TEST(AST, UNIT_Simple_Node) {
 	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
 
 	EXPECT_STREQ("+", std::dynamic_pointer_cast<ASTNode>(root)->getText());
@@ -22,7 +22,7 @@ TEST(AST, Simple_Node) {
 	EXPECT_TRUE(root->isRoot());
 }
 
-TEST(AST, Simple_Abstract_Syntax_Tree) {
+TEST(AST, UNIT_Simple_Abstract_Syntax_Tree) {
 	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
 	VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);
 	VisitedTreeNodePtr right = std::make_shared<ASTNode>("2", 2);
@@ -50,7 +50,7 @@ TEST(AST, Simple_Abstract_Syntax_Tree) {
 	EXPECT_EQ(root.get(), right->getParent());
 }
 
-TEST(AST, Abstract_Syntax_Tree_Replace) {
+TEST(AST, UNIT_Abstract_Syntax_Tree_Replace) {
 	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
 	VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);
 	VisitedTreeNodePtr right = std::make_shared<ASTNode>("2", 2);
@@ -76,7 +76,7 @@ TEST(AST, Abstract_Syntax_Tree_Replace) {
 	EXPECT_EQ(newRoot.get(), right->getParent());
 }
 
-TEST(AST, AST_Utils_Reduce_1) {
+TEST(AST, UNIT_AST_Utils_Reduce_1) {
 	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
 	VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);
 	VisitedTreeNodePtr right = std::make_shared<ASTNode>("2", 2);

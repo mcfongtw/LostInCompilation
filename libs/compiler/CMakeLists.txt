@@ -46,11 +46,11 @@ enable_testing()
 
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
-        ${MOD_TEST_DIR}/Test_AST.cpp
-        ${MOD_TEST_DIR}/Test_DataBlock.cpp
-        ${MOD_TEST_DIR}/Test_ParseException.cpp
-        ${MOD_TEST_DIR}/Test_RuntimeStack.cpp
-        ${MOD_TEST_DIR}/Test_SymbolTable.cpp
+        ${MOD_TEST_DIR}/algorithm/tree/ast/Test_AST.cpp
+        ${MOD_TEST_DIR}/compile/symtab/Test_ObjectValue.cpp
+        ${MOD_TEST_DIR}/compile/symtab/Test_RuntimeStack.cpp
+        ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTable.cpp
+        ${MOD_TEST_DIR}/error/Test_ParseException.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
         )
 

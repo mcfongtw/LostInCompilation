@@ -5,15 +5,17 @@
  *      Author: Michael Fong
  */
 
-#include <compile/symtab/ObjectValue.h>
-#include <compile/symtab/Symbol.h>
-#include <compile/symtab/SimpleSymbolTable.h>
+#include "compile/symtab/ObjectValue.h"
+#include "compile/symtab/Symbol.h"
+#include "compile/symtab/SimpleSymbolTable.h"
+#include "compile/symtab/SymbolTableFactory.h"
+
 #include "gtest/gtest.h"
 
 #include <typeinfo>
 
 
-TEST(SYMBOL_TABLE, Simple_Symbol) {
+TEST(SYMBOL_TABLE, UNIT_Simple_Symbol) {
 	double d = 1.234;
 	ObjectValue value(d);
 
@@ -23,7 +25,7 @@ TEST(SYMBOL_TABLE, Simple_Symbol) {
 	EXPECT_EQ(1.234, symbol.getValue().get<double>());
 }
 
-TEST(SYMBOL_TABLE, Simple_Symbol_Table) {
+TEST(SYMBOL_TABLE, UNIT_Simple_Symbol_Table) {
 	double d = 1.234;
 	ObjectValue value1(d);
 	SymbolPtr symbPtr1 = SymbolPtr(new Symbol("x", value1));
@@ -45,13 +47,13 @@ TEST(SYMBOL_TABLE, Simple_Symbol_Table) {
 
 }
 
-TEST(SYMBOL_TABLE, Symbol_Table_Boundary_Condition) {
+TEST(SYMBOL_TABLE, UNIT_Symbol_Table_Boundary_Condition) {
     SimpleSymbolTable table;
 
 	EXPECT_FALSE(table.lookup("z") != nullptr);
 }
 
-TEST(SYMBOL_TABLE, Advanced_Symbol_Table_Change_Value) {
+TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Value) {
 	double d = 1.234;
 	ObjectValue oldVal(d);
 	SymbolPtr ptr = SymbolPtr(new Symbol("x", oldVal));
@@ -68,7 +70,7 @@ TEST(SYMBOL_TABLE, Advanced_Symbol_Table_Change_Value) {
 	EXPECT_EQ(9.999, table.lookup("x").get()->getValue().get<double>());
 }
 
-TEST(SYMBOL_TABLE, Advanced_Symbol_Table_Change_Type) {
+TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Type) {
 	double d = 1.234;
 	ObjectValue oldVal(d);
 	SymbolPtr ptr = SymbolPtr(new Symbol("x", oldVal));
@@ -85,4 +87,9 @@ TEST(SYMBOL_TABLE, Advanced_Symbol_Table_Change_Type) {
 
 	EXPECT_EQ(typeid(int), table.lookup("x").get()->getValue().getType());
 	EXPECT_EQ(100, table.lookup("x").get()->getValue().get<int>());
+}
+
+TEST(SYMBOL_TABLE_FACTORY, UNIT_Simple) {
+	SymbolTableFactory factory;
+    EXPECT_TRUE(dynamic_cast<SimpleSymbolTable*>(factory.getSymbolTable(ST_Simple).get()));
 }

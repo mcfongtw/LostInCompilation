@@ -12,6 +12,6 @@ void throwParseException() {
 	throw ParseException("parse error!");
 }
 
-TEST(EXCEPTION, Parse_Exception) {
+TEST(EXCEPTION, UNIT_Parse_Exception) {
 	EXPECT_THROW(throwParseException(), ParseException);
 }

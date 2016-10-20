@@ -15,7 +15,7 @@
 
 #include "error/Exception.h"
 
-TEST(DYNAMIC_OBJ_VAL, Bool) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Bool) {
 	ObjectValue obj(true);
 	EXPECT_STREQ("b", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -23,7 +23,7 @@ TEST(DYNAMIC_OBJ_VAL, Bool) {
 	EXPECT_TRUE(obj.get<bool>());
 }
 
-TEST(DYNAMIC_OBJ_VAL, Int) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Int) {
 	ObjectValue obj(1);
 	EXPECT_STREQ("i", obj.getType().name());
 	EXPECT_THROW(obj.get<double>(), TypeCastException);
@@ -31,7 +31,7 @@ TEST(DYNAMIC_OBJ_VAL, Int) {
 	EXPECT_EQ(1, obj.get<int>());
 }
 
-TEST(DYNAMIC_OBJ_VAL, Double) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Double) {
 	ObjectValue obj(1.234);
 	EXPECT_STREQ("d", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -39,7 +39,7 @@ TEST(DYNAMIC_OBJ_VAL, Double) {
 	EXPECT_EQ(1.234, obj.get<double>());
 }
 
-TEST(DYNAMIC_OBJ_VAL, String) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_String) {
 	ObjectValue obj((std::string)"Hello World");
 	EXPECT_STREQ("Ss", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -47,7 +47,7 @@ TEST(DYNAMIC_OBJ_VAL, String) {
 	EXPECT_STREQ("Hello World", obj.get<std::string>().c_str());
 }
 
-TEST(DYNAMIC_OBJ_VAL, Value_Change) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Value_Change) {
 	ObjectValue obj(1);
 	EXPECT_EQ(1, obj.get<int>());
 
@@ -58,14 +58,14 @@ TEST(DYNAMIC_OBJ_VAL, Value_Change) {
 	EXPECT_STREQ("Hello World", obj.get<std::string>().c_str());
 }
 
-TEST(DYNAMIC_OBJ_VAL, Equality) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Equality) {
 	ObjectValue obj(1);
 
 	ObjectValue result = obj;
 	EXPECT_TRUE(obj == result);
 }
 
-TEST(DYNAMIC_OBJ_VAL, Vector_Bool) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_Bool) {
 	std::vector<bool> list;
 	list.push_back(true);
 	list.push_back(false);
@@ -82,7 +82,7 @@ TEST(DYNAMIC_OBJ_VAL, Vector_Bool) {
 	}
 }
 
-TEST(DYNAMIC_OBJ_VAL, Vector_Int) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_Int) {
 	std::vector<int> list;
 	list.push_back(1);
 	list.push_back(0);
@@ -100,7 +100,7 @@ TEST(DYNAMIC_OBJ_VAL, Vector_Int) {
 	}
 }
 
-TEST(DYNAMIC_OBJ_VAL, Vector_Double) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_Double) {
 	std::vector<double> list;
 	list.push_back(1.234);
 	list.push_back(0.123);
@@ -118,7 +118,7 @@ TEST(DYNAMIC_OBJ_VAL, Vector_Double) {
 	}
 }
 
-TEST(DYNAMIC_OBJ_VAL, Vector_String) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_String) {
 	std::vector<std::string> list;
 	list.push_back("Hello");
 	list.push_back("World");
