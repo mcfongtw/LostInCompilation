@@ -50,6 +50,9 @@ set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/algorithm/tree/Test_Tree_Basic.cpp
         ${MOD_TEST_DIR}/algorithm/tree/traditional/Test_Tree_Traverse.cpp
         ${MOD_TEST_DIR}/algorithm/tree/visitor/Test_Tree_Visitor.cpp
+        ${MOD_TEST_DIR}/algorithm/visitor/Test_Visitor.cpp
+        ${MOD_TEST_DIR}/algorithm/visitor/CountVisitor.h
+        ${MOD_TEST_DIR}/algorithm/visitor/BlueAndRedVisitedObject.h
         ${MOD_TEST_DIR}/common/Test_Conditions.cpp
         ${MOD_TEST_DIR}/common/Test_Converts.cpp
         ${MOD_TEST_DIR}/common/Test_Strings.cpp

@@ -10,6 +10,7 @@
 
 #include "algorithm/tree/visitor/VisitedTreeNode.h"
 #include "algorithm/tree/TreeContext.h"
+#include "algorithm/visitor/Visitor.h"
 
 class VisitedTreeNode;
 typedef std::shared_ptr<VisitedTreeNode> VisitedTreeNodePtr;
@@ -23,7 +24,7 @@ typedef std::shared_ptr<VisitedTreeNode> VisitedTreeNodePtr;
  * stopWalking()
  *
  */
-class TreeWalker {
+class TreeWalker : public Visitor {
 public:
 	TreeWalker() {
 
@@ -36,6 +37,11 @@ public:
 	virtual int walk(VisitedTreeNodePtr ptr) = 0;
 
 protected:
+    //Hide intentionally, as we only expose walk(ptr) to outside
+	virtual int visit(VisitedObjectPtr ptr) {
+		VisitedTreeNodePtr treeNodePtr = std::dynamic_pointer_cast<VisitedTreeNode>(ptr);
+		this->walk(treeNodePtr);
+	}
 	virtual int startWalking() = 0;
 
 	virtual int stopWalking() = 0;

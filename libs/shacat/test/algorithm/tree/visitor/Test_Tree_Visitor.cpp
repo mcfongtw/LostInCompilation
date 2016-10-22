@@ -44,7 +44,7 @@ public:
 				+ VisitedTreeNode::toString();
 	}
 
-	virtual int apply(TreeWalker* walker, TraverseAction action) {
+	virtual int apply(TreeWalkerPtr walker, TraverseAction action) {
 		staticNodeIDSequence.push_back(this->_id);
 		return 1;
 	}
@@ -190,3 +190,14 @@ TEST_F(TREE_VISITOR, Functional_Breadt_First_Traversal) {
 	ASSERT_THAT(staticNodeIDSequence, testing::ElementsAreArray(expected));
 }
 
+TEST_F(TREE_VISITOR, Functional_Visitor_visit) {
+    VisitedObjectPtr root = _builders[0].toTree();
+
+    VisitorPtr visitor = std::make_shared<TestTreeWalker>();
+
+//	std::cout << "root " << root->toString() << std::endl;
+    root->accept(visitor);
+
+    const size_t expected[] = { 0, 1, 3, 3, 4, 4, 1, 2, 5, 5, 6, 6, 2, 0 };
+    ASSERT_THAT(staticNodeIDSequence, testing::ElementsAreArray(expected));
+}

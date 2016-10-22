@@ -11,6 +11,7 @@
 #include "algorithm/tree/TreeNode.h"
 #include "algorithm/tree/visitor/traversal/TreeWalker.h"
 #include "algorithm/tree/TreeContext.h"
+#include "algorithm/visitor/VisitedObject.h"
 
 
 class TreeWalker;
@@ -19,12 +20,15 @@ class VisitedTreeNode;
 typedef std::shared_ptr<VisitedTreeNode> VisitedTreeNodePtr;
 typedef std::shared_ptr<TreeWalker> TreeWalkerPtr;
 
-class VisitedTreeNode : public TreeNode  {
+//TODO: Combined with VisitedSymbolTableTreeNode
+class VisitedTreeNode : public TreeNode, public VisitedObject {
 
 public:
 	VisitedTreeNode();
 
 	virtual ~VisitedTreeNode();
+
+	virtual void accept(VisitorPtr ptr);
 
 	virtual void apply(TreeWalkerPtr, TraverseStrategy);
 

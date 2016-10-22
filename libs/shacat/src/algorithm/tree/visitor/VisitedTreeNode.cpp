@@ -27,6 +27,11 @@ VisitedTreeNode::~VisitedTreeNode() {
 					+ util::Converts::numberToString(this->_depth) + "]");
 }
 
+void VisitedTreeNode::accept(VisitorPtr ptr) {
+    TreeWalkerPtr treePtr = std::dynamic_pointer_cast<TreeWalker>(ptr);
+	this->apply(treePtr, DEPTH_FIRST);
+}
+
 void VisitedTreeNode::apply(TreeWalkerPtr walker, TraverseStrategy strategy) {
 	switch (strategy) {
 	case IN_ORDER:
