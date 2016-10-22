@@ -8,12 +8,13 @@
 #include "compile/symtab/ObjectValue.h"
 #include "compile/symtab/Symbol.h"
 #include "compile/symtab/SimpleSymbolTable.h"
-#include "compile/symtab/SymbolTableTreeNode.h"
+#include "compile/symtab/VisitedSymbolTableTreeNode.h"
 #include "compile/symtab/SymbolTableFactory.h"
 
 #include "gtest/gtest.h"
 
 #include <typeinfo>
+#include <compile/symtab/visitor/SimpleSymbolTableVisitor.h>
 
 
 TEST(SYMBOL_TABLE, UNIT_Simple_Symbol) {
@@ -102,38 +103,17 @@ TEST(SYMBOL_TABLE_FACTORY, UNIT_Simple) {
     EXPECT_TRUE(dynamic_cast<SimpleSymbolTable*>(ptr.get()));
 }
 
-TEST(SYMBOL_TABLE_FACTORY, UNIT_Hierarchical) {
-    SymbolTablePtr ptr = nullptr;
+TEST(Symbol_Table_Visitor, UNIT_Simple) {
+    SymbolTablePtr table = SymbolTableFactory::getSymbolTable(ST_Simple);
+    double d = 1.234;
+    ObjectValue oldVal(d);
+    SymbolPtr symbol = SymbolPtr(new Symbol("x", oldVal));
+    table->add(symbol);
 
-    ptr = SymbolTableFactory::getSymbolTable(ST_Tree);
-    EXPECT_EQ(ptr->getScope(), SCOPE_GLOBAL);
-    EXPECT_TRUE(dynamic_cast<SymbolTableTreeNode*>(ptr.get()));
+    SimpleSTVisitorPtr visitor = std::make_shared<SimpleSymbolTableVisitor>();
+    visitor->visit(table);
+    SymbolPtr answer = visitor->lookup("x");
 
-    ptr = SymbolTableFactory::getSymbolTable(ST_Tree, SCOPE_LOCAL);
-    EXPECT_EQ(ptr->getScope(), SCOPE_LOCAL);
-    EXPECT_TRUE(dynamic_cast<SymbolTableTreeNode*>(ptr.get()));
-}
-
-TEST(SYMBOL_TABLE, UNIT_Hierarchical_Symbol_Table) {
-    HierarchicalSymbolTablePtr root = std::make_shared<SymbolTableTreeNode>(SCOPE_GLOBAL);
-    HierarchicalSymbolTablePtr child = std::make_shared<SymbolTableTreeNode>(SCOPE_FUNCTIONAL);
-    HierarchicalSymbolTablePtr grandchild = std::make_shared<SymbolTableTreeNode>(SCOPE_LOCAL);
-    root->insertChild(child);
-    child->insertChild(grandchild);
-
-    HierarchicalSymbolTablePtr tmp = nullptr;
-
-    EXPECT_EQ(1, root->getNumOfChildren());
-    EXPECT_EQ(0, root->getChildIndexOf(child));
-    tmp = std::dynamic_pointer_cast<SymbolTableTreeNode>(root->getChildAt(0));
-    EXPECT_EQ(SCOPE_FUNCTIONAL, tmp->getScope());
-
-    EXPECT_EQ(1, child->getNumOfChildren());
-    EXPECT_EQ(0, child->getChildIndexOf(grandchild));
-    EXPECT_EQ(root.get(), child->getParent());
-    tmp = std::dynamic_pointer_cast<SymbolTableTreeNode>(child->getChildAt(0));
-    EXPECT_EQ(SCOPE_LOCAL, tmp->getScope());
-
-    EXPECT_EQ(0, grandchild->getNumOfChildren());
-    EXPECT_EQ(child.get(), grandchild->getParent());
+    EXPECT_EQ(answer->getName(), "x");
+    EXPECT_EQ(answer->getValue().get<double>(), 1.234);
 }

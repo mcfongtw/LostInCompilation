@@ -21,7 +21,10 @@ enum SymbolScope {
 	SCOPE_LOCAL
 };
 
-//Pure abstract SymbolTable class
+/*
+ * Pure abstract SymbolTable class
+ *
+ */
 class SymbolTable {
 public:
 	SymbolTable() {

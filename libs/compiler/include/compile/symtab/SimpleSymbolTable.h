@@ -6,10 +6,10 @@
 #define MAINPROJECT_SIMPLE_SYMBOLTABLE_H
 
 #include "compile/symtab/Symbol.h"
-#include "compile/symtab/SymbolTable.h"
+#include "compile/symtab/visitor/VisitedSymbolTable.h"
 
 //case-Sensitive symbol table
-class SimpleSymbolTable : public SymbolTable {
+class SimpleSymbolTable : public VisitedSymbolTable {
 public:
     SimpleSymbolTable();
 
@@ -31,11 +31,15 @@ public:
 
     virtual SymbolScope getScope();
 
+    virtual void accept(VisitorPtr);
+
 protected:
     std::map<std::string, SymbolPtr> symbol_map;
 
     SymbolScope _level;
 
 };
+
+typedef std::make_shared<SimpleSymbolTable> SimpleSymbolTablePtr;
 
 #endif //MAINPROJECT_SIMPLE_SYMBOLTABLE_H

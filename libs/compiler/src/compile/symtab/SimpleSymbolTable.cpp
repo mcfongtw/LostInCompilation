@@ -10,11 +10,11 @@
 
 #include "common/Utils.h"
 
-SimpleSymbolTable::SimpleSymbolTable() : SymbolTable() {
+SimpleSymbolTable::SimpleSymbolTable() : VisitedSymbolTable() {
 	this->_level = SCOPE_GLOBAL;
 }
 
-SimpleSymbolTable::SimpleSymbolTable(SymbolScope lvl) : SymbolTable() {
+SimpleSymbolTable::SimpleSymbolTable(SymbolScope lvl) : VisitedSymbolTable(lvl) {
 	this->_level = lvl;
 }
 
@@ -90,4 +90,8 @@ void SimpleSymbolTable::setScope(SymbolScope lvl) {
 
 SymbolScope SimpleSymbolTable::getScope() {
 	return this->_level;
+}
+
+void SimpleSymbolTable::accept(VisitorPtr) {
+
 }
