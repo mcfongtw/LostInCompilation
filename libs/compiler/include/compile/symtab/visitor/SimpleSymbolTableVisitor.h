@@ -25,7 +25,7 @@ protected:
     virtual int stopVisit();
 };
 
-typedef std::make_shared<SimpleSymbolTableVisitor> SimpleSTVisitorPtr;
+typedef std::shared_ptr<SimpleSymbolTableVisitor> SimpleSTVisitorPtr;
 
 
 #endif //MAINPROJECT_SIMPLESYMBOLTABLEVISITOR_H

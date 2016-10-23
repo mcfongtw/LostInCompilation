@@ -8,6 +8,7 @@
 #include "compile/symtab/Symbol.h"
 #include "compile/symtab/visitor/VisitedSymbolTable.h"
 
+
 //case-Sensitive symbol table
 class SimpleSymbolTable : public VisitedSymbolTable {
 public:
@@ -40,6 +41,6 @@ protected:
 
 };
 
-typedef std::make_shared<SimpleSymbolTable> SimpleSymbolTablePtr;
+typedef std::shared_ptr<SimpleSymbolTable> SimpleSymbolTablePtr;
 
 #endif //MAINPROJECT_SIMPLE_SYMBOLTABLE_H
