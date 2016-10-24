@@ -8,7 +8,6 @@
 #include "compile/symtab/ObjectValue.h"
 #include "compile/symtab/Symbol.h"
 #include "compile/symtab/SimpleSymbolTable.h"
-#include "compile/symtab/VisitedSymbolTableTreeNode.h"
 #include "compile/symtab/SymbolTableFactory.h"
 
 #include "gtest/gtest.h"

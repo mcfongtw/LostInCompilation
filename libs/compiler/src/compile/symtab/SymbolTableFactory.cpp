@@ -5,7 +5,6 @@
 #include "compile/symtab/SymbolTableFactory.h"
 
 #include "compile/symtab/SimpleSymbolTable.h"
-#include "compile/symtab/VisitedSymbolTableTreeNode.h"
 
 SymbolTablePtr SymbolTableFactory::getSymbolTable(SymbolTableStrategy choice) {
     if(choice == ST_Simple) {
