@@ -80,9 +80,6 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/compile/eval/MathEvaluator.cpp
         ${MOD_SRC_DIR}/compile/parser/MathParser.cpp
         ${MOD_SRC_DIR}/compile/parser/grammar/GrammarLibs.cpp
-#        ${MOD_SRC_DIR}/compile/parser/grammar/bison/calc.tab.cpp
-#        ${MOD_SRC_DIR}/compile/parser/grammar/bison/calc.tab.hpp
-#        ${MOD_SRC_DIR}/compile/parser/grammar/flex/calc.lex.cpp
         ${MOD_SRC_DIR}/compile/traverse/ast/ASTreeWalker.cpp
         )
 
@@ -107,8 +104,8 @@ enable_testing()
 
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
-        ${MOD_TEST_DIR}/Test_Analyzer.cpp
-        ${MOD_TEST_DIR}/Test_Parser.cpp
+        ${MOD_TEST_DIR}/compile/eval/Test_Analyzer.cpp
+        ${MOD_TEST_DIR}//compile/parser/Test_Parser.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
         )
 
