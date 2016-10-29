@@ -49,8 +49,9 @@ file(COPY ${MOD_VERIFY_FILES} DESTINATION ${PRJ_BIN_DIR}/verify)
 
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
+        ${MOD_TEST_DIR}/compile/tool/Test_DotPrinter.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
-        ${MOD_TEST_DIR}/Test_DotPrinter.cpp)
+        )
 
 include_directories(${GTEST_INCLUDE_DIR})
 include_directories(${GMOCK_INCLUDE_DIR})
