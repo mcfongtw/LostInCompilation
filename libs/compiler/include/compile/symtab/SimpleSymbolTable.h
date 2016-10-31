@@ -22,6 +22,8 @@ public:
 
     virtual void remove(const std::string& name);
 
+    virtual void remove(SymbolPtr ptr);
+
     virtual SymbolPtr lookup(const std::string& name);
 
     virtual std::string toString();
@@ -33,11 +35,6 @@ public:
     virtual SymbolScope getScope();
 
     virtual void accept(VisitorPtr);
-
-protected:
-    std::map<std::string, SymbolPtr> symbol_map;
-
-    SymbolScope _level;
 
 };
 

@@ -5,16 +5,16 @@
 #ifndef MAINPROJECT_VISITEDSYMBOLTABLE_H
 #define MAINPROJECT_VISITEDSYMBOLTABLE_H
 
-#include "compile/symtab/SymbolTable.h"
+#include "compile/symtab/ScopedSymbolTable.h"
 #include "algorithm/visitor/VisitedObject.h"
 
-class VisitedSymbolTable : public SymbolTable, public VisitedObject {
+class VisitedSymbolTable : public ScopedSymbolTable, public VisitedObject {
 public:
-    VisitedSymbolTable() : SymbolTable(), VisitedObject() {
+    VisitedSymbolTable() : ScopedSymbolTable(), VisitedObject() {
 
     }
 
-    VisitedSymbolTable(SymbolScope lvl) : SymbolTable(lvl), VisitedObject() {
+    VisitedSymbolTable(SymbolScope lvl) : ScopedSymbolTable(lvl), VisitedObject() {
 
     }
 

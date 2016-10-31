@@ -5,10 +5,12 @@
  *      Author: Michael Fong
  */
 
-#include <compile/symtab/SimpleSymbolTable.h>
 #include <iostream>
+#include <algorithm>
 
+#include "compile/symtab/SimpleSymbolTable.h"
 #include "common/Utils.h"
+#include "error/Exception.h"
 
 SimpleSymbolTable::SimpleSymbolTable() : VisitedSymbolTable() {
 	this->_level = SCOPE_GLOBAL;
@@ -46,6 +48,14 @@ void SimpleSymbolTable::remove(const std::string& name) {
 	}
 
 //	delete symbol;
+}
+
+void SimpleSymbolTable::remove(SymbolPtr ptr) {
+    throw Exception("Not Yet Implemented");
+    //TODO: Add bool operator() (const Object& lhs, const Object& rhs) const { .. } for the stored symbol objects
+//    util::Conditions::requireNotNull(ptr, "Symbol Ptr of interest");
+//
+//    std::find_if(this->symbol_map.begin(), this->symbol_map.end(), ptr);
 }
 
 SymbolPtr SimpleSymbolTable::lookup(const std::string& name) {
