@@ -30,12 +30,10 @@ public:
 
     virtual bool isEmpty();
 
-    virtual void setScope(SymbolScope lvl);
-
-    virtual SymbolScope getScope();
-
     virtual void accept(VisitorPtr);
 
+protected:
+    std::map<std::string, SymbolPtr> symbol_map;
 };
 
 typedef std::shared_ptr<SimpleSymbolTable> SimpleSymbolTablePtr;

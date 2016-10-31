@@ -15,34 +15,33 @@ enum SymbolScope {
 };
 
 /*
+ * Abstract Class
  * Scoped based <Key:Pointer> paired Symbol Table
  */
 class ScopedSymbolTable : public SymbolRepository {
 public :
     ScopedSymbolTable() : SymbolRepository() {
-
+        this->_scope = SCOPE_GLOBAL;
     }
 
     ScopedSymbolTable(SymbolScope scope) : SymbolRepository() {
-        this->_level = scope;
+        this->_scope = scope;
     }
 
     virtual void remove(const std::string& name) = 0;
 
     virtual SymbolPtr lookup(const std::string& name) = 0;
 
-    virtual void setScope(SymbolScope lvl) {
-        this->_level = lvl;
+    virtual void setScope(SymbolScope scope) {
+        this->_scope = scope;
     }
 
     virtual SymbolScope getScope()  {
-        return this->_level;
+        return this->_scope;
     }
 
 protected:
-    std::map<std::string, SymbolPtr> symbol_map;
-
-    SymbolScope _level;
+    SymbolScope _scope;
 };
 
 

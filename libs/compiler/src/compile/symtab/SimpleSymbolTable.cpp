@@ -13,11 +13,11 @@
 #include "error/Exception.h"
 
 SimpleSymbolTable::SimpleSymbolTable() : VisitedSymbolTable() {
-	this->_level = SCOPE_GLOBAL;
+
 }
 
 SimpleSymbolTable::SimpleSymbolTable(SymbolScope lvl) : VisitedSymbolTable(lvl) {
-	this->_level = lvl;
+
 }
 
 SimpleSymbolTable::~SimpleSymbolTable() {
@@ -92,14 +92,6 @@ std::string SimpleSymbolTable::toString() {
 
 bool SimpleSymbolTable::isEmpty() {
 	return this->symbol_map.empty();
-}
-
-void SimpleSymbolTable::setScope(SymbolScope lvl) {
-	this->_level = lvl;
-}
-
-SymbolScope SimpleSymbolTable::getScope() {
-	return this->_level;
 }
 
 void SimpleSymbolTable::accept(VisitorPtr) {
