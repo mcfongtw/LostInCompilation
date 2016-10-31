@@ -32,11 +32,6 @@ protected:
     virtual int startVisit() = 0;
 
     virtual int stopVisit() = 0;
-
-    SymbolTablePtr _first;
-
-    SymbolTablePtr _current;
-
 };
 
 typedef std::shared_ptr<SymbolTableVisitor> SymbolTableVisitorPtr;

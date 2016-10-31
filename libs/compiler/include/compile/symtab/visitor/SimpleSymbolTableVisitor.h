@@ -1,5 +1,5 @@
 //
-// Created by mcfong on 10/21/16.
+// Created by Michael Fong on 10/21/16.
 //
 
 #ifndef MAINPROJECT_SIMPLESYMBOLTABLEVISITOR_H
@@ -23,6 +23,8 @@ protected:
     virtual int startVisit();
 
     virtual int stopVisit();
+
+    SymbolTablePtr _current;
 };
 
 typedef std::shared_ptr<SimpleSymbolTableVisitor> SimpleSTVisitorPtr;

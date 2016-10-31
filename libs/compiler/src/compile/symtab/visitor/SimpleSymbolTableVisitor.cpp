@@ -1,5 +1,5 @@
 //
-// Created by mcfong on 10/21/16.
+// Created by Michael Fong on 10/21/16.
 //
 
 #include "compile/symtab/visitor/SimpleSymbolTableVisitor.h"
@@ -17,7 +17,6 @@ SymbolPtr SimpleSymbolTableVisitor::lookup(const std::string &name) {
 }
 
 int SimpleSymbolTableVisitor::visit(SymbolTablePtr ptr) {
-    this->_first = ptr;
     this->_current = ptr;
 
     this->startVisit();
