@@ -23,7 +23,11 @@ public:
 
 	}
 
-	virtual void eval(VisitedTreeNodePtr root) = 0;
+	virtual void startEval() = 0;
+
+	virtual void doEval(VisitedTreeNodePtr root) = 0;
+
+	virtual void stopEval() = 0;
 };
 
 #endif /* EVALUATOR_H_ */

@@ -28,7 +28,10 @@ void Console::run() {
 }
 
 void Console::loop() {
-	MathEvaluator evaluator;
+
+	SymTabStackPtr stackptr = std::make_shared<SymbolTableStack>(ST_Simple);
+	MathEvaluator evaluator(stackptr);
+	evaluator.startEval();
 
 	while (true) {
 		ASTNodePtr root;
@@ -50,11 +53,12 @@ void Console::loop() {
 
 			parser.parse(root, line);
 
-			evaluator.eval(std::shared_ptr<ASTNode>(root));
+			evaluator.doEval(std::shared_ptr<ASTNode>(root));
 		} catch (Exception& e) {
 			LOG_ERROR(e.what());
 		}
 	}
 
+	evaluator.stopEval();
 }
 

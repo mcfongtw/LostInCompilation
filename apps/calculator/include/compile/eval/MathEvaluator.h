@@ -18,13 +18,19 @@
  */
 class MathEvaluator : public Evaluator {
 public:
-	MathEvaluator();
+	MathEvaluator(SymTabStackPtr);
+
 	virtual ~MathEvaluator();
 
-	virtual void eval(VisitedTreeNodePtr root);
+	virtual void startEval();
 
+	virtual void doEval(VisitedTreeNodePtr root);
+
+	virtual void stopEval();
 private:
 	TreeWalkerPtr _walker;
+
+	SymTabStackPtr _symtabStack;
 };
 
 #endif /* MATHEVALUATOR_H_ */

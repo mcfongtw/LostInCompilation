@@ -13,7 +13,7 @@
 #include "compile/symtab/ObjectValue.h"
 #include "compile/traverse/ast/ASTreeWalker.h"
 #include "compile/symtab/RuntimeStack.h"
-#include "compile/symtab/SimpleSymbolTable.h"
+#include "compile/symtab/SymbolTableStack.h"
 #include "common/Utils.h"
 #include "log/Logger.h"
 
@@ -34,13 +34,13 @@ typedef ObjectValue (*MathOperation)( ObjectValue&, ObjectValue& );
  */
 class Analyzer: public ASTreeWalker {
 public:
-	Analyzer();
+	Analyzer(SymTabStackPtr stack);
 
 	virtual ~Analyzer();
 
 	RuntimeStack& getRunTimeStack();
 
-    SymbolTablePtr getSymbolTable();
+	SymTabStackPtr getSymbolTableStack();
 
 protected:
 	virtual int startWalking();
@@ -64,9 +64,9 @@ protected:
 private:
 	ObjectValue resolveOperand(TreeNodePtr ptr, bool walkingMath);
 
-	RuntimeStack _stack;
+	RuntimeStack _runtimeStack;
 
-	SymbolTablePtr _table;
+	SymTabStackPtr _symtabStack;
 };
 
 class MathOperationHandle {

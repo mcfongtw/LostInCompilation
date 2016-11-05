@@ -36,20 +36,24 @@ public:
 
     virtual void openScope(SymbolScope scope);
 
+    //TODO: Have a clearnScope(ST_GLOBAL)as a special condition check on closing all scops
+
+    virtual void openScope();
+
     virtual void closeScope();
 
     virtual int size();
 
     virtual SymbolScope getScope();
 private :
-    void openScope();
-
     std::vector<SymbolTablePtr> _stack;
 
     SymbolTablePtr _current;
 
     SymbolTableStrategy _strategy;
 };
+
+typedef std::shared_ptr<SymbolTableStack> SymTabStackPtr;
 
 
 #endif //MAINPROJECT_SYMBOLTABLESTACK_H

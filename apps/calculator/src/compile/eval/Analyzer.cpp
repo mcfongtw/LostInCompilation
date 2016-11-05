@@ -9,14 +9,12 @@
 #include <memory>
 
 #include "compile/eval/Analyzer.h"
-#include "algorithm/tree/ast/ASTNode.h"
-#include "compile/symtab/SymbolTableFactory.h"
 #include "../../compile/parser/grammar/bison/calc.tab.hpp"
 
 
-Analyzer::Analyzer() :
+Analyzer::Analyzer(SymTabStackPtr stack) :
 		ASTreeWalker() {
-    this->_table = SymbolTableFactory::getSymbolTable(ST_Simple);
+    this->_symtabStack = stack;
 }
 
 Analyzer::~Analyzer() {
@@ -28,15 +26,15 @@ int Analyzer::startWalking() {
 }
 
 int Analyzer::stopWalking() {
-	if (this->_stack.isEmpty() == false) {
-		double value = this->_stack.top().get<double>();
+	if (this->_runtimeStack.isEmpty() == false) {
+		double value = this->_runtimeStack.top().get<double>();
 		std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;
 	}
 
 	LOG(Logger::LEVEL_DEBUG,
-			"After walking, Runtime Call Stack has " + this->_stack.toString());
+			"After walking, Runtime Call Stack has " + this->_runtimeStack.toString());
 	LOG(Logger::LEVEL_DEBUG,
-			"After walking, Symbol Table has " + this->_table->toString());
+			"After walking, Symbol Table Stack has " + this->_symtabStack->toString());
 	return 1;
 }
 
@@ -75,10 +73,10 @@ int Analyzer::walk_MATH(ASTNodePtr ptr) {
 		}
 
 		ObjectValue answer = (operation)(data1, data2);
-		this->_stack.push(answer);
+		this->_runtimeStack.push(answer);
 
 		LOG(Logger::LEVEL_TRACE,
-				"After walking [MATH], Stack has " + this->_stack.toString());
+				"After walking [MATH], Stack has " + this->_runtimeStack.toString());
 	}
 
 	return 1;
@@ -95,12 +93,12 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 		std::shared_ptr<ASTNode> leftChildPtr = std::dynamic_pointer_cast<ASTNode>(ptr->getChildAt(0));
 		ObjectValue rhsValue = resolveOperand(ptr->getChildAt(1), false);
 
-		SymbolPtr ptr = this->_table->lookup(leftChildPtr->getText());
+		SymbolPtr ptr = this->_symtabStack->lookup(leftChildPtr->getText());
 		if (ptr != nullptr) {
 			ptr.get()->setValue(rhsValue);
 		} else {
 			ptr = SymbolPtr(new Symbol(leftChildPtr->getText(), rhsValue));
-			this->_table->add(ptr);
+			this->_symtabStack->add(ptr);
 		}
 
 		LOG(Logger::LEVEL_DEBUG,
@@ -108,9 +106,9 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 						+ util::Converts::numberToString(
 								rhsValue.get<double>()));
 		LOG(Logger::LEVEL_TRACE,
-				"After walking [ASSIGN], Stack has " + this->_stack.toString());
+				"After walking [ASSIGN], Stack has " + this->_runtimeStack.toString());
 		LOG(Logger::LEVEL_TRACE,
-				"After walking [ASSIGN], Table has " + this->_table->toString());
+				"After walking [ASSIGN], Table has " + this->_symtabStack->toString());
 	}
 
 	return 1;
@@ -140,10 +138,10 @@ int Analyzer::walk_INTEGER(ASTNodePtr ptr) {
 		double num = util::Converts::stringToNumber<double>(str);
 
 		ObjectValue data = ObjectValue(num);
-		this->_stack.push(data);
+		this->_runtimeStack.push(data);
 
 		LOG(Logger::LEVEL_TRACE,
-				"After walking [INTEGER], Stack has " + this->_stack.toString());
+				"After walking [INTEGER], Stack has " + this->_runtimeStack.toString());
 	} else if (action == TRAVERSE_OUT) {
 
 	}
@@ -161,10 +159,10 @@ int Analyzer::walk_NUMBER(ASTNodePtr ptr) {
 		double num = util::Converts::stringToNumber<double>(str);
 
 		ObjectValue data = ObjectValue(num);
-		this->_stack.push(data);
+		this->_runtimeStack.push(data);
 
 		LOG(Logger::LEVEL_TRACE,
-				"After walking [NUMBER], Stack has " + this->_stack.toString());
+				"After walking [NUMBER], Stack has " + this->_runtimeStack.toString());
 	} else if (action == TRAVERSE_OUT) {
 
 	}
@@ -208,13 +206,13 @@ ObjectValue Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
 	int tokenType = astPtr->getToken();
 
 	if (tokenType == TOKEN_NUMBER) {
-		result = this->_stack.top();
-		this->_stack.pop();
+		result = this->_runtimeStack.top();
+		this->_runtimeStack.pop();
 	} else if (tokenType == TOKEN_INTEGER) {
-		result = this->_stack.top();
-		this->_stack.pop();
+		result = this->_runtimeStack.top();
+		this->_runtimeStack.pop();
 	} else if (tokenType == TOKEN_ID) {
-		SymbolPtr ptr = this->_table->lookup(astPtr->getImage());
+		SymbolPtr ptr = this->_symtabStack->lookup(astPtr->getImage());
 		if (ptr != nullptr) {
 			result = ptr.get()->getValue();
 
@@ -227,8 +225,8 @@ ObjectValue Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
 					"VARIABLE [" + astPtr->getImage() + "] UNresolvable!");
 		}
 	} else if (walkingMath) {
-		result = this->_stack.top();
-		this->_stack.pop();
+		result = this->_runtimeStack.top();
+		this->_runtimeStack.pop();
 	} else {
 		throw IllegalStateException("Unable to resolve operand token [" + astPtr->getImage() + "]");
 	}
@@ -237,11 +235,11 @@ ObjectValue Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
 }
 
 RuntimeStack& Analyzer::getRunTimeStack() {
-	return this->_stack;
+	return this->_runtimeStack;
 }
 
-SymbolTablePtr Analyzer::getSymbolTable() {
-	return this->_table;
+SymTabStackPtr Analyzer::getSymbolTableStack() {
+	return this->_symtabStack;
 }
 
 

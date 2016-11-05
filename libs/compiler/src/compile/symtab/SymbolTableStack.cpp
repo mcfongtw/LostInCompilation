@@ -4,8 +4,7 @@
 
 
 #include "compile/symtab/SymbolTableStack.h"
-#include "compile/symtab/SymbolTableFactory.h"
-#include "compile/symtab/SimpleSymbolTable.h"
+#include "log/Logger.h"
 
 SymbolTableStack::SymbolTableStack(SymbolTableStrategy strategy) : VisitedObject(), SymbolRepository() {
     this->_strategy = strategy;
@@ -53,7 +52,14 @@ void SymbolTableStack::accept(VisitorPtr) {
 
 
 std::string SymbolTableStack::toString() {
+    std::string result = "\n";
 
+    for(int i = 0; i < this->_stack.size(); i++) {
+        SymbolTablePtr table = this->_stack[i];
+        result += util::Converts::numberToString(i) + "> Scope : " + util::Converts::numberToString(table->getScope()) + "\n";
+        result += "Content : " + table->toString();
+    }
+    return result;
 }
 
 void SymbolTableStack::openScope() {
@@ -61,12 +67,14 @@ void SymbolTableStack::openScope() {
 }
 
 void SymbolTableStack::openScope(SymbolScope scope) {
+    LOG(Logger::LEVEL_TRACE, "Start a new SymbolTable with scope [" + util::Converts::numberToString(scope) + "]");
     SymbolTablePtr newSTPtr = SymbolTableFactory::getSymbolTable(this->_strategy, scope);
     this->_stack.push_back(newSTPtr);
     this->_current = newSTPtr;
 }
 
 void SymbolTableStack::closeScope() {
+    LOG(Logger::LEVEL_TRACE, "Closing a SymbolTable with scope ");
     this->_stack.pop_back();
     if(this->_stack.empty()) {
         this->_current = nullptr;
