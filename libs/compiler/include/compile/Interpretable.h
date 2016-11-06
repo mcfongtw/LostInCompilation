@@ -19,7 +19,7 @@ public:
 
     virtual void startInterpret() = 0;
 
-    virtual void interpret(std::string& line) = 0;
+    virtual ObjectValue interpret(std::string& line) = 0;
 
     virtual void stopInterpret() = 0;
 };

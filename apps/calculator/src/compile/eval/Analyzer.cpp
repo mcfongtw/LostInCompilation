@@ -26,10 +26,10 @@ int Analyzer::startWalking() {
 }
 
 int Analyzer::stopWalking() {
-	if (this->_runtimeStack.isEmpty() == false) {
-		double value = this->_runtimeStack.top().get<double>();
-		std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;
-	}
+//	if (this->_runtimeStack.isEmpty() == false) {
+//		double value = this->_runtimeStack.top().get<double>();
+//		std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;
+//	}
 
 	LOG(Logger::LEVEL_DEBUG,
 			"After walking, Runtime Call Stack has " + this->_runtimeStack.toString());

@@ -27,8 +27,10 @@ public:
 	virtual void doEval(VisitedTreeNodePtr root);
 
 	virtual void stopEval();
+
+	virtual ObjectValue getLastAnswer();
 private:
-	TreeWalkerPtr _walker;
+	TreeWalkerPtr _analyzer;
 
 	SymTabStackPtr _symtabStack;
 };

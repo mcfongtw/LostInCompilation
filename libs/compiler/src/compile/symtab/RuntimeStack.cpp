@@ -17,7 +17,9 @@ RuntimeStack::~RuntimeStack() {
 }
 
 void RuntimeStack::pop() {
-	this->_stack.pop_back();
+	if(this->_stack.empty() == false) {
+		this->_stack.pop_back();
+	}
 }
 
 ObjectValue& RuntimeStack::top() {

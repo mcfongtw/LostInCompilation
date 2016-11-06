@@ -47,7 +47,9 @@ void Console::loop() {
 			}
 
 
-            interpretor.interpret(line);
+            ObjectValue answer = interpretor.interpret(line);
+			double value = answer.get<double>();
+			std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;
 		} catch (Exception& e) {
 			LOG_ERROR(e.what());
 		}

@@ -21,7 +21,7 @@ void MathInterpretor::stopInterpret() {
     this->_evaluator.stopEval();
 }
 
-void MathInterpretor::interpret(std::string& line) {
+ObjectValue MathInterpretor::interpret(std::string& line) {
     ASTNodePtr root = nullptr;
 
     MathParser parser;
@@ -29,4 +29,8 @@ void MathInterpretor::interpret(std::string& line) {
     parser.parse(root, line);
 
     this->_evaluator.doEval(std::shared_ptr<ASTNode>(root));
+
+    ObjectValue answer = this->_evaluator.getLastAnswer();
+
+    return answer;
 }

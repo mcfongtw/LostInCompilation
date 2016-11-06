@@ -16,7 +16,7 @@ public:
 
     virtual void startInterpret();
 
-    virtual void interpret(std::string& line);
+    virtual ObjectValue interpret(std::string& line);
 
     virtual void stopInterpret();
 
