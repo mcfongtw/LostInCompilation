@@ -15,7 +15,23 @@
 
 #include "error/Exception.h"
 
-TEST(DYNAMIC_OBJ_VAL, UNIT_Bool) {
+
+ObjectValue testPassByReference() {
+	ObjectValue origin(1);
+
+	return origin;
+}
+
+TEST(DYNAMIC_OBJ_VAL, UNIT_Copy_Object) {
+	ObjectValue copy = testPassByReference();
+
+	EXPECT_STREQ("i", copy.getType().name());
+	EXPECT_THROW(copy.get<double>(), TypeCastException);
+	EXPECT_EQ(sizeof(int), copy.getSizeof());
+	EXPECT_EQ(1, copy.get<int>());
+}
+
+TEST(DYNAMIC_OBJ_VAL, UNIT_Primitive_Bool) {
 	ObjectValue obj(true);
 	EXPECT_STREQ("b", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -23,7 +39,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Bool) {
 	EXPECT_TRUE(obj.get<bool>());
 }
 
-TEST(DYNAMIC_OBJ_VAL, UNIT_Int) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Primitive_Int) {
 	ObjectValue obj(1);
 	EXPECT_STREQ("i", obj.getType().name());
 	EXPECT_THROW(obj.get<double>(), TypeCastException);
@@ -31,7 +47,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Int) {
 	EXPECT_EQ(1, obj.get<int>());
 }
 
-TEST(DYNAMIC_OBJ_VAL, UNIT_Double) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Primitive_Double) {
 	ObjectValue obj(1.234);
 	EXPECT_STREQ("d", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -39,7 +55,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Double) {
 	EXPECT_EQ(1.234, obj.get<double>());
 }
 
-TEST(DYNAMIC_OBJ_VAL, UNIT_String) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Primitive_String) {
 	ObjectValue obj((std::string)"Hello World");
 	EXPECT_STREQ("Ss", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -47,7 +63,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_String) {
 	EXPECT_STREQ("Hello World", obj.get<std::string>().c_str());
 }
 
-TEST(DYNAMIC_OBJ_VAL, UNIT_Value_Change) {
+TEST(DYNAMIC_OBJ_VAL, UNIT_Primitive_Value_Change) {
 	ObjectValue obj(1);
 	EXPECT_EQ(1, obj.get<int>());
 

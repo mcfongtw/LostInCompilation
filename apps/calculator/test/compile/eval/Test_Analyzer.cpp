@@ -11,7 +11,7 @@
 #include "compile/parser/MathParser.h"
 #include "compile/eval/Analyzer.h"
 
-TEST(ANALYZER, First_Expr) {
+TEST(ANALYZER, Functional_Const_Expr) {
 	MathParser parser;
 	ASTNodePtr root;
 	SymTabStackPtr stStack = std::make_shared<SymbolTableStack>(ST_Simple);
@@ -34,7 +34,7 @@ TEST(ANALYZER, First_Expr) {
     EXPECT_TRUE(stStack->isEmpty());
 }
 
-TEST(ANALYZER, Simple_Expr) {
+TEST(ANALYZER, Functional_Simple_Expr) {
 	MathParser parser;
 	ASTNodePtr root;
 	SymTabStackPtr stStack = std::make_shared<SymbolTableStack>(ST_Simple);
@@ -57,7 +57,7 @@ TEST(ANALYZER, Simple_Expr) {
     EXPECT_TRUE(stStack->isEmpty());
 }
 
-TEST(ANALYZER, Advanced_Expr) {
+TEST(ANALYZER, Functional_Advanced_Expr) {
 	MathParser parser;
 	ASTNodePtr root;
 	SymTabStackPtr stStack = std::make_shared<SymbolTableStack>(ST_Simple);
@@ -81,7 +81,7 @@ TEST(ANALYZER, Advanced_Expr) {
     EXPECT_TRUE(stStack->isEmpty());
 }
 
-TEST(ANALYZER, Simple_Symbol_Expr) {
+TEST(ANALYZER, Functional_Simple_Symbol_Expr) {
 	MathParser parser;
 	ASTNodePtr root;
 	SymTabStackPtr stStack = std::make_shared<SymbolTableStack>(ST_Simple);
@@ -115,7 +115,7 @@ TEST(ANALYZER, Simple_Symbol_Expr) {
     EXPECT_TRUE(stStack->isEmpty());
 }
 
-TEST(ANALYZER, More_Symbol_Expr) {
+TEST(ANALYZER, Functional_Multiple_Symbol_Expr) {
 	MathParser parser;
 	ASTNodePtr root;
 	SymTabStackPtr stStack = std::make_shared<SymbolTableStack>(ST_Simple);

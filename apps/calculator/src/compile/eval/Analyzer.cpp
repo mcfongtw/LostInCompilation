@@ -1,5 +1,5 @@
 /*
- * Evaluator.cpp
+ * Analyzer.cpp
  *
  *  Created on: Apr 26, 2014
  *      Author: Michael Fong
@@ -22,15 +22,14 @@ Analyzer::~Analyzer() {
 }
 
 int Analyzer::startWalking() {
+	LOG(Logger::LEVEL_DEBUG,
+		"Before walking, Runtime Call Stack has " + this->_runtimeStack.toString());
+	LOG(Logger::LEVEL_DEBUG,
+		"Before walking, Symbol Table Stack has " + this->_symtabStack->toString());
 	return 1;
 }
 
 int Analyzer::stopWalking() {
-//	if (this->_runtimeStack.isEmpty() == false) {
-//		double value = this->_runtimeStack.top().get<double>();
-//		std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;
-//	}
-
 	LOG(Logger::LEVEL_DEBUG,
 			"After walking, Runtime Call Stack has " + this->_runtimeStack.toString());
 	LOG(Logger::LEVEL_DEBUG,

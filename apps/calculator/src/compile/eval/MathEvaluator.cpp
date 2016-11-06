@@ -44,7 +44,7 @@ ObjectValue MathEvaluator::getLastAnswer() {
 
 	RuntimeStack rtStack = analyzerPtr->getRunTimeStack();
     if(rtStack.isEmpty()) {
-        LOG(Logger::LEVEL_WARN, "Runtime stack is empty for Last Answer");
+        LOG(Logger::LEVEL_INFO, "Runtime stack is empty for Last Answer");
     } else {
         LOG(Logger::LEVEL_TRACE,
             "Get Last Answer, Runtime Call Stack has " + rtStack.toString());
