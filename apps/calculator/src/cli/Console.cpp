@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <compile/MathInterpretor.h>
 
 #include "cli/Console.h"
 #include "error/Exception.h"
@@ -28,13 +29,10 @@ void Console::run() {
 }
 
 void Console::loop() {
-
-	SymTabStackPtr stackptr = std::make_shared<SymbolTableStack>(ST_Simple);
-	MathEvaluator evaluator(stackptr);
-	evaluator.startEval();
+    MathInterpretor interpretor;
+    interpretor.startInterpret();
 
 	while (true) {
-		ASTNodePtr root;
 
 		try {
 			std::cout << "-> ";
@@ -49,16 +47,12 @@ void Console::loop() {
 			}
 
 
-			MathParser parser;
-
-			parser.parse(root, line);
-
-			evaluator.doEval(std::shared_ptr<ASTNode>(root));
+            interpretor.interpret(line);
 		} catch (Exception& e) {
 			LOG_ERROR(e.what());
 		}
 	}
 
-	evaluator.stopEval();
+	interpretor.stopInterpret();
 }
 

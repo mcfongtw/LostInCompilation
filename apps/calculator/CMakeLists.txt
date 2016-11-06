@@ -76,6 +76,7 @@ SET_SOURCE_FILES_PROPERTIES(${FLEX_OUTPUT_DIR}/calc.lex.cpp GENERATED)
 set(CORE_SOURCE_FILES
         ${CORE_SOURCE_FILES}
         ${MOD_SRC_DIR}/cli/Console.cpp
+        ${MOD_SRC_DIR}/compile/MathInterpretor.cpp
         ${MOD_SRC_DIR}/compile/eval/Analyzer.cpp
         ${MOD_SRC_DIR}/compile/eval/MathEvaluator.cpp
         ${MOD_SRC_DIR}/compile/parser/MathParser.cpp
