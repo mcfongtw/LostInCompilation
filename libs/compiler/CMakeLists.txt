@@ -53,6 +53,7 @@ set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/compile/symtab/Test_ObjectValue.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_RuntimeStack.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTable.cpp
+        ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTableStack.cpp
         ${MOD_TEST_DIR}/error/Test_ParseException.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
         )

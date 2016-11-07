@@ -7,7 +7,7 @@
 
 #include "compile/symtab/visitor/SymbolTableVisitor.h"
 
-
+//@deprecated : SymbolTableStack should fulfill current task
 class SimpleSymbolTableVisitor: public SymbolTableVisitor {
 public:
     SimpleSymbolTableVisitor();
