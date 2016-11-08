@@ -106,6 +106,7 @@ enable_testing()
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/compile/eval/Test_Analyzer.cpp
+        ${MOD_TEST_DIR}/compile/eval/Test_MathEvaluator.cpp
         ${MOD_TEST_DIR}//compile/parser/Test_Parser.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
         )
