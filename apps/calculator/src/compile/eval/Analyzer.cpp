@@ -8,6 +8,7 @@
 #include <iostream>
 #include <memory>
 
+#include "error/ArithmeticException.h"
 #include "compile/eval/Analyzer.h"
 #include "../../compile/parser/grammar/bison/calc.tab.hpp"
 
@@ -57,6 +58,9 @@ int Analyzer::walk_MATH(ASTNodePtr ptr) {
 		} else if (ptr->getToken() == TOKEN_OP_MUL) {
 			operation = &MathOperationHandle::mul<double>;
 		} else if (ptr->getToken() == TOKEN_OP_DIV) {
+			if(data2.get<double>() == 0) {
+				throw ArithmeticException("Cannot divide by 0!");
+			}
 			operation = &MathOperationHandle::div<double>;
 		} else if (ptr->getToken() == TOKEN_OP_MOD) {
 			operation = &MathOperationHandle::mod<int>;

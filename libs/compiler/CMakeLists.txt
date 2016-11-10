@@ -34,6 +34,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/compile/symtab/SymbolTableStack.cpp
         ${MOD_SRC_DIR}/compile/symtab/visitor/SimpleSymbolTableVisitor.cpp
         ${MOD_SRC_DIR}/error/ParseException.cpp
+        ${MOD_SRC_DIR}/error/ArithmeticException.cpp
         )
 
 #TODO: More graceful way to handle include_directories from other targets
