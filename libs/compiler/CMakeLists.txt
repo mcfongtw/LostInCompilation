@@ -20,6 +20,13 @@ set(MOD_TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/test")
 message("================================================")
 message("MOD_TEST_DIR : ${MOD_TEST_DIR}")
 message("================================================")
+
+set(MOD_DOC_DIR "${PRJ_DOC_DIR}/${PROJECT_NAME}")
+file(MAKE_DIRECTORY ${MOD_DOC_DIR})
+message("================================================")
+message("MOD_DOC_DIR : ${MOD_DOC_DIR}")
+message("================================================")
+
 ######################################################################
 # Build Core
 ######################################################################
@@ -66,3 +73,31 @@ add_executable(CompilerTest ${TEST_SOURCE_FILES} ${CORE_SOURCE_FILES})
 add_dependencies(CompilerTest shacat compiler ${GMOCK_LIBRARY} ${${GTEST_LIBRARY}} )
 
 target_link_libraries (CompilerTest shacat ${GMOCK_LIBRARY_PATH} ${CMAKE_THREAD_LIBS_INIT})
+
+######################################################################
+# Build Documentation
+######################################################################
+
+# add a target to generate API documentation with Doxygen
+find_package(Doxygen)
+option(BUILD_DOCUMENTATION "Create and install the HTML based API documentation (requires Doxygen)" ${DOXYGEN_FOUND})
+
+if(BUILD_DOCUMENTATION)
+    if(NOT DOXYGEN_FOUND)
+        message(FATAL_ERROR "Doxygen is needed to build the documentation.")
+    endif()
+
+    set(MOD_DOXY_CONF ${MOD_DOC_DIR}/Doxyfile.conf)
+
+    configure_file(${PRJ_DOXY_CONF} ${MOD_DOXY_CONF})
+
+    add_custom_target(CompilerDoc ALL
+        COMMAND ${DOXYGEN_EXECUTABLE} ${MOD_DOXY_CONF}
+        WORKING_DIRECTORY ${MOD_DOC_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM)
+
+#    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION share/doc)
+endif()
+add_dependencies(CompilerDoc CompilerTest)
+
