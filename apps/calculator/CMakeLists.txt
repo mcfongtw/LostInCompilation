@@ -79,8 +79,21 @@ SET_SOURCE_FILES_PROPERTIES(${FLEX_OUTPUT_DIR}/calc.lex.cpp GENERATED)
 ######################################################################
 # Build Core
 ######################################################################
-#TODO: Replace with a macro / function that automatically discover source files
+#TODO: Replace with a macro / function that automatically discover header & source files
 set(CORE_SOURCE_FILES
+        ##################################################################
+        # Header
+        ##################################################################
+        ${MOD_INC_DIR}/cli/Console.h
+        ${MOD_INC_DIR}/compile/MathInterpretor.h
+        ${MOD_INC_DIR}/compile/eval/Analyzer.h
+        ${MOD_INC_DIR}/compile/eval/MathEvaluator.h
+        ${MOD_INC_DIR}/compile/parser/MathParser.h
+        ${MOD_INC_DIR}/compile/parser/grammar/GrammarLibs.h
+        ${MOD_INC_DIR}/compile/traverse/ast/ASTreeWalker.h
+        #################################################################
+        # Source
+        #################################################################
         ${CORE_SOURCE_FILES}
         ${MOD_SRC_DIR}/cli/Console.cpp
         ${MOD_SRC_DIR}/compile/MathInterpretor.cpp
@@ -91,6 +104,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/compile/traverse/ast/ASTreeWalker.cpp
         )
 
+# Main.cpp
 set(CORE_SOURCE_FILES_WITH_MAIN
         ${CORE_SOURCE_FILES}
         ${MOD_SRC_DIR}/Main.cpp)

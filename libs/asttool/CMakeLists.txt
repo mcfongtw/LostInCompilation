@@ -30,8 +30,17 @@ message("================================================")
 ######################################################################
 # Build Core
 ######################################################################
-#TODO: Replace with a macro / function that automatically discover source files
+#TODO: Replace with a macro / function that automatically discover header & source files
 set(CORE_SOURCE_FILES
+        ##################################################################
+        # Header
+        ##################################################################
+        ${MOD_INC_DIR}/compile/tool/ASTPrinter.h
+        ${MOD_INC_DIR}/compile/tool/DotPrinter.h
+        ${MOD_INC_DIR}/compile/tool/ParseTreePrinter.h
+        #################################################################
+        # Source
+        #################################################################
         ${MOD_SRC_DIR}/compile/tool/ASTPrinter.cpp
         ${MOD_SRC_DIR}/compile/tool/DotPrinter.cpp
         ${MOD_SRC_DIR}/compile/tool/ParseTreePrinter.cpp

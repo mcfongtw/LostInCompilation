@@ -30,8 +30,34 @@ message("================================================")
 ######################################################################
 # Build Core
 ######################################################################
-#TODO: Replace with a macro / function that automatically discover source files
+#TODO: Replace with a macro / function that automatically discover header & source files
 set(CORE_SOURCE_FILES
+        ##################################################################
+        # Header
+        ##################################################################
+        ${MOD_INC_DIR}/algorithm/tree/ast/ASTNode.h
+        ${MOD_INC_DIR}/algorithm/tree/ast/ASTUtils.h
+        ${MOD_INC_DIR}/compile/binding/DataBindingUtils.h
+        ${MOD_INC_DIR}/compile/binding/RuntimeData.h
+        ${MOD_INC_DIR}/compile/binding/ValueHolder.h
+        ${MOD_INC_DIR}/compile/eval/Evaluator.h
+        ${MOD_INC_DIR}/compile/parser/Parser.h
+        ${MOD_INC_DIR}/compile/symtab/RuntimeStack.h
+        ${MOD_INC_DIR}/compile/symtab/Symbol.h
+        ${MOD_INC_DIR}/compile/symtab/ScopedSymbolTable.h
+        ${MOD_INC_DIR}/compile/symtab/SimpleSymbolTable.h
+        ${MOD_INC_DIR}/compile/symtab/SymbolRepository.h
+        ${MOD_INC_DIR}/compile/symtab/SymbolTableFactory.h
+        ${MOD_INC_DIR}/compile/symtab/SymbolTableStack.h
+        ${MOD_INC_DIR}/compile/symtab/visitor/SimpleSymbolTableVisitor.h
+        ${MOD_INC_DIR}/compile/symtab/visitor/SymbolTableVisitor.h
+        ${MOD_INC_DIR}/compile/symtab/visitor/VisitedSymbolTable.h
+        ${MOD_INC_DIR}/compile/Interpretable.h
+        ${MOD_INC_DIR}/error/ParseException.h
+        ${MOD_INC_DIR}/error/ArithmeticException.h
+        #################################################################
+        # Source
+        #################################################################
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTUtils.cpp
         ${MOD_SRC_DIR}/compile/binding/DataBindingUtils.cpp

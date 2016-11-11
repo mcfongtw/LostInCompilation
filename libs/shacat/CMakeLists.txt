@@ -30,8 +30,30 @@ message("================================================")
 ######################################################################
 # Build Core
 ######################################################################
-#TODO: Replace with a macro / function that automatically discover source files
+#TODO: Replace with a macro / function that automatically discover header & source files
 set(CORE_SOURCE_FILES
+        ##################################################################
+        # Header
+        ##################################################################
+        ${MOD_INC_DIR}/algorithm/tree/traditional/LIFO/NodeStack.h
+        ${MOD_INC_DIR}/algorithm/tree/traditional/LIFO/TreeTraverse.h
+        ${MOD_INC_DIR}/algorithm/tree/visitor/traversal/TreeWalker.h
+        ${MOD_INC_DIR}/algorithm/tree/visitor/VisitedTreeNode.h
+        ${MOD_INC_DIR}/algorithm/tree/TreeBuilder.h
+        ${MOD_INC_DIR}/algorithm/tree/TreeContext.h
+        ${MOD_INC_DIR}/algorithm/tree/TreeNode.h
+        ${MOD_INC_DIR}/algorithm/visitor/Visitor.h
+        ${MOD_INC_DIR}/algorithm/visitor/VisitedObject.h
+        ${MOD_INC_DIR}/common/Utils.h
+        ${MOD_INC_DIR}/error/Exception.h
+        ${MOD_INC_DIR}/error/StackTraceUtils.h
+        ${MOD_INC_DIR}/hack/AccessPrivate.h
+        ${MOD_INC_DIR}/hack/DebugLib.h
+        ${MOD_INC_DIR}/lang/Object.h
+        ${MOD_INC_DIR}/log/Logger.h
+        #################################################################
+        # Source
+        #################################################################
         ${MOD_SRC_DIR}/algorithm/tree/traditional/LIFO/TreeTraverse.cpp
         ${MOD_SRC_DIR}/algorithm/tree/visitor/VisitedTreeNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/TreeBuilder.cpp
