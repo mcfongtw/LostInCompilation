@@ -37,8 +37,8 @@ void MathEvaluator::stopEval() {
 //	rtStack.pop();s
 }
 
-ObjectValue MathEvaluator::getLastAnswer() {
-	ObjectValue result = nullptr;
+RuntimeData MathEvaluator::getLastAnswer() {
+	RuntimeData result = nullptr;
 
 	std::shared_ptr<Analyzer> analyzerPtr = std::dynamic_pointer_cast<Analyzer>(this->_analyzer);
 

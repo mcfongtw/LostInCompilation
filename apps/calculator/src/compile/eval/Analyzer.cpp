@@ -48,8 +48,8 @@ int Analyzer::walk_MATH(ASTNodePtr ptr) {
 		MathOperation operation;
 
 
-		ObjectValue data2 = resolveOperand(ptr->getChildAt(1), true);
-		ObjectValue data1 = resolveOperand(ptr->getChildAt(0), true);
+		RuntimeData data2 = resolveOperand(ptr->getChildAt(1), true);
+		RuntimeData data1 = resolveOperand(ptr->getChildAt(0), true);
 
 		if (ptr->getToken() == TOKEN_OP_ADD) {
 			operation = &MathOperationHandle::add<double>;
@@ -75,7 +75,7 @@ int Analyzer::walk_MATH(ASTNodePtr ptr) {
 									ptr->getToken()) + ">");
 		}
 
-		ObjectValue answer = (operation)(data1, data2);
+		RuntimeData answer = (operation)(data1, data2);
 		this->_runtimeStack.push(answer);
 
 		LOG(Logger::LEVEL_TRACE,
@@ -94,7 +94,7 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 	} else if (action == TRAVERSE_OUT) {
 
 		std::shared_ptr<ASTNode> leftChildPtr = std::dynamic_pointer_cast<ASTNode>(ptr->getChildAt(0));
-		ObjectValue rhsValue = resolveOperand(ptr->getChildAt(1), false);
+		RuntimeData rhsValue = resolveOperand(ptr->getChildAt(1), false);
 
 		SymbolPtr ptr = this->_symtabStack->lookup(leftChildPtr->getText());
 		if (ptr != nullptr) {
@@ -140,7 +140,7 @@ int Analyzer::walk_INTEGER(ASTNodePtr ptr) {
 		//FIXME: int num = util::Converts::stringToNumber<int>(str);
 		double num = util::Converts::stringToNumber<double>(str);
 
-		ObjectValue data = ObjectValue(num);
+		RuntimeData data = RuntimeData(num);
 		this->_runtimeStack.push(data);
 
 		LOG(Logger::LEVEL_TRACE,
@@ -161,7 +161,7 @@ int Analyzer::walk_NUMBER(ASTNodePtr ptr) {
 		std::string str = ptr->getText();
 		double num = util::Converts::stringToNumber<double>(str);
 
-		ObjectValue data = ObjectValue(num);
+		RuntimeData data = RuntimeData(num);
 		this->_runtimeStack.push(data);
 
 		LOG(Logger::LEVEL_TRACE,
@@ -202,9 +202,9 @@ int Analyzer::walk_ID(ASTNodePtr ptr) {
 	return 1;
 }
 
-ObjectValue Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
+RuntimeData Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
 	ASTNodePtr astPtr = std::dynamic_pointer_cast<ASTNode>(ptr);
-	ObjectValue result;
+	RuntimeData result;
 
 	int tokenType = astPtr->getToken();
 
@@ -247,7 +247,7 @@ SymTabStackPtr Analyzer::getSymbolTableStack() {
 
 
 template<typename T>
-ObjectValue MathOperationHandle::mod(ObjectValue& data1, ObjectValue& data2) {
+RuntimeData MathOperationHandle::mod(RuntimeData& data1, RuntimeData& data2) {
 	T operand1 = data1.get<T>();
 	T operand2 = data2.get<T>();
 	T answer = operand1 % operand2;
@@ -256,9 +256,9 @@ ObjectValue MathOperationHandle::mod(ObjectValue& data1, ObjectValue& data2) {
 			+ util::Converts::numberToString<T>(operand2) + " = "
 			+ util::Converts::numberToString<T>(answer));
 
-	ObjectValue result(answer);
+	RuntimeData result(answer);
 
 	return result;
 }
-template ObjectValue MathOperationHandle::mod<int>(ObjectValue& data1,
-		ObjectValue& data2);
+template RuntimeData MathOperationHandle::mod<int>(RuntimeData& data1,
+		RuntimeData& data2);

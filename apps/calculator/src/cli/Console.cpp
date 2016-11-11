@@ -47,7 +47,7 @@ void Console::loop() {
 			}
 
 
-            ObjectValue answer = interpretor.interpret(line);
+            RuntimeData answer = interpretor.interpret(line);
             if(answer != nullptr) {
                 double value = answer.get<double>();
                 std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;

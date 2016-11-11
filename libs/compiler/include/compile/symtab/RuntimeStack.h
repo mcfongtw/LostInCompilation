@@ -8,7 +8,7 @@
 #ifndef RUNTIMESTACK_H_
 #define RUNTIMESTACK_H_
 
-#include <compile/symtab/ObjectValue.h>
+#include "compile/binding/RuntimeData.h"
 #include <stack>
 #include <vector>
 #include <string>
@@ -16,11 +16,11 @@
 
 /*
  * TODO:
- * typedef std::vector< ObjectValue > RuntimeStack;
+ * typedef std::vector< RuntimeData > RuntimeStack;
  *
  * or
  *
- * typedef std::stack<ObjectValue> RuntimeStack;
+ * typedef std::stack<RuntimeData> RuntimeStack;
  */
 
 class RuntimeStack {
@@ -31,20 +31,20 @@ public:
 
 	void pop();
 
-	ObjectValue& top();
+	RuntimeData& top();
 
-	void push (ObjectValue& value);
+	void push (RuntimeData& value);
 
 	bool isEmpty();
 
 	size_t size();
 
-	ObjectValue& operator[](std::size_t index);
+	RuntimeData& operator[](std::size_t index);
 
 	std::string toString();
 
 private:
-	std::vector<ObjectValue> _stack;
+	std::vector<RuntimeData> _stack;
 };
 
 

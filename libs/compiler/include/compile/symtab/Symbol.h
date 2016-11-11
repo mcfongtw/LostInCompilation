@@ -8,30 +8,30 @@
 #ifndef SYMBOL_H_
 #define SYMBOL_H_
 
-#include <compile/symtab/ObjectValue.h>
 #include <string>
 
+#include "compile/binding/RuntimeData.h"
 
 class Symbol {
 public:
 	Symbol(std::string name);
 
-	Symbol(std::string name, ObjectValue val);
+	Symbol(std::string name, RuntimeData val);
 
 	virtual ~Symbol();
 
 	virtual std::string& getName();
 
-	virtual ObjectValue& getValue();
+	virtual RuntimeData& getValue();
 
-	virtual void setValue(ObjectValue val);
+	virtual void setValue(RuntimeData val);
 
 	virtual std::string toString();
 
 protected:
 	std::string _name;
 
-	ObjectValue _value;
+	RuntimeData _value;
 };
 
 

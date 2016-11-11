@@ -5,7 +5,7 @@
  *      Author: Michael Fong
  */
 
-#include "compile/symtab/ObjectValue.h"
+#include "compile/binding/RuntimeData.h"
 #include "compile/symtab/Symbol.h"
 #include "compile/symtab/SimpleSymbolTable.h"
 #include "compile/symtab/SymbolTableFactory.h"
@@ -19,7 +19,7 @@
 
 TEST(SYMBOL_TABLE, UNIT_Simple_Symbol) {
 	double d = 1.234;
-	ObjectValue value(d);
+	RuntimeData value(d);
 
 	Symbol symbol("x", value);
 
@@ -29,11 +29,11 @@ TEST(SYMBOL_TABLE, UNIT_Simple_Symbol) {
 
 TEST(SYMBOL_TABLE, UNIT_Simple_Symbol_Table) {
 	double d = 1.234;
-	ObjectValue value1(d);
+	RuntimeData value1(d);
 	SymbolPtr symbPtr1 = SymbolPtr(new Symbol("x", value1));
 
 	int i = 1;
-	ObjectValue value2(i);
+	RuntimeData value2(i);
 	SymbolPtr symbPtr2 = SymbolPtr(new Symbol("y", value2));
 
     SimpleSymbolTable table;
@@ -57,7 +57,7 @@ TEST(SYMBOL_TABLE, UNIT_Symbol_Table_Boundary_Condition) {
 
 TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Value) {
 	double d = 1.234;
-	ObjectValue oldVal(d);
+	RuntimeData oldVal(d);
 	SymbolPtr ptr = SymbolPtr(new Symbol("x", oldVal));
 
     SimpleSymbolTable table;
@@ -66,7 +66,7 @@ TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Value) {
 	EXPECT_EQ(1.234, table.lookup("x").get()->getValue().get<double>());
 
 	double d2 = 9.999;
-	ObjectValue newVal(d2);
+	RuntimeData newVal(d2);
 	ptr->setValue(newVal);
 
 	EXPECT_EQ(9.999, table.lookup("x").get()->getValue().get<double>());
@@ -74,7 +74,7 @@ TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Value) {
 
 TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Type) {
 	double d = 1.234;
-	ObjectValue oldVal(d);
+	RuntimeData oldVal(d);
 	SymbolPtr ptr = SymbolPtr(new Symbol("x", oldVal));
 
     SimpleSymbolTable table;
@@ -84,7 +84,7 @@ TEST(SYMBOL_TABLE, UNIT_Advanced_Symbol_Table_Change_Type) {
 	EXPECT_EQ(1.234, table.lookup("x").get()->getValue().get<double>());
 
 	int i2 = 100;
-	ObjectValue newVal(i2);
+	RuntimeData newVal(i2);
 	ptr->setValue(newVal);
 
 	EXPECT_EQ(typeid(int), table.lookup("x").get()->getValue().getType());
@@ -106,7 +106,7 @@ TEST(SYMBOL_TABLE_FACTORY, UNIT_Simple) {
 TEST(Symbol_Table_Visitor, FUNCTIONAL_Simple) {
     SymbolTablePtr table = SymbolTableFactory::getSymbolTable(ST_Simple);
     double d = 1.234;
-    ObjectValue oldVal(d);
+    RuntimeData oldVal(d);
     SymbolPtr symbol = SymbolPtr(new Symbol("x", oldVal));
     table->add(symbol);
 

@@ -24,7 +24,7 @@ TEST(ANALYZER, Functional_Const_Expr) {
 //	std::cout << root->toString() << std::endl;
 
 	RuntimeStack rtStack = analyzer->getRunTimeStack();
-	ObjectValue answer = rtStack.top();
+	RuntimeData answer = rtStack.top();
 	EXPECT_EQ(777, answer.get<double>());
 	rtStack.pop();
 	EXPECT_TRUE(rtStack.isEmpty());
@@ -47,7 +47,7 @@ TEST(ANALYZER, Functional_Simple_Expr) {
 //	std::cout << root->toString() << std::endl;
 
 	RuntimeStack rtStack = analyzer->getRunTimeStack();
-	ObjectValue answer = rtStack.top();
+	RuntimeData answer = rtStack.top();
 	EXPECT_EQ(3, answer.get<double>());
 	rtStack.pop();
 	EXPECT_TRUE(rtStack.isEmpty());
@@ -70,7 +70,7 @@ TEST(ANALYZER, Functional_Advanced_Expr) {
 	//	std::cout << root->toString() << std::endl;
 
 	RuntimeStack rtStack = analyzer->getRunTimeStack();
-	ObjectValue answer = rtStack.top();
+	RuntimeData answer = rtStack.top();
 
 	EXPECT_EQ(7.66, answer.get<double>());
 	rtStack.pop();
@@ -99,7 +99,7 @@ TEST(ANALYZER, Functional_Simple_Symbol_Expr) {
 	//	std::cout << root->toString() << std::endl;
 
 	RuntimeStack rtStack = analyzer->getRunTimeStack();
-	ObjectValue answer = rtStack.top();
+	RuntimeData answer = rtStack.top();
 
 	EXPECT_EQ(6, answer.get<double>());
 	rtStack.pop();
@@ -139,7 +139,7 @@ TEST(ANALYZER, Functional_Multiple_Symbol_Expr) {
 
 	RuntimeStack stack = analyzer->getRunTimeStack();
 	SymTabStackPtr stSTack = analyzer->getSymbolTableStack();
-	ObjectValue answer = stack.top();
+	RuntimeData answer = stack.top();
 
 	EXPECT_EQ(35, answer.get<double>());
 	stack.pop();

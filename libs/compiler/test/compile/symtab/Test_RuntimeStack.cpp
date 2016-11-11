@@ -5,7 +5,7 @@
  *      Author: Michael Fong
  */
 
-#include <compile/symtab/ObjectValue.h>
+#include <compile/binding/RuntimeData.h>
 #include <compile/symtab/RuntimeStack.h>
 #include "gtest/gtest.h"
 
@@ -16,10 +16,10 @@ TEST(RUN_TIME_STACK, UNIT_Simple) {
 	RuntimeStack stack;
 
 	EXPECT_TRUE(stack.isEmpty());
-	ObjectValue obj(1.111);
+	RuntimeData obj(1.111);
 	stack.push(obj);
 
-	ObjectValue result = stack.top();
+	RuntimeData result = stack.top();
 	EXPECT_EQ((size_t)1, stack.size());
 	EXPECT_EQ(typeid(double), result.getType());
 	EXPECT_EQ(1.111, result.get<double>());

@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include "compile/symtab/ObjectValue.h"
+#include "compile/binding/RuntimeData.h"
 #include "compile/traverse/ast/ASTreeWalker.h"
 #include "compile/symtab/RuntimeStack.h"
 #include "compile/symtab/SymbolTableStack.h"
@@ -20,12 +20,12 @@
 /**
  * Function pointer to MathOperation::function<type>(...)
  *
- * @param first ObjectValue operand
- * @param second ObjectValue operand
+ * @param first RuntimeData operand
+ * @param second RuntimeData operand
  *
- * @return answer ObjectValue
+ * @return answer RuntimeData
  */
-typedef ObjectValue (*MathOperation)( ObjectValue&, ObjectValue& );
+typedef RuntimeData (*MathOperation)( RuntimeData&, RuntimeData& );
 
 /**
  * Analyzer is a implementation of a visitor (out of visitor pattern) that walks through the AST
@@ -62,7 +62,7 @@ protected:
 	virtual int walk_ID(ASTNodePtr ptr);
 
 private:
-	ObjectValue resolveOperand(TreeNodePtr ptr, bool walkingMath);
+	RuntimeData resolveOperand(TreeNodePtr ptr, bool walkingMath);
 
 	RuntimeStack _runtimeStack;
 
@@ -72,7 +72,7 @@ private:
 class MathOperationHandle {
 public:
 	template<typename T>
-	static ObjectValue add(ObjectValue& data1, ObjectValue& data2) {
+	static RuntimeData add(RuntimeData& data1, RuntimeData& data2) {
 		T operand1 = data1.get<T>();
 		T operand2 = data2.get<T>();
 		T answer = operand1 + operand2;
@@ -81,13 +81,13 @@ public:
 				+ util::Converts::numberToString<T>(operand2) + " = "
 				+ util::Converts::numberToString<T>(answer));
 
-		ObjectValue result(answer);
+		RuntimeData result(answer);
 
 		return result;
 	}
 
 	template<typename T>
-	static ObjectValue sub(ObjectValue& data1, ObjectValue& data2) {
+	static RuntimeData sub(RuntimeData& data1, RuntimeData& data2) {
 		T operand1 = data1.get<T>();
 		T operand2 = data2.get<T>();
 		T answer = operand1 - operand2;
@@ -96,13 +96,13 @@ public:
 				+ util::Converts::numberToString<T>(operand2) + " = "
 				+ util::Converts::numberToString<T>(answer));
 
-		ObjectValue result(answer);
+		RuntimeData result(answer);
 
 		return result;
 	}
 
 	template<typename T>
-	static ObjectValue mul(ObjectValue& data1, ObjectValue& data2) {
+	static RuntimeData mul(RuntimeData& data1, RuntimeData& data2) {
 		T operand1 = data1.get<T>();
 		T operand2 = data2.get<T>();
 		T answer = operand1 * operand2;
@@ -111,13 +111,13 @@ public:
 				+ util::Converts::numberToString<T>(operand2) + " = "
 				+ util::Converts::numberToString<T>(answer));
 
-		ObjectValue result(answer);
+		RuntimeData result(answer);
 
 		return result;
 	}
 
 	template<typename T>
-	static ObjectValue div(ObjectValue& data1, ObjectValue& data2) {
+	static RuntimeData div(RuntimeData& data1, RuntimeData& data2) {
 		T operand1 = data1.get<T>();
 		T operand2 = data2.get<T>();
 		T answer = operand1 / operand2;
@@ -126,13 +126,13 @@ public:
 				+ util::Converts::numberToString<T>(operand2) + " = "
 				+ util::Converts::numberToString<T>(answer));
 
-		ObjectValue result(answer);
+		RuntimeData result(answer);
 
 		return result;
 	}
 
 //	template<typename T>
-//	static ObjectValue pow(ObjectValue& data1, ObjectValue& data2) {
+//	static RuntimeData pow(RuntimeData& data1, RuntimeData& data2) {
 //		T operand1 = data1.get<T>();
 //		T operand2 = data2.get<T>();
 //		T answer = pow(operand1, operand2);
@@ -141,13 +141,13 @@ public:
 //				+ util::Converts::numberToString<T>(operand2) + " = "
 //				+ util::Converts::numberToString<T>(answer));
 //
-//		ObjectValue result(answer);
+//		RuntimeData result(answer);
 //
 //		return result;
 //	}
 
 	template<typename T>
-	static ObjectValue mod(ObjectValue& data1, ObjectValue& data2);
+	static RuntimeData mod(RuntimeData& data1, RuntimeData& data2);
 };
 
 #endif /* ANALYZER_H_ */

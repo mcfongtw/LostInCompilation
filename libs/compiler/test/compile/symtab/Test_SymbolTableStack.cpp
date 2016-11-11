@@ -2,7 +2,7 @@
 // Created by Michael Fong on 2016/11/6.
 //
 
-#include "compile/symtab/ObjectValue.h"
+#include "compile/binding/RuntimeData.h"
 #include "compile/symtab/Symbol.h"
 #include "compile/symtab/SimpleSymbolTable.h"
 #include "compile/symtab/SymbolTableFactory.h"
@@ -20,7 +20,7 @@ SymbolTableStack stack(ST_Simple);
 
 stack.openScope(SCOPE_GLOBAL);
 double d = 1.234;
-ObjectValue value1(d);
+RuntimeData value1(d);
 stack.add(SymbolPtr(new Symbol("x", value1)));
 EXPECT_EQ(stack.size(), 1);
 EXPECT_EQ(SCOPE_GLOBAL, stack.getScope());
@@ -34,7 +34,7 @@ EXPECT_EQ(answer->getValue().get<double>(), 1.234);
 
 stack.openScope(SCOPE_FUNCTIONAL);
 int i = 123;
-ObjectValue value2(i);
+RuntimeData value2(i);
 stack.add(SymbolPtr(new Symbol("x", value2)));
 EXPECT_EQ(stack.size(), 2);
 EXPECT_EQ(SCOPE_FUNCTIONAL, stack.getScope());
@@ -47,7 +47,7 @@ EXPECT_EQ(answer->getValue().get<int>(), 123);
 
 stack.openScope(SCOPE_LOCAL);
 short s = 99;
-ObjectValue value3(s);
+RuntimeData value3(s);
 stack.add(SymbolPtr(new Symbol("x", value3)));
 EXPECT_EQ(stack.size(), 3);
 EXPECT_EQ(SCOPE_LOCAL, stack.getScope());

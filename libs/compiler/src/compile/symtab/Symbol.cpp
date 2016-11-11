@@ -13,7 +13,7 @@ Symbol::Symbol(std::string name) :
 	this->_name = name;
 }
 
-Symbol::Symbol(std::string name, ObjectValue val) :
+Symbol::Symbol(std::string name, RuntimeData val) :
 		_value(val) {
 	this->_name = name;
 	this->_value = val;
@@ -27,11 +27,11 @@ std::string& Symbol::getName() {
 	return this->_name;
 }
 
-ObjectValue& Symbol::getValue() {
+RuntimeData& Symbol::getValue() {
 	return this->_value;
 }
 
-void Symbol::setValue(ObjectValue val) {
+void Symbol::setValue(RuntimeData val) {
 	this->_value = val;
 }
 

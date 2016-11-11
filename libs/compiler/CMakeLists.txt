@@ -34,6 +34,7 @@ message("================================================")
 set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTUtils.cpp
+        ${MOD_SRC_DIR}/compile/binding/DataBindingUtils.cpp
         ${MOD_SRC_DIR}/compile/symtab/RuntimeStack.cpp
         ${MOD_SRC_DIR}/compile/symtab/Symbol.cpp
         ${MOD_SRC_DIR}/compile/symtab/SimpleSymbolTable.cpp
@@ -58,7 +59,7 @@ enable_testing()
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/algorithm/tree/ast/Test_AST.cpp
-        ${MOD_TEST_DIR}/compile/symtab/Test_ObjectValue.cpp
+        ${MOD_TEST_DIR}/compile/binding/Test_RuntimeData.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_RuntimeStack.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTable.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTableStack.cpp

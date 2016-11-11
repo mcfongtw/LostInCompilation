@@ -34,8 +34,8 @@ public:
         stStack->closeScope();
     }
 
-    static ObjectValue evaluate(const std::string& line) {
-        ObjectValue result = nullptr;
+    static RuntimeData evaluate(const std::string& line) {
+        RuntimeData result = nullptr;
 
         ASTNodePtr root = nullptr;
         MathParser parser;
@@ -61,7 +61,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Start_and_Stop) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Constant_Primitive_Expr) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("123");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("123");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -76,7 +76,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Constant_Primitive_Expr) {
  */
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Negation_Expr_1) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("-2");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("-2");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -85,7 +85,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Negation_Expr_1) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Addition_Expr_1) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("1 + 2");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("1 + 2");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -94,7 +94,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Addition_Expr_1) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Addition_Expr_2) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("-1 + 2");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("-1 + 2");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -104,7 +104,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Addition_Expr_2) {
 
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Subtraction_Expr_1) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("2 - 1");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("2 - 1");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -113,7 +113,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Subtraction_Expr_1) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Subtraction_Expr_2) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate( "1 - 2");
+    RuntimeData obj = MATH_EVALUATOR::evaluate( "1 - 2");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -122,7 +122,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Subtraction_Expr_2) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Multiplication_Expr_1) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("2 * 3");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("2 * 3");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -131,7 +131,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Multiplication_Expr_1) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Multiplication_Expr_2) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("2 * 3 * -1");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("2 * 3 * -1");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -140,7 +140,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Multiplication_Expr_2) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Division_Expr_1) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("4 / 2");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("4 / 2");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -149,7 +149,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Division_Expr_1) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Division_Expr_2) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("4 / -2");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("4 / -2");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -164,7 +164,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Division_Expr_Divide_By_Ze
 
 //TODO: Support modular expression
 //TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Modular_Expr_1) {
-//    ObjectValue obj = MATH_EVALUATOR::evaluate("4 % 3");
+//    RuntimeData obj = MATH_EVALUATOR::evaluate("4 % 3");
 //
 //    EXPECT_STREQ("d", obj.getType().name());
 //    EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -173,7 +173,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Division_Expr_Divide_By_Ze
 //}
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_1) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("1 + 2 * 3");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("1 + 2 * 3");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -182,7 +182,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_1) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_2) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("3 - 9 / 3");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("3 - 9 / 3");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -191,7 +191,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_2) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_3) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("(1 + 2) * 3");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("(1 + 2) * 3");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -200,7 +200,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_3) {
 }
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_4) {
-    ObjectValue obj = MATH_EVALUATOR::evaluate("(3 - 9) / 3");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("(3 - 9) / 3");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);
@@ -210,7 +210,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_4) {
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Symbol_Expr_1) {
     MATH_EVALUATOR::evaluate("x=3");
-    ObjectValue obj = MATH_EVALUATOR::evaluate("x * x + x - 1");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("x * x + x - 1");
 
     EXPECT_STREQ("d", obj.getType().name());
     EXPECT_THROW(obj.get<int>(), TypeCastException);

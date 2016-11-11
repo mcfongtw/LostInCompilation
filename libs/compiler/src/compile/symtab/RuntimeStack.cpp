@@ -22,11 +22,11 @@ void RuntimeStack::pop() {
 	}
 }
 
-ObjectValue& RuntimeStack::top() {
+RuntimeData& RuntimeStack::top() {
 	return this->_stack.back();
 }
 
-void RuntimeStack::push(ObjectValue& value) {
+void RuntimeStack::push(RuntimeData& value) {
 	this->_stack.push_back(value);
 }
 
@@ -38,7 +38,7 @@ size_t RuntimeStack::size() {
 	return this->_stack.size();
 }
 
-ObjectValue& RuntimeStack::operator[](size_t index) {
+RuntimeData& RuntimeStack::operator[](size_t index) {
 	util::Conditions::requireBetween<int>(index, 0, this->_stack.size() - 1,
 			"runtime stack size");
 

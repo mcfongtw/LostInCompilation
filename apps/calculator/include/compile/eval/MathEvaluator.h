@@ -28,7 +28,7 @@ public:
 
 	virtual void stopEval();
 
-	virtual ObjectValue getLastAnswer();
+	virtual RuntimeData getLastAnswer();
 private:
 	TreeWalkerPtr _analyzer;
 
