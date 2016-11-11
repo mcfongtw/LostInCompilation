@@ -21,6 +21,8 @@
 #include "error/Exception.h"
 #include "log/Logger.h"
 
+
+//TODO:DataBindingUtils
 class TypeUtils {
 public:
 
@@ -44,9 +46,14 @@ public:
 			result = "void";
 		} else if (type == typeid(std::string)) {
 			result = "string";
-		} else if (strstr(type.name(), "vector") != NULL) {
+		} else if (type == typeid(nullptr) || type == typeid(NULL)) {
+            result = "null";
+        }
+        else if (strstr(type.name(), "vector") != NULL) {
+            //TODO: Add more checks on 'type' of element in vector
 			result = "vector";
 		} else if (strstr(type.name(), "map") != NULL) {
+            //TODO: Add more checks on 'type' of element in map
 			result = "map";
 		} else {
 			throw UndefinedSymbolException(
@@ -57,8 +64,10 @@ public:
 	}
 };
 
+//TODO:RuntimeValue
 class ObjectValue {
 private:
+    //TODO: ValueHolder
 	class Value {
 	public:
 		Value() {
@@ -74,6 +83,7 @@ private:
 		virtual const size_t getSizeof() const = 0;
 	};
 
+    //TODO: ValueHolder
 	template<typename T>
 	class DataValue: public Value {
 	public:

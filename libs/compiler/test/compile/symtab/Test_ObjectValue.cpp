@@ -22,6 +22,49 @@ ObjectValue testPassByReference() {
 	return origin;
 }
 
+TEST(DYNAMIC_OBJ_VAL, UNIT_Copy_Null_Object) {
+    /////////////////////////////////////////////
+    // nullptr vs nullptr
+    ////////////////////////////////////////////
+    ObjectValue hasValue(1);
+
+    ObjectValue nullptrObj = nullptr;
+
+    EXPECT_FALSE(hasValue == nullptrObj);
+    EXPECT_FALSE(nullptrObj == hasValue);
+
+    ObjectValue copyOfNullptrObj = nullptrObj;
+
+    EXPECT_TRUE(copyOfNullptrObj == nullptrObj);
+    EXPECT_TRUE(nullptrObj == copyOfNullptrObj);
+
+	/////////////////////////////////////////////
+    // NULL vs NULL
+    ////////////////////////////////////////////
+
+	ObjectValue nullObj = NULL;
+
+	EXPECT_FALSE(hasValue == nullObj);
+	EXPECT_FALSE(nullObj == hasValue);
+
+	ObjectValue copyOfNullObj = nullObj;
+
+	EXPECT_TRUE(copyOfNullObj == nullObj);
+	EXPECT_TRUE(nullObj == copyOfNullObj);
+
+	/////////////////////////////////////////////
+    // nullptr vs NULL
+    ////////////////////////////////////////////
+	EXPECT_FALSE(copyOfNullObj == copyOfNullptrObj);
+
+	/*
+	 * *
+	 * Overloaded == operator with nullptr (COMPILER-31)
+      * Fix the issue that nullptr / NULL was not properly handled by TypeUtils
+
+	 */
+}
+
 TEST(DYNAMIC_OBJ_VAL, UNIT_Copy_Object) {
 	ObjectValue copy = testPassByReference();
 
@@ -87,7 +130,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_Bool) {
 	list.push_back(false);
 
 	ObjectValue obj((std::vector<bool>)list);
-//	EXPECT_STREQ("Ss", obj.getType().name());
+	EXPECT_STREQ("St6vectorIbSaIbEE", obj.getType().name());
 	EXPECT_THROW(obj.get<int>(), TypeCastException);
 	EXPECT_EQ(sizeof(list), obj.getSizeof());
 	for(size_t i = 0; i < list.size(); i++) {
@@ -105,7 +148,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_Int) {
 	list.push_back(-1);
 
 	ObjectValue obj((std::vector<int>)list);
-//	EXPECT_STREQ("Ss", obj.getType().name());
+	EXPECT_STREQ("St6vectorIiSaIiEE", obj.getType().name());
 	EXPECT_THROW(obj.get<bool>(), TypeCastException);
 	EXPECT_EQ(sizeof(list), obj.getSizeof());
 	for(size_t i = 0; i < list.size(); i++) {
@@ -123,7 +166,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_Double) {
 	list.push_back(-1.234);
 
 	ObjectValue obj((std::vector<double>)list);
-//	EXPECT_STREQ("Ss", obj.getType().name());
+	EXPECT_STREQ("St6vectorIdSaIdEE", obj.getType().name());
 	EXPECT_THROW(obj.get<bool>(), TypeCastException);
 	EXPECT_EQ(sizeof(list), obj.getSizeof());
 	for(size_t i = 0; i < list.size(); i++) {
@@ -142,7 +185,7 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Vector_String) {
 
 	//ObjectValue obj = (std::vector<int>)list;
 	ObjectValue obj((std::vector<std::string>)list);
-//	EXPECT_STREQ("Ss", obj.getType().name());
+	EXPECT_STREQ("St6vectorISsSaISsEE", obj.getType().name());
 	EXPECT_THROW(obj.get<bool>(), TypeCastException);
 	EXPECT_EQ(sizeof(list), obj.getSizeof());
 	for(size_t i = 0; i < list.size(); i++) {
