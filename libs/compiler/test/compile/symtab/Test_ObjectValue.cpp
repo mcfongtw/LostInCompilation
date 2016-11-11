@@ -56,13 +56,6 @@ TEST(DYNAMIC_OBJ_VAL, UNIT_Copy_Null_Object) {
     // nullptr vs NULL
     ////////////////////////////////////////////
 	EXPECT_FALSE(copyOfNullObj == copyOfNullptrObj);
-
-	/*
-	 * *
-	 * Overloaded == operator with nullptr (COMPILER-31)
-      * Fix the issue that nullptr / NULL was not properly handled by TypeUtils
-
-	 */
 }
 
 TEST(DYNAMIC_OBJ_VAL, UNIT_Copy_Object) {
