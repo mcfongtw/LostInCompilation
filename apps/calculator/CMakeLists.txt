@@ -85,6 +85,7 @@ set(CORE_SOURCE_FILES
         # Header
         ##################################################################
         ${MOD_INC_DIR}/cli/Console.h
+        ${MOD_INC_DIR}/compile/MathCompiler.h
         ${MOD_INC_DIR}/compile/MathInterpretor.h
         ${MOD_INC_DIR}/compile/eval/Analyzer.h
         ${MOD_INC_DIR}/compile/eval/MathEvaluator.h
@@ -96,12 +97,14 @@ set(CORE_SOURCE_FILES
         #################################################################
         ${CORE_SOURCE_FILES}
         ${MOD_SRC_DIR}/cli/Console.cpp
+        ${MOD_SRC_DIR}/compile/MathCompiler.cpp
         ${MOD_SRC_DIR}/compile/MathInterpretor.cpp
         ${MOD_SRC_DIR}/compile/eval/Analyzer.cpp
         ${MOD_SRC_DIR}/compile/eval/MathEvaluator.cpp
         ${MOD_SRC_DIR}/compile/parser/MathParser.cpp
         ${MOD_SRC_DIR}/compile/parser/grammar/GrammarLibs.cpp
         ${MOD_SRC_DIR}/compile/traverse/ast/ASTreeWalker.cpp
+
         )
 
 # Main.cpp
@@ -126,6 +129,7 @@ enable_testing()
 
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
+        ${MOD_TEST_DIR}/compile/Test_MathCompiler.cpp
         ${MOD_TEST_DIR}/compile/eval/Test_Analyzer.cpp
         ${MOD_TEST_DIR}/compile/eval/Test_MathEvaluator.cpp
         ${MOD_TEST_DIR}//compile/parser/Test_Parser.cpp

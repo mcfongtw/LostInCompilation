@@ -37,6 +37,7 @@ set(CORE_SOURCE_FILES
         ##################################################################
         ${MOD_INC_DIR}/algorithm/tree/ast/ASTNode.h
         ${MOD_INC_DIR}/algorithm/tree/ast/ASTUtils.h
+        ${MOD_INC_DIR}/compile/Compilable.h
         ${MOD_INC_DIR}/compile/binding/DataBindingUtils.h
         ${MOD_INC_DIR}/compile/binding/RuntimeData.h
         ${MOD_INC_DIR}/compile/binding/ValueHolder.h
