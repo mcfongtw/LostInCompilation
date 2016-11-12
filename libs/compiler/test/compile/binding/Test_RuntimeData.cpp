@@ -4,8 +4,7 @@
  *  Created on: May 3, 2014
  *      Author: Michael Fong
  */
-#include <compile/binding/RuntimeData.h>
-#include <compile/symtab/RuntimeStack.h>
+
 #include <string>
 #include <typeinfo>
 #include <iostream>
@@ -14,12 +13,27 @@
 #include "gtest/gtest.h"
 
 #include "error/Exception.h"
+#include "compile/binding/RuntimeData.h"
+#include "compile/symtab/RuntimeStack.h"
 
-
-RuntimeData testPassByReference() {
-	RuntimeData origin(1);
-
-	return origin;
+TEST(RUNTIME_DATA, UNIT_Null_Object) {
+    RuntimeData data1;
+    EXPECT_TRUE(data1.isNull());
+//TODO: Make the result of statement works
+//    RuntimeData data2 = data1;
+//    EXPECT_TRUE(data2.isNull());
+//
+//	RuntimeData data3 = nullptr;
+//	EXPECT_TRUE(data3.isNull());
+//
+//	RuntimeData data4 = NULL;
+//	EXPECT_TRUE(data4.isNull());
+//
+//    RuntimeData data5(nullptr);
+//    EXPECT_TRUE(data5.isNull());
+//
+//    RuntimeData data6(0);
+//    EXPECT_FALSE(data6.isNull());
 }
 
 TEST(RUNTIME_DATA, UNIT_Copy_Null_Object) {
@@ -56,6 +70,12 @@ TEST(RUNTIME_DATA, UNIT_Copy_Null_Object) {
     // nullptr vs NULL
     ////////////////////////////////////////////
 	EXPECT_FALSE(copyOfNullObj == copyOfNullptrObj);
+}
+
+RuntimeData testPassByReference() {
+    RuntimeData origin(1);
+
+    return origin;
 }
 
 TEST(RUNTIME_DATA, UNIT_Copy_Object) {

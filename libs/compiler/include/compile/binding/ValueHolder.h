@@ -29,6 +29,8 @@ public:
     virtual bool equal(RuntimeData) = 0;
 
     virtual const size_t getSizeof() const = 0;
+
+    virtual bool isInit() const = 0;
 };
 
 #endif //LOSTINCOMPILATION_VALUEHOLDER_H

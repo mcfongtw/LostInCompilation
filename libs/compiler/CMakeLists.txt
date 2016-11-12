@@ -61,6 +61,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTUtils.cpp
         ${MOD_SRC_DIR}/compile/binding/DataBindingUtils.cpp
+        ${MOD_SRC_DIR}/compile/binding/RuntimeData.cpp
         ${MOD_SRC_DIR}/compile/symtab/RuntimeStack.cpp
         ${MOD_SRC_DIR}/compile/symtab/Symbol.cpp
         ${MOD_SRC_DIR}/compile/symtab/SimpleSymbolTable.cpp
