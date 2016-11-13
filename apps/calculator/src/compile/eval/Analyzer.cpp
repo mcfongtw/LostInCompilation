@@ -48,8 +48,8 @@ int Analyzer::walk_MATH(ASTNodePtr ptr) {
 		MathOperation operation;
 
 
-		RuntimeData data2 = resolveOperand(ptr->getChildAt(1), true);
-		RuntimeData data1 = resolveOperand(ptr->getChildAt(0), true);
+		RuntimeData data2 = getNextRuntimeData(ptr->getChildAt(1));
+		RuntimeData data1 = getNextRuntimeData(ptr->getChildAt(0));
 
 		if (ptr->getToken() == TOKEN_OP_ADD) {
 			operation = &MathOperationHandle::add<double>;
@@ -94,7 +94,7 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 	} else if (action == TRAVERSE_OUT) {
 
 		std::shared_ptr<ASTNode> leftChildPtr = std::dynamic_pointer_cast<ASTNode>(ptr->getChildAt(0));
-		RuntimeData rhsValue = resolveOperand(ptr->getChildAt(1), false);
+		RuntimeData rhsValue = getNextRuntimeData(ptr->getChildAt(1));
 
 		SymbolPtr ptr = this->_symtabStack->lookup(leftChildPtr->getText());
 		if (ptr != nullptr) {
@@ -202,7 +202,7 @@ int Analyzer::walk_ID(ASTNodePtr ptr) {
 	return 1;
 }
 
-RuntimeData Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
+RuntimeData Analyzer::getNextRuntimeData(TreeNodePtr ptr) {
 	ASTNodePtr astPtr = std::dynamic_pointer_cast<ASTNode>(ptr);
 	RuntimeData result;
 
@@ -227,11 +227,28 @@ RuntimeData Analyzer::resolveOperand(TreeNodePtr ptr, bool walkingMath) {
 			LOG(Logger::LEVEL_WARN,
 					"VARIABLE [" + astPtr->getImage() + "] UNresolvable!");
 		}
-	} else if (walkingMath) {
+	} else if (isMathOperator(astPtr)) {
 		result = this->_runtimeStack.top();
 		this->_runtimeStack.pop();
 	} else {
 		throw IllegalStateException("Unable to resolve operand token [" + astPtr->getImage() + "]");
+	}
+
+	return result;
+}
+
+//NOTE: since COMPILER-37
+bool Analyzer::isMathOperator(ASTNodePtr ptr) {
+	bool result = false;
+	switch(ptr->getToken()) {
+		case TOKEN_OP_ADD:
+		case TOKEN_OP_SUB:
+		case TOKEN_OP_MUL:
+		case TOKEN_OP_DIV:
+			result = true;
+			break;
+		default:
+			break;
 	}
 
 	return result;

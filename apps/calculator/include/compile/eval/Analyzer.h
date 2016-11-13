@@ -62,7 +62,9 @@ protected:
 	virtual int walk_ID(ASTNodePtr ptr);
 
 private:
-	RuntimeData resolveOperand(TreeNodePtr ptr, bool walkingMath);
+	RuntimeData getNextRuntimeData(TreeNodePtr ptr);
+
+	bool isMathOperator(ASTNodePtr ptr);
 
 	RuntimeStack _runtimeStack;
 

@@ -27,11 +27,11 @@ public:
     }
 
     virtual void SetUp() {
-        stStack->openScope();
+        evaluator->startEval();
     }
 
     virtual void TearDown() {
-        stStack->closeScope();
+        evaluator->stopEval();
     }
 
     static RuntimeData evaluate(const std::string& line) {
@@ -208,7 +208,7 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Primitive_Complex_Expr_4) {
     EXPECT_EQ(-2, obj.get<double>());
 }
 
-TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Symbol_Expr_1) {
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Assign_Symbol_Expr_1) {
     MATH_EVALUATOR::evaluate("x=3");
     RuntimeData obj = MATH_EVALUATOR::evaluate("x * x + x - 1");
 
@@ -216,5 +216,18 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Symbol_Expr_1) {
     EXPECT_THROW(obj.get<int>(), TypeCastException);
     EXPECT_EQ(sizeof(double), obj.getSizeof());
     EXPECT_EQ(11, obj.get<double>());
+
+}
+
+//Since COMPILER-37
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Assign_Symbol_Expr_2) {
+    MATH_EVALUATOR::evaluate("x=3");
+    MATH_EVALUATOR::evaluate("y = x + 1");
+    RuntimeData obj = MATH_EVALUATOR::evaluate("y * y + 1");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(17, obj.get<double>());
 
 }
