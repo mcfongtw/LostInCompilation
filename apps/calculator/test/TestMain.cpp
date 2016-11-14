@@ -21,7 +21,7 @@
 
 int main(int argc, char **argv) {
 	LOG_CONF("debug", Logger::file_on | Logger::screen_on, Logger::LEVEL_TRACE,
-			Logger::LEVEL_INFO);
+			Logger::LEVEL_TRACE);
 	LOG(Logger::LEVEL_INFO, "Logging starts");
 
 	StackTraceUtils::setupStackTraceAgent();
