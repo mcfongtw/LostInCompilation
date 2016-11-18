@@ -51,6 +51,8 @@
  * A simple Logger implementation that provides
  * 1) Output the logging message on screen and/or on a file
  * 2) Predefined prioritized logging level for filtering.
+ *
+ * @since 0.1
  */
 class Logger {
 private:

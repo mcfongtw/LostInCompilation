@@ -14,6 +14,12 @@
 #include "algorithm/tree/TreeNode.h"
 #include "algorithm/tree/visitor/VisitedTreeNode.h"
 
+/**
+ * A builder class that follows builder pattern to create a Tree of templated type NodeType
+ *
+ * @since 0.1
+ *
+ */
 template <typename NodeType, typename NodePtrType>
 class TreeBuilder {
 public:

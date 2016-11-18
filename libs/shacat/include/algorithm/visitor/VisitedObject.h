@@ -13,6 +13,11 @@
 class Visitor;
 typedef std::shared_ptr<Visitor> VisitorPtr;
 
+/**
+ * A pure abstract class to a visited data as of Visitor design pattern.
+ *
+ * @since 0.1
+ */
 class VisitedObject {
 public:
     VisitedObject() {
@@ -23,7 +28,12 @@ public:
 
     }
 
-    virtual void accept(VisitorPtr) = 0;
+    /**
+     * VisitedObject accepts a visit from the desginated Visitor
+     *
+     * @param visitor pointer to a Visitor
+     */
+    virtual void accept(VisitorPtr visitor) = 0;
 };
 
 

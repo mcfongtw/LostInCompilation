@@ -5,7 +5,9 @@
 #include <exception>
 
 /**
- * A generic exception inherits from C++ std::exception
+ * A base exception class that inherits from C++ std::exception. This should be used as a wrapper of an error cause and detailed message.
+ *
+ * @since 0.1
  */
 class Exception : public std::exception {
 
@@ -28,6 +30,8 @@ protected:
 
 /**
  * An exception dedicated for accessing an object which is a null pointer
+ *
+ * @since 0.1
  */
 class NullPointerException : public Exception {
 
@@ -41,6 +45,8 @@ public:
 
 /**
  * An exception dedicated for out of memory error
+ *
+ * @since 0.1
  */
 class OutOfMemoryException : public Exception {
 
@@ -54,6 +60,8 @@ public:
 
 /**
  * An exception dedicated for undefined symbol or functionality
+ *
+ * @since 0.1
  */
 class UndefinedSymbolException : public Exception {
 
@@ -66,6 +74,8 @@ public:
 // ////////////////////////////////////////////////////////////////////////////
 /**
  * An exception dedicated for when program enters a wrong state.
+ *
+ * @since 0.1
  */
 class IllegalStateException : public Exception {
 
@@ -78,6 +88,8 @@ public:
 // ////////////////////////////////////////////////////////////////////////////
 /**
  * An exception dedicated for receiving a wrong argument (parameter)
+ *
+ * @since 0.1
  */
 class IllegalArgumentException : public Exception {
 
@@ -90,6 +102,8 @@ public:
 // ////////////////////////////////////////////////////////////////////////////
 /**
  * An exception dedicated for casting a lvalue to a wrong type
+ *
+ * @since 0.1
  */
 class TypeCastException : public Exception {
 

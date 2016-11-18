@@ -13,6 +13,11 @@
 class VisitedObject;
 typedef std::shared_ptr<VisitedObject> VisitedObjectPtr;
 
+/**
+ * A pure abstract class to a visitor as of Visitor design pattern. Each visitor class should implement how the data structure (VisitedObject) being visited is processed
+ *
+ * @since 0.1
+ */
 class Visitor {
 public :
     Visitor() {
@@ -24,6 +29,13 @@ public :
     }
 
 protected:
+    /**
+     * how the data structure being visited is processed
+     *
+     * @param ptr pointer to VisitedObject
+     *
+     * @return integeral code as visited result.
+     */
     virtual int visit(VisitedObjectPtr ptr) = 0;
 };
 

@@ -12,6 +12,12 @@
 
 #include "algorithm/tree/TreeNode.h"
 
+/**
+ * TreeNodeStack refers to the stack/list of TreeNodePtr being visited. If a TreeNodePtr has been visited, it will be popped out of stack.
+ *
+ * @since 0.1
+ *
+ */
 typedef std::vector<TreeNodePtr> TreeNodeStack;
 
 

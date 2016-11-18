@@ -38,10 +38,27 @@ typedef struct _sig_ucontext {
 
 //void abort_err_handler(int, siginfo_t* , void* );
 
+/**
+ * A utility class that is used to retrieve the continuous stack of function call.
+ *
+ * @since 0.1
+ */
 class StackTraceUtils {
 public:
+    /**
+     * Enable Stack Trace Agent.
+     *
+     * \note
+     * StackTraceAgent needs to be setup before using
+     *
+     */
 	static void setupStackTraceAgent();
 
+    /**
+     * Retrieve a string of list of functional trace message. Maximum 50 stacks
+     *
+     * @return a std::string of stack trace message
+     */
 	static std::string getStackTraceMessage();
 };
 

@@ -11,7 +11,6 @@
 #include "common/Utils.h"
 #include "log/Logger.h"
 
-
 TreeNode::TreeNode() {
 	this->_parent = nullptr;
 	this->_isRoot = true;
@@ -72,6 +71,7 @@ void TreeNode::insertChild(TreeNodePtr childPtr, ParentNodePtr parentPtr) {
 }
 
 void TreeNode::insertChild(TreeNodePtr childPtr) {
+    //TODO: is it possible to reuse insertChild(childPtr, this as smart_ptr)?
 	util::Conditions::requireNotNull(childPtr, "newly inserted tree ptr");
 
 	this->_children.push_back(childPtr);

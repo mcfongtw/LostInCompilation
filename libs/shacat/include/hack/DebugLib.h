@@ -8,6 +8,7 @@
 #ifndef DEBUGLIB_H_
 #define DEBUGLIB_H_
 
+//NOTE: This header should be used as a generic included header for all helpful troublshooting class / functions for **debugging** purposes only.
 #include <iostream>
 
 
