@@ -51,11 +51,28 @@ void SimpleSymbolTable::remove(const std::string& name) {
 }
 
 void SimpleSymbolTable::remove(SymbolPtr ptr) {
-    throw Exception("Not Yet Implemented");
-    //TODO: Add bool operator() (const Object& lhs, const Object& rhs) const { .. } for the stored symbol objects
-//    util::Conditions::requireNotNull(ptr, "Symbol Ptr of interest");
-//
-//    std::find_if(this->symbol_map.begin(), this->symbol_map.end(), ptr);
+	util::Conditions::requireNotNull(ptr, "Symbol Ptr of interest");
+	std::map <std::string, SymbolPtr>::iterator mapIterator;
+	bool isFound = false;
+	//Remove SymbolPtr (smart_ptr) in place
+	for(mapIterator = symbol_map.begin(); mapIterator != symbol_map.end(); ++mapIterator){
+		if( (*mapIterator).second == ptr) {
+			isFound = true;
+			break;
+		}
+		else {
+			++mapIterator;
+		}
+	}
+
+    if(isFound) {
+        LOG(Logger::LEVEL_TRACE, "Removing SymbolPtr " + ptr->getName());
+        symbol_map.erase(mapIterator);
+    } else {
+        // == listeners.end() means the element was not found
+        LOG(Logger::LEVEL_INFO, "Cannot find SymbolPtr " + ptr->getName());
+    }
+
 }
 
 SymbolPtr SimpleSymbolTable::lookup(const std::string& name) {

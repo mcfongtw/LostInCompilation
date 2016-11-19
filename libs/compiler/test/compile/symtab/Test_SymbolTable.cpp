@@ -49,6 +49,19 @@ TEST(SYMBOL_TABLE, UNIT_Simple_Symbol_Table) {
 
 }
 
+TEST(SYMBOL_TABLE, UNIT_Simple_Remove_From_Symbol_Table) {
+	double d = 1.234;
+	RuntimeData value1(d);
+	SymbolPtr symbPtr1 = SymbolPtr(new Symbol("x", value1));
+
+	SimpleSymbolTable table;
+	table.add(symbPtr1);
+    table.remove(symbPtr1);
+
+    EXPECT_TRUE(table.lookup("x") == nullptr);
+    EXPECT_TRUE(table.isEmpty());
+}
+
 TEST(SYMBOL_TABLE, UNIT_Symbol_Table_Boundary_Condition) {
     SimpleSymbolTable table;
 
