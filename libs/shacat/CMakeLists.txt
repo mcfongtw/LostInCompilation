@@ -35,6 +35,9 @@ set(CORE_SOURCE_FILES
         ##################################################################
         # Header
         ##################################################################
+        ${MOD_INC_DIR}/algorithm/event/listener/EventListener.h
+        ${MOD_INC_DIR}/algorithm/event/dispatcher/EventDispatcher.h
+        ${MOD_INC_DIR}/algorithm/event/Event.h
         ${MOD_INC_DIR}/algorithm/tree/traditional/LIFO/NodeStack.h
         ${MOD_INC_DIR}/algorithm/tree/traditional/LIFO/TreeTraverse.h
         ${MOD_INC_DIR}/algorithm/tree/visitor/traversal/TreeWalker.h
@@ -54,6 +57,8 @@ set(CORE_SOURCE_FILES
         #################################################################
         # Source
         #################################################################
+        ${MOD_SRC_DIR}/algorithm/event/Event.cpp
+        ${MOD_SRC_DIR}/algorithm/event/dispatcher/EventDispatcher.cpp
         ${MOD_SRC_DIR}/algorithm/tree/traditional/LIFO/TreeTraverse.cpp
         ${MOD_SRC_DIR}/algorithm/tree/visitor/VisitedTreeNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/TreeBuilder.cpp
@@ -75,6 +80,8 @@ add_library(shacat SHARED ${CORE_SOURCE_FILES})
 enable_testing()
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
+        ${MOD_TEST_DIR}/algorithm/event/Test_Event.cpp
+        ${MOD_TEST_DIR}/algorithm/event/Test_EventListener.cpp
         ${MOD_TEST_DIR}/algorithm/tree/Test_Tree_Basic.cpp
         ${MOD_TEST_DIR}/algorithm/tree/traditional/Test_Tree_Traverse.cpp
         ${MOD_TEST_DIR}/algorithm/tree/visitor/Test_Tree_Visitor.cpp
