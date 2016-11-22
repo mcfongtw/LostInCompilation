@@ -35,6 +35,8 @@ set(CORE_SOURCE_FILES
         ##################################################################
         # Header
         ##################################################################
+        ${MOD_INC_DIR}/algorithm/event/InternalEvent.h
+        ${MOD_INC_DIR}/algorithm/event/ComponentType.h
         ${MOD_INC_DIR}/algorithm/tree/ast/ASTNode.h
         ${MOD_INC_DIR}/algorithm/tree/ast/ASTUtils.h
         ${MOD_INC_DIR}/compile/Compilable.h
@@ -59,6 +61,7 @@ set(CORE_SOURCE_FILES
         #################################################################
         # Source
         #################################################################
+        ${MOD_SRC_DIR}/algorithm/event/InternalEvent.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTUtils.cpp
         ${MOD_SRC_DIR}/compile/binding/DataBindingUtils.cpp
@@ -86,6 +89,7 @@ enable_testing()
 
 #TODO: Replace with a macro / function that automatically discover source files
 set(TEST_SOURCE_FILES
+        ${MOD_TEST_DIR}/algorithm/event/Test_InternalEvent.cpp
         ${MOD_TEST_DIR}/algorithm/tree/ast/Test_AST.cpp
         ${MOD_TEST_DIR}/compile/binding/Test_RuntimeData.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_RuntimeStack.cpp
@@ -93,6 +97,7 @@ set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTableStack.cpp
         ${MOD_TEST_DIR}/error/Test_ParseException.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
+
         )
 
 include_directories(${GTEST_INCLUDE_DIR})
