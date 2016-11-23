@@ -17,7 +17,9 @@ class ASTNode;
 typedef std::shared_ptr<ASTNode> ASTNodePtr;
 
 /**
- * ASTNode is a derived class of TreeNode which further remembers token type and text.
+ * ASTNode is a derived class of VisitedTreeNode which further has AST related data, including token type and token text.
+ *
+ * @since 0.1
  */
 class ASTNode : public VisitedTreeNode {
 public:

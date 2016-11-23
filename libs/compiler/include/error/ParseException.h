@@ -12,6 +12,8 @@
 
 /**
  * An exception dedicated for parsing error
+ *
+ * @since 0.1
  */
 class ParseException: public Exception {
 public:

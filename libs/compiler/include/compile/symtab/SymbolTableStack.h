@@ -11,8 +11,15 @@
 #include "algorithm/visitor/VisitedObject.h"
 #include "SymbolTableFactory.h"
 
-/*
- * Proxy based, Stack backed Symbol Table data structure
+/**
+ *
+ * A implemented as an LIFO Stack that provides stack operations involving symbol table creation or deletion. A
+ * SymbolTable is created when it enters a block scope, i.e., function scope, local scope, where new symbols can be
+ * created associated to the new scope. Conversely, a SymbolTable will be destroyed when visitor leaves that scope.
+ *
+ * This stack is also a delegator to lookup a symbol from currently referenced symbol table.
+ *
+ * @since 0.1
  */
 class SymbolTableStack : public VisitedObject, public SymbolRepository {
 public:

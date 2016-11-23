@@ -12,6 +12,13 @@
 
 #include "compile/binding/RuntimeData.h"
 
+/**
+ * A wrapper class that describes a symbol with
+ * - a name in literal form
+ * - a typeless data (RuntimeData)
+ *
+ * @since 0.1
+ */
 class Symbol {
 public:
 	Symbol(std::string name);
@@ -32,6 +39,8 @@ protected:
 	std::string _name;
 
 	RuntimeData _value;
+
+	//TODO: additional info, type or living scope
 };
 
 

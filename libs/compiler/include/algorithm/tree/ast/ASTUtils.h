@@ -13,7 +13,10 @@
 
 
 /**
- * A utility class that provides a series of helper functions operating on an abstract-syntax-tree.
+ * A utility class that provides a series of static functions operating on an abstract-syntax-tree. The utilities include
+ * - create an AST and bind with given children nodes.
+ *
+ * @since 0.1
  */
 class ASTUtils {
 public:

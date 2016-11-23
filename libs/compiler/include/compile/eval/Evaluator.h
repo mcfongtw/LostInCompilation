@@ -11,7 +11,9 @@
 #include "algorithm/tree/ast/ASTNode.h"
 
 /**
- * An top-level abstract class that defines what an evaluator does in general.
+ * A pure abstract class to evaluate the semantic meaning of an expression given a parsed abstract syntax tree.
+ *
+ * @since 0.1
  */
 class Evaluator {
 public:

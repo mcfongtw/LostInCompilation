@@ -8,6 +8,11 @@
 #include "compile/symtab/ScopedSymbolTable.h"
 #include "algorithm/visitor/Visitor.h"
 
+/**
+ * An abstract symbol table tree traversal class implementing Visitor.  A SymbolTableVisitor will operate on a tree structured rooted at VisitedSymbolTable
+ *
+ * @since 0.1
+ */
 class SymbolTableVisitor : public Visitor {
 public:
     SymbolTableVisitor() {
@@ -20,6 +25,7 @@ public:
 
     virtual SymbolPtr lookup(const std::string& name) = 0;
 
+    //TODO: Change symbolTablePtr to std::shared_ptr<VisitedSymbolTable>
     virtual int visit(SymbolTablePtr) = 0;
 
 protected:

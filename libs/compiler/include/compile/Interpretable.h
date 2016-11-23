@@ -7,6 +7,11 @@
 
 #include <string>
 
+/**
+  *A pure abstract class that inteprets a line of input code and produces an answer
+  *
+ * @since 0.1
+ */
 class Interpretable {
 public:
     Interpretable() {

@@ -8,6 +8,12 @@
 #include "compile/symtab/ScopedSymbolTable.h"
 #include "algorithm/visitor/VisitedObject.h"
 
+
+/**
+ * An implementation of ScopedSymbolTable and VisitedObject that represent a symbol table tree data structure.
+ *
+ * @since 0.1
+ */
 class VisitedSymbolTable : public ScopedSymbolTable, public VisitedObject {
 public:
     VisitedSymbolTable() : ScopedSymbolTable(), VisitedObject() {

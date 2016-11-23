@@ -13,8 +13,10 @@
 #include <memory>
 #include <map>
 
-/*
- * Symbol Repository Interface
+/**
+ * Symbol Repository Interface that defines API to add or remove a Symbol entry
+ *
+ * @since 0.1
  *
  */
 class SymbolRepository {

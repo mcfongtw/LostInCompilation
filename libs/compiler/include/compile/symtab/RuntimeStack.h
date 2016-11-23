@@ -14,15 +14,18 @@
 #include <string>
 
 
-/*
+/**
  * TODO:
  * typedef std::vector< RuntimeData > RuntimeStack;
  *
  * or
  *
  * typedef std::stack<RuntimeData> RuntimeStack;
+ *
+ * A stack that stores the processed RuntimData during expression evaluation.
+ *
+ * @since 0.1
  */
-
 class RuntimeStack {
 public:
 	RuntimeStack();

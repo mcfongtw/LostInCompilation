@@ -14,7 +14,9 @@
 
 
 /**
- * An top-level abstract class that defines what a parser does in general.
+ * A pure abstract class that parses a given textual input into a abstract syntax tree data structure.
+ *
+ * @since 0.1
  */
 class Parsable {
 public:

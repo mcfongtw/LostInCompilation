@@ -9,7 +9,11 @@
 #include "compile/symtab/visitor/VisitedSymbolTable.h"
 
 
-//case-Sensitive symbol table
+/**
+ * case-Sensitive symbol table
+ *
+ * @since 0.1
+ */
 class SimpleSymbolTable : public VisitedSymbolTable {
 public:
     SimpleSymbolTable();

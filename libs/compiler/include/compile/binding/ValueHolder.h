@@ -14,6 +14,11 @@
 
 class RuntimeData;
 
+/**
+ * A pure abstract class that encapsulates all data generated at runtime.
+ *
+ * @since 0.1
+ */
 class ValueHolder {
 public:
     ValueHolder() {

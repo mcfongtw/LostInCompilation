@@ -7,6 +7,11 @@
 
 #include <string>
 
+/**
+ * A pure abstract class that compiles input code from a given file path
+ *
+ * @since 0.1
+ */
 class Compilable {
 public :
     Compilable() {

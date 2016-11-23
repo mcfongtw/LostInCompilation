@@ -7,6 +7,15 @@
 
 #include "compile/symtab/SymbolRepository.h"
 
+/**
+ * Symbol Scope, containing
+ * - Global
+ * - Functional
+ * - Anonymous_Function
+ * - Local
+ *
+ * @since 0.1
+ */
 enum SymbolScope {
     SCOPE_GLOBAL = 1,
     SCOPE_FUNCTIONAL,
@@ -14,9 +23,11 @@ enum SymbolScope {
     SCOPE_LOCAL
 };
 
-/*
- * Abstract Class
- * Scoped based <Key:Pointer> paired Symbol Table
+/**
+ * An abstract Class for a scoped based <Key:Pointer> paired Symbol Table. A ScopedSymbolTable is created when it
+ * enters a scope.
+ *
+ * @since 0.1
  */
 class ScopedSymbolTable : public SymbolRepository {
 public :

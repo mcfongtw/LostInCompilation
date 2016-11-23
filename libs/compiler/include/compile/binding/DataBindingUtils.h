@@ -12,6 +12,11 @@
 
 #include "error/Exception.h"
 
+/**
+ * This class includes a set of utility functions for use of dynamic data binding.
+ *
+ * @since 0.1
+ */
 class DataBindingUtils {
 public:
 

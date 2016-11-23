@@ -19,6 +19,13 @@
 
 class ValueHolder;
 
+/**
+ *  Implementation of typeless data holeder that encapsulates run-time data objects and type information
+ *
+ *  This typeless holder for use of dynamic data binding and emcapsulates data type information via DataValueHolder
+ *
+ * @since 0.1
+ */
 //TODO: Move the template function implementation to cpp
 class RuntimeData {
 public:
@@ -86,6 +93,11 @@ public:
 private:
 
     //TODO: Replace with compile/binding/DataValueHolder class
+    /**
+     * A derived implementation of ValueHolder that encapsulates all runtime data.
+     *
+     * @since 0.1
+     */
     template<typename T>
     class DataValueHolder: public ValueHolder {
     public:
