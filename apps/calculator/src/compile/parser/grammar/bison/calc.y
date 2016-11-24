@@ -71,19 +71,22 @@ class ParseResult;
 %left TOKEN_OP_NEG
 
 /*================================================================
-						TOKENS
+						TERMINAL (TOKENS) RETURNED TYPES
 ================================================================*/
 %token TOKEN_EOS 
 %token <text> TOKEN_NUMBER TOKEN_INTEGER
 %token <text> TOKEN_ID TOKEN_LITERAL
 %token <text> TOKEN_OP_ADD TOKEN_OP_SUB TOKEN_OP_MUL TOKEN_OP_DIV TOKEN_OP_MOD TOKEN_OP_ASSIGN
+//Fake
+%token <texT> TOKEN_CALL, TOKEN_ARGS
 
 /*================================================================
-						NON-TERMINAL TYPES
+						NON-TERMINAL RETURNED TYPES
 ================================================================*/
 /* declare non-terminal rules */
 %type <node> statement
-%type <node> exprStmt compoundExpr 
+%type <node> exprStmt compoundExp
+%type <node> funcCallExp arguments
 %type <node> declareExp 
 %type <node> mathExp arithmeticExp
 %type <node> assignExp
@@ -91,15 +94,9 @@ class ParseResult;
 %type <node> term atom
 %type <node> string identifier number
 
-/**
-funcArgList:
-	compoundExpr						
-	| funcArgList ',' compoundExpr
-	;
-**/
 
 /*================================================================
-						GRAMMAR RULES for the VIEW LANGUAGE
+						GRAMMAR RULES for the CALC LANGUAGE
 ================================================================*/
 %%
 input:			
@@ -136,7 +133,8 @@ statement:
 exprStmt: 
 	declareExp					{ $$ = $1; }
 	| assignExp					{ $$ = $1; }
-	| compoundExpr				{ $$ = $1; }
+	| compoundExp				{ $$ = $1; }
+	| funcCallExp				{ $$ = $1; }
 	;
 	
 declareExp:
@@ -144,16 +142,46 @@ declareExp:
 	;
 
 assignExp:
-	identifier TOKEN_OP_ASSIGN compoundExpr		{ 
+	identifier TOKEN_OP_ASSIGN compoundExp		{ 
 									ASTNode* current = ASTUtils::createAST("=", TOKEN_OP_ASSIGN, $1, $3);
 									
 									$$ = current;	
 								}
 	;
 
-compoundExpr:			
+compoundExp:			
 	mathExp 					{ $$ = $1; }				
 	;
+
+funcCallExp:
+	identifier '(' ')'			{
+                                    ASTNode* current = ASTUtils::createAST("CALL", TOKEN_CALL, $1);
+
+                                    $$ = current;
+                                }
+	| identifier '(' arguments ')'
+                                {
+                                    //TODO: Enhancement: maybe we can reduce AST via pulling the cascaded arguments TreeNode onto this level
+                                    ASTNode* current = ASTUtils::createAST("CALL", TOKEN_CALL, $1, $3);
+
+                                    $$ = current;
+                                }
+	;
+
+arguments:
+	exprStmt					{
+                                    ASTNode* current = ASTUtils::createAST("ARGS", TOKEN_ARGS, $1);
+
+                                    $$ = current;
+                                }
+	| exprStmt ',' arguments	{
+                                    //TODO: Enhancement: maybe we can reduce AST via pulling the cascaded arguments TreeNode onto the same level of tree
+                                    ASTNode* current = ASTUtils::createAST("ARG", TOKEN_ARGS, $1, $3);
+
+                                    $$ = current;
+                                }
+	;
+
 
 mathExp:
 	unaryExp					{ $$ = $1; }
@@ -195,7 +223,7 @@ arithmeticExp:
 
 unaryExp:
 	atom						{ $$ = $1; }
-	|'(' compoundExpr ')' 		{ $$ = $2; }
+	|'(' compoundExp ')' 		{ $$ = $2; }
     | TOKEN_OP_SUB term  %prec TOKEN_OP_NEG	{ 
     								ASTNode* current = ASTUtils::createAST("Neg", TOKEN_OP_NEG, $2);
     								

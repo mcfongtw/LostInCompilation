@@ -72,6 +72,12 @@ int ASTreeWalker::walk(VisitedTreeNodePtr ptr) {
 		case TOKEN_LITERAL:
 			this->_ptr = &ASTreeWalker::walk_LITERAL;
 			break;
+		case TOKEN_CALL:
+			this->_ptr = &ASTreeWalker::walk_CALL;
+			break;
+		case TOKEN_ARGS:
+			this->_ptr = &ASTreeWalker::walk_ARGS;
+			break;
 		default:
 			std::string reason = "Error: bad token : " + util::Converts::numberToString(astNode->getToken());
 			throw IllegalStateException(reason);

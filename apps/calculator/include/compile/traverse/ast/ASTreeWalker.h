@@ -28,7 +28,9 @@ protected:
 
 	virtual int walk_ASSIGN(ASTNodePtr ptr) = 0;
 
-	virtual int walk_FUNC(ASTNodePtr ptr) = 0;
+	virtual int walk_CALL(ASTNodePtr ptr) = 0;
+
+	virtual int walk_ARGS(ASTNodePtr ptr) = 0;
 
 	virtual int walk_INTEGER(ASTNodePtr ptr) = 0;
 
