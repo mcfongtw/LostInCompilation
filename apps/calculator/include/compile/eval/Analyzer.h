@@ -51,7 +51,9 @@ protected:
 
 	virtual int walk_ASSIGN(ASTNodePtr ptr);
 
-	virtual int walk_FUNC(ASTNodePtr ptr);
+	virtual int walk_CALL(ASTNodePtr ptr);
+
+    virtual int walk_ARGS(ASTNodePtr ptr);
 
 	virtual int walk_INTEGER(ASTNodePtr ptr);
 
@@ -69,6 +71,8 @@ private:
 	RuntimeStack _runtimeStack;
 
 	SymTabStackPtr _symtabStack;
+
+    int _numOfArgs;
 };
 
 class MathOperationHandle {

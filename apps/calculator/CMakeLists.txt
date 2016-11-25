@@ -89,6 +89,10 @@ set(CORE_SOURCE_FILES
         ${MOD_INC_DIR}/compile/MathInterpretor.h
         ${MOD_INC_DIR}/compile/eval/Analyzer.h
         ${MOD_INC_DIR}/compile/eval/MathEvaluator.h
+        ${MOD_INC_DIR}/compile/eval/function/Function.h
+        ${MOD_INC_DIR}/compile/eval/function/CMathFunction.h
+        ${MOD_INC_DIR}/compile/eval/function/InvalidFunctionException.h
+        ${MOD_INC_DIR}/compile/eval/function/FunctionFactory.h
         ${MOD_INC_DIR}/compile/parser/MathParser.h
         ${MOD_INC_DIR}/compile/parser/grammar/GrammarLibs.h
         ${MOD_INC_DIR}/compile/traverse/ast/ASTreeWalker.h
@@ -101,10 +105,13 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/compile/MathInterpretor.cpp
         ${MOD_SRC_DIR}/compile/eval/Analyzer.cpp
         ${MOD_SRC_DIR}/compile/eval/MathEvaluator.cpp
+        ${MOD_SRC_DIR}/compile/eval/function/Function.cpp
+        ${MOD_SRC_DIR}/compile/eval/function/CMathFunction.cpp
+        ${MOD_SRC_DIR}/compile/eval/function/InvalidFunctionException.cpp
+        ${MOD_SRC_DIR}/compile/eval/function/FunctionFactory.cpp
         ${MOD_SRC_DIR}/compile/parser/MathParser.cpp
         ${MOD_SRC_DIR}/compile/parser/grammar/GrammarLibs.cpp
         ${MOD_SRC_DIR}/compile/traverse/ast/ASTreeWalker.cpp
-
         )
 
 # Main.cpp

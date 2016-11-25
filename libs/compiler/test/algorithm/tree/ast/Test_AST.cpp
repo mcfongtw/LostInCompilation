@@ -76,6 +76,8 @@ TEST(AST, UNIT_Abstract_Syntax_Tree_Replace) {
 	EXPECT_EQ(newRoot.get(), right->getParent());
 }
 
+
+//FIXME: How does it work?
 TEST(AST, UNIT_AST_Utils_Reduce_1) {
 	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
 	VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);

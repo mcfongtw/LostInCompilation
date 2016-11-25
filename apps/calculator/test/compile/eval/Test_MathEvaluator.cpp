@@ -5,6 +5,7 @@
 #include <error/ArithmeticException.h>
 #include "compile/parser/MathParser.h"
 #include "compile/eval/MathEvaluator.h"
+#include "compile/eval/function/InvalidFunctionException.h"
 
 #include "gtest/gtest.h"
 
@@ -230,4 +231,35 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Assign_Symbol_Expr_2) {
     EXPECT_EQ(sizeof(double), obj.getSizeof());
     EXPECT_EQ(17, obj.get<double>());
 
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Undefined_Function) {
+    EXPECT_THROW(MATH_EVALUATOR::evaluate("undefine()"), InvalidFunctionException);
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Sqrt_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("sqrt(4)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(2, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Sqrt_2) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("sqrt(1+3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(2, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Pow_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("pow(2, 3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(8, obj.get<double>());
 }

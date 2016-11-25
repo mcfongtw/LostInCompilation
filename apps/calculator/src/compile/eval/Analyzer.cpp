@@ -7,11 +7,14 @@
 
 #include <iostream>
 #include <memory>
+#include <algorithm>
+#include <compile/eval/function/FunctionFactory.h>
 
+#include "algorithm/tree/ast/ASTUtils.h"
 #include "error/ArithmeticException.h"
 #include "compile/eval/Analyzer.h"
 #include "../../compile/parser/grammar/bison/calc.tab.hpp"
-
+#include "compile/eval/function/FunctionFactory.h"
 
 Analyzer::Analyzer(SymTabStackPtr stack) :
 		ASTreeWalker() {
@@ -117,17 +120,61 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 	return 1;
 }
 
-//XXX: unimplemented
-int Analyzer::walk_FUNC(ASTNodePtr ptr) {
-	util::Conditions::requireNotNull(ptr, "node to walk ASTNode FUNC");
+int Analyzer::walk_CALL(ASTNodePtr ptr) {
+	util::Conditions::requireNotNull(ptr, "node to walk ASTNode CALL");
 	TraverseAction action = ptr->getState();
 
 
 	if (action == TRAVERSE_IN) {
-
+        //init for collecting number of arguments
+        _numOfArgs = 0;
 	} else if (action == TRAVERSE_OUT) {
+		std::shared_ptr<ASTNode> funcIdentifierPtr = std::dynamic_pointer_cast<ASTNode>(ptr->getChildAt(0));
+        std::vector<RuntimeData> arguments;
 
+		if(ptr->isChildAt(1)) {
+			//With arguments
+
+            for(int i = 0; i < _numOfArgs; i++) {
+                RuntimeData topData = this->_runtimeStack.top();
+                this->_runtimeStack.pop();
+                arguments.push_back(topData);
+                LOG(Logger::LEVEL_TRACE,
+                    "[ARGS] Collecting [" + util::Converts::numberToString(topData.get<double>()) + "]");
+            }
+
+            //reverse arguments
+            std::reverse(arguments.begin(), arguments.end());
+		} else {
+			//No arguments
+
+		}
+
+        FunctionPtr func = FunctionFactory::getFunction(funcIdentifierPtr->getImage());
+        func->setArguments(arguments);
+
+        LOG(Logger::LEVEL_TRACE, "[CALL] Invoke function [" + func->toString() + "]");
+
+        RuntimeData result = func->evaluate();
+
+        this->_runtimeStack.push(result);
 	}
+}
+
+int Analyzer::walk_ARGS(ASTNodePtr ptr) {
+    util::Conditions::requireNotNull(ptr, "node to walk ASTNode ARGS");
+    TraverseAction action = ptr->getState();
+
+    if (action == TRAVERSE_IN) {
+        std::shared_ptr<ASTNode> numberPtr = std::dynamic_pointer_cast<ASTNode>(ptr->getChildAt(0));
+
+        LOG(Logger::LEVEL_TRACE, "Observe [" + numberPtr->getImage() + "]");
+        _numOfArgs++;
+    } else if (action == TRAVERSE_OUT) {
+        if(ptr->isChildAt(1)) {
+            //TODO: Enhancement, ASTUtils::Reduce on another argument
+        }
+    }
 }
 
 int Analyzer::walk_INTEGER(ASTNodePtr ptr) {
