@@ -120,6 +120,11 @@ public:
 
 	virtual void setParent(ParentNodePtr ptr);
 
+	/**
+	 * Replace everything in this with that, including parentPtr, and children pointers
+	 *
+	 * @param that
+	 */
 	virtual void replace(TreeNodePtr that);
 
 	virtual std::string toString();

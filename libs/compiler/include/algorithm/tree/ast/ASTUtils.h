@@ -20,10 +20,9 @@
  */
 class ASTUtils {
 public:
+	static int reduceTreeWithoutChildren(VisitedTreeNodePtr oldNode, VisitedTreeNodePtr newNode);
+
 	static int reduceTree(VisitedTreeNodePtr oldNode, VisitedTreeNodePtr newNode);
-
-	static int reduceTree(VisitedTreeNodePtr oldNode, VisitedTreeNodePtr newNode, std::vector<VisitedTreeNodePtr>& newChildren);
-
 
 	static ASTNode* createAST(const char* txt, int tokenType) {
 		ASTNode* current = new ASTNode(txt, tokenType);

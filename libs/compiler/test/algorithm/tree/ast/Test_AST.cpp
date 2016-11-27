@@ -50,51 +50,152 @@ TEST(AST, UNIT_Simple_Abstract_Syntax_Tree) {
 	EXPECT_EQ(root.get(), right->getParent());
 }
 
-TEST(AST, UNIT_Abstract_Syntax_Tree_Replace) {
-	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
+TEST(AST, UNIT_Abstract_Syntax_Tree_Replace_1) {
+	VisitedTreeNodePtr oldRoot = std::make_shared<ASTNode>("+", 1);
 	VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);
 	VisitedTreeNodePtr right = std::make_shared<ASTNode>("2", 2);
 
-	root->insertChild(left);
-	root->insertChild(right);
+	oldRoot->insertChild(left);
+	oldRoot->insertChild(right);
 
-	//	std::cout << root->toString() << std::endl
+	//	std::cout << oldRoot->toString() << std::endl
 
-	TreeNodePtr newRoot = std::make_shared<ASTNode>("3", 2);
+	TreeNodePtr newRoot = std::make_shared<ASTNode>("-", 3);
 
-	root->replace(newRoot);
+	oldRoot->replace(newRoot);
 
-	EXPECT_STREQ("3", std::dynamic_pointer_cast<ASTNode>(newRoot)->getText());
-	EXPECT_EQ(2, std::dynamic_pointer_cast<ASTNode>(newRoot)->getToken());
-	EXPECT_EQ((size_t) 2, newRoot->getNumOfChildren());
-	EXPECT_EQ(left, newRoot->getChildAt(0));
-	EXPECT_EQ(right, std::dynamic_pointer_cast<ASTNode>(newRoot)->getChildAt(1));
-	EXPECT_FALSE(newRoot->isLeaf());
-	EXPECT_TRUE(newRoot->isRoot());
+    ASTNodePtr testRoot = std::dynamic_pointer_cast<ASTNode>(newRoot);
 
-	EXPECT_EQ(newRoot.get(), left->getParent());
-	EXPECT_EQ(newRoot.get(), right->getParent());
+	EXPECT_STREQ("-", testRoot->getText());
+	EXPECT_EQ(3, testRoot->getToken());
+	EXPECT_EQ((size_t) 2, testRoot->getNumOfChildren());
+	EXPECT_EQ(left, testRoot->getChildAt(0));
+	EXPECT_EQ(right, testRoot->getChildAt(1));
+	EXPECT_FALSE(testRoot->isLeaf());
+	EXPECT_TRUE(testRoot->isRoot());
+
+	EXPECT_EQ(testRoot.get(), left->getParent());
+	EXPECT_EQ(testRoot.get(), right->getParent());
+}
+
+TEST(AST, UNIT_Abstract_Syntax_Tree_Replace_2) {
+    VisitedTreeNodePtr oldRoot = std::make_shared<ASTNode>("R", 1);
+    VisitedTreeNodePtr arg1 = std::make_shared<ASTNode>("1", 2);
+    VisitedTreeNodePtr arg2 = std::make_shared<ASTNode>("2", 2);
+    VisitedTreeNodePtr arg3 = std::make_shared<ASTNode>("3", 2);
+
+    oldRoot->insertChild(arg1);
+    arg1->insertChild(arg2);
+    arg2->insertChild(arg3);
+
+    //	std::cout << oldRoot->toString() << std::endl
+
+    TreeNodePtr newRoot = std::make_shared<ASTNode>("-", 3);
+
+    oldRoot->replace(newRoot);
+//
+//    ASTNodePtr testRoot = std::dynamic_pointer_cast<ASTNode>(newRoot);
+//
+//    EXPECT_STREQ("-", testRoot->getText());
+//    EXPECT_EQ(3, testRoot->getToken());
+//    EXPECT_EQ((size_t) 2, testRoot->getNumOfChildren());
+//    EXPECT_EQ(left, testRoot->getChildAt(0));
+//    EXPECT_EQ(right, testRoot->getChildAt(1));
+//    EXPECT_FALSE(testRoot->isLeaf());
+//    EXPECT_TRUE(testRoot->isRoot());
+//
+//    EXPECT_EQ(testRoot.get(), left->getParent());
+//    EXPECT_EQ(testRoot.get(), right->getParent());
 }
 
 
-//FIXME: How does it work?
 TEST(AST, UNIT_AST_Utils_Reduce_1) {
-	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
-	VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);
-	VisitedTreeNodePtr right = std::make_shared<ASTNode>("2", 2);
+    /*
+     *    R
+     *    |
+     *    +
+     *   / \
+     *  1   2
+     *
+     */
+	VisitedTreeNodePtr root = std::make_shared<ASTNode>("R", 99);
+	VisitedTreeNodePtr opPlus = std::make_shared<ASTNode>("+", 1);
+	VisitedTreeNodePtr operand1 = std::make_shared<ASTNode>("1", 2);
+	VisitedTreeNodePtr operand2 = std::make_shared<ASTNode>("2", 2);
 
-	root->insertChild(left);
-	root->insertChild(right);
+	root->insertChild(opPlus);
 
-	VisitedTreeNodePtr result =  std::make_shared<ASTNode>("3", 2);
+	opPlus->insertChild(operand1);
+	opPlus->insertChild(operand2);
 
-	ASTUtils::reduceTree(std::dynamic_pointer_cast<VisitedTreeNode>(root), result);
+	VisitedTreeNodePtr answer =  std::make_shared<ASTNode>("3", 2);
 
-	EXPECT_STREQ("3", std::dynamic_pointer_cast<ASTNode>(result)->getText());
-	EXPECT_EQ(2, std::dynamic_pointer_cast<ASTNode>(result)->getToken());
-	EXPECT_EQ(nullptr, result->getParent());
-	EXPECT_EQ((size_t) 0, result->getNumOfChildren());
-	EXPECT_THROW(result->getChildAt(0), IllegalStateException);
-	EXPECT_TRUE(result->isLeaf());
-	EXPECT_TRUE(result->isRoot());
+    /*
+     *   R
+     *   |
+     *   3
+     */
+    ASTUtils::reduceTreeWithoutChildren(std::dynamic_pointer_cast<VisitedTreeNode>(opPlus), answer);
+
+    ASTNodePtr testChild = std::dynamic_pointer_cast<ASTNode>(root->getChildAt(0));
+
+	EXPECT_STREQ("3", testChild->getText());
+	EXPECT_EQ(2, testChild->getToken());
+	EXPECT_EQ(root.get(), testChild->getParent());
+	EXPECT_EQ((size_t) 0, testChild->getNumOfChildren());
+	EXPECT_THROW(testChild->getChildAt(0), IllegalStateException);
+	EXPECT_TRUE(testChild->isLeaf());
+	EXPECT_FALSE(testChild->isRoot());
+	EXPECT_EQ(root->getChildAt(0), testChild);
+}
+
+
+TEST(AST, UNIT_AST_Utils_Reduce_2) {
+    /*
+     *    R
+     *    |
+     *    +
+     *   / \
+     *  1   2
+     *
+     */
+    VisitedTreeNodePtr root = std::make_shared<ASTNode>("R", 99);
+    VisitedTreeNodePtr opPlus = std::make_shared<ASTNode>("+", 1);
+    VisitedTreeNodePtr operand1 = std::make_shared<ASTNode>("1", 2);
+    VisitedTreeNodePtr operand2 = std::make_shared<ASTNode>("2", 2);
+
+    root->insertChild(opPlus);
+
+    opPlus->insertChild(operand1);
+    opPlus->insertChild(operand2);
+
+    VisitedTreeNodePtr opMultiply =  std::make_shared<ASTNode>("*", 1);
+    VisitedTreeNodePtr operand11 = std::make_shared<ASTNode>("2", 2);
+    VisitedTreeNodePtr operand22 = std::make_shared<ASTNode>("3", 2);
+    opPlus->insertChild(operand11);
+    opPlus->insertChild(operand22);
+
+    /*
+     *    R
+     *    |
+     *    *
+     *   / \
+     *  2   3
+     *
+     */
+    ASTUtils::reduceTree(std::dynamic_pointer_cast<VisitedTreeNode>(opPlus), opMultiply);
+
+    ASTNodePtr testNode = std::dynamic_pointer_cast<ASTNode>(root->getChildAt(0));
+
+    EXPECT_STREQ("*", testNode->getText());
+    EXPECT_EQ(1, testNode->getToken());
+    EXPECT_EQ(root.get(), testNode->getParent());
+    EXPECT_EQ((size_t) 4, testNode->getNumOfChildren());
+    EXPECT_EQ(testNode->getChildAt(0), operand1);
+    EXPECT_EQ(testNode->getChildAt(1), operand2);
+    EXPECT_EQ(testNode->getChildAt(2), operand11);
+    EXPECT_EQ(testNode->getChildAt(3), operand22);
+    EXPECT_FALSE(testNode->isLeaf());
+    EXPECT_FALSE(testNode->isRoot());
+    EXPECT_EQ(root->getChildAt(0), testNode);
 }

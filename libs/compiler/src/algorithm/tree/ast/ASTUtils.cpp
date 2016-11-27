@@ -8,8 +8,8 @@
 #include "algorithm/tree/ast/ASTUtils.h"
 #include "common/Utils.h"
 
-int ASTUtils::reduceTree(VisitedTreeNodePtr oldPtr, VisitedTreeNodePtr newPtr) {
-	util::Conditions::requireNotNull(oldPtr, "ASTUtils::reduceTree - old ASTNode");
+int ASTUtils::reduceTreeWithoutChildren(VisitedTreeNodePtr oldPtr, VisitedTreeNodePtr newPtr) {
+	util::Conditions::requireNotNull(oldPtr, "ASTUtils::reduceTreeWithoutChildren - old ASTNode");
 	util::Conditions::requireNotNull(newPtr, "new ASTNode");
 
 	oldPtr->replace(newPtr);
@@ -19,14 +19,11 @@ int ASTUtils::reduceTree(VisitedTreeNodePtr oldPtr, VisitedTreeNodePtr newPtr) {
 	return 1;
 }
 
-int ASTUtils::reduceTree(VisitedTreeNodePtr oldPtr, VisitedTreeNodePtr newPtr,
-		std::vector<VisitedTreeNodePtr>& newChildrenPtr) {
-	ASTUtils::reduceTree(oldPtr, newPtr);
+int ASTUtils::reduceTree(VisitedTreeNodePtr oldPtr, VisitedTreeNodePtr newPtr) {
+	util::Conditions::requireNotNull(oldPtr, "ASTUtils::reduceTreeWithoutChildren - old ASTNode");
+	util::Conditions::requireNotNull(newPtr, "new ASTNode");
 
-	for (size_t i = 0; i < newChildrenPtr.size(); i++) {
-		VisitedTreeNodePtr newChildPtr = newChildrenPtr[i];
-		newPtr->insertChild(newChildPtr);
-	}
+	oldPtr->replace(newPtr);
 
 	return 1;
 }

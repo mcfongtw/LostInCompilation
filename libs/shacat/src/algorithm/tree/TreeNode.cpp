@@ -207,14 +207,11 @@ void TreeNode::replace(TreeNodePtr thatPtr) {
 	this->_children.clear();
 
 	//change parent node
-//	TreeNodePtr parent = this->searchParent(std::make_shared<TreeNode>(this));
+	thatPtr->_parent = this->_parent;
 	if (this->_parent != nullptr) {
 		size_t index = this->_parent->getChildIndexOf(this->getThisPtr());
 		this->_parent->replaceChildAt(index, thatPtr);
 	}
-
-	//finally delete this
-//	delete this;
 }
 
 TreeNodePtr TreeNode::searchParent(TreeNodePtr target) {
