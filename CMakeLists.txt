@@ -121,7 +121,6 @@ add_dependencies(${GMOCK_MAIN_LIBRARY} ${GTEST_LIBRARY})
 ######################################################################
 add_subdirectory(libs/shacat)
 add_subdirectory(libs/compiler)
-add_subdirectory(libs/asttool)
 add_subdirectory(apps/calculator)
 
 

@@ -1,8 +1,0 @@
-digraph G {
-	 node [style=rounded]
-	 node_1 [label = "'+' token = 1"]
-	 node_1 -> node_2
-	 node_1 -> node_3
-	 node_2 [label = "'1' token = 2"]
-	 node_3 [label = "'2' token = 2"]
-}

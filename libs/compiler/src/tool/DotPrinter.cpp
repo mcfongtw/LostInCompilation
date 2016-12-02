@@ -5,20 +5,20 @@
  *      Author: shannaracat
  */
 
-#include "compile/tool/DotPrinter.h"
+#include "tool/DotPrinter.h"
 #include "log/Logger.h"
 #include "common/Utils.h"
 
+#include <sstream>
 
 using namespace std;
 
-DotPrinter::DotPrinter(std::string fname) :
-	TreeWalker(), ASTPrinter() {
-	if (this->_fout != nullptr) {
-		this->_fout.close();
-	}
+DotPrinter::DotPrinter() : TreeWalker(), Printer() {
 
-	this->_fout.open(fname.c_str(), ios::out | ios::app | ios::binary);
+}
+
+DotPrinter::DotPrinter(DotPrinter& that) {
+
 }
 
 DotPrinter::~DotPrinter() {
@@ -26,44 +26,26 @@ DotPrinter::~DotPrinter() {
 }
 
 int DotPrinter::startWalking() {
-    util::Conditions::requireTrue(this->_fout.is_open(), "output stream is closed");
-
     LOG(Logger::LEVEL_DEBUG, "Start walking");
 
-	this->_fout << "digraph G {\r\n";
-	this->_fout << "\t node [style=rounded]\r\n";
+	this->write("digraph G {\n");
+    this->write("\t node [style=rounded]\n");
 
 	return 1;
 }
 
 int DotPrinter::stopWalking() {
-    util::Conditions::requireTrue(this->_fout.is_open(), "output stream is closed");
-
-	this->_fout << "}\r\n";
-	this->_fout.flush();
+    this->write("}");
 
     LOG(Logger::LEVEL_DEBUG, "Stop walking");
 
-	return this->close();
+    this->closeAppenders();
 }
-
-int DotPrinter::close() {
-	if (this->_fout) {
-		this->_fout.close();
-		return 1;
-	} else {
-		return -1;
-	}
-}
-
-static int continuousNodeId = 1;
 
 int DotPrinter::walk(VisitedTreeNodePtr basePtr) {
 	util::Conditions::requireNotNull(basePtr, "AST Node");
-    util::Conditions::requireTrue(this->_fout.is_open(), "output stream is closed");
 
 	ASTNodePtr ptr = std::dynamic_pointer_cast<ASTNode>(basePtr);
-
 	TraverseAction action = ptr->getState();
 
     if(action== TRAVERSE_IN && ptr->isRoot()) {
@@ -72,27 +54,35 @@ int DotPrinter::walk(VisitedTreeNodePtr basePtr) {
 
     std::string message("Visit ASTNode[" + std::string(ptr->getText()) + "]");
     LOG(Logger::LEVEL_DEBUG, message);
+    std::stringstream ss;
 
 	if (action == TRAVERSE_IN) {
-		this->_fout << "\t node_"
-				<< util::Converts::numberToString(continuousNodeId)
-				<< " [label = \"'" << ptr->getText() << "' token = "
-				<< ptr->getToken() << "\"]\r\n";
+		ss  << "\t node_"
+		    << util::Converts::numberToString(_nodeIdForDot)
+			<< " [label = \"'"
+            << ptr->getText()
+            << "' token = "
+			<< ptr->getToken()
+            << "\"]\n";
 
 		for (size_t i = 0; i < ptr->getNumOfChildren(); i++) {
 			ASTNodePtr child = std::dynamic_pointer_cast<ASTNode> (ptr->getChildAt(i));
 			util::Conditions::requireNotNull(child,
 					"AST Child at " + util::Converts::numberToString(i));
 
-			this->_fout << "\t node_" << util::Converts::numberToString(
-                    continuousNodeId) << " -> node_"
-					<< util::Converts::numberToString(continuousNodeId + (i+1)) << "\r\n";
+			ss << "\t node_"
+               << util::Converts::numberToString(_nodeIdForDot)
+               << " -> node_"
+               << util::Converts::numberToString(_nodeIdForDot + (i+1))
+               << "\n";
 		}
 
-        continuousNodeId++;
+        _nodeIdForDot++;
 	} else if (action == TRAVERSE_OUT) {
 
 	}
+
+    this->write(ss.str());
 
     if(action == TRAVERSE_OUT  && ptr->isRoot()) {
         this->stopWalking();

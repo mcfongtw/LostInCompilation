@@ -5,34 +5,41 @@
  *      Author: Michael Fong
  */
 
-#include "compile/tool/ParseTreePrinter.h"
+#include "tool/AsciiPrinter.h"
 
 #include <cstring>
-#include <iostream>
+#include <sstream>
 
-ParseTreePrinter::ParseTreePrinter() :
-		TreeWalker(), ASTPrinter() {
-}
-
-ParseTreePrinter::~ParseTreePrinter() {
+AsciiPrinter::AsciiPrinter() : TreeWalker(), Printer() {
 
 }
 
-int ParseTreePrinter::startWalking() {
+AsciiPrinter::AsciiPrinter(AsciiPrinter &that) {
+
+}
+
+AsciiPrinter::~AsciiPrinter() {
+
+}
+
+int AsciiPrinter::startWalking() {
 	return 1;
 }
 
-int ParseTreePrinter::stopWalking() {
+int AsciiPrinter::stopWalking() {
+    this->closeAppenders();
 	return 1;
 }
 
-int ParseTreePrinter::walk(ASTNodePtr ptr) {
+int AsciiPrinter::walk(ASTNodePtr ptr) {
 	TraverseAction action = ptr->getState();
+
+	std::stringstream ss;
 
 	if (action == TRAVERSE_IN) {
 		size_t numOfChildren = ptr->getNumOfChildren();
 
-		std::cout << ptr->getText();
+		ss << ptr->getText();
 		if (numOfChildren > 0) {
 			for (size_t i = 0; i < numOfChildren; i++) {
 				char buf[3 + strlen(ptr->getText()) + 1];
@@ -43,29 +50,31 @@ int ParseTreePrinter::walk(ASTNodePtr ptr) {
 
 				if (i == 0) {
 					if (numOfChildren == 1) {
-						std::cout << "───";
+						ss << "───";
 						strcat(buf, "   ");
 					} else {
-						std::cout << "─┬─";
+						ss << "─┬─";
 						strcat(buf, " │ ");
 					}
 				} else {
-					std::cout << buf << std::endl;
+					ss << buf << std::endl;
 					if (numOfChildren == i + 1) {
-						std::cout << " └─";
+						ss << " └─";
 						strcat(buf, "   ");
 					} else {
-						std::cout << " ├─";
+						ss << " ├─";
 						strcat(buf, " │ ");
 					}
 				}
 			}
 		} else {
-			std::cout << std::endl;
+			ss << "\r\n";
 		}
 	} else if (action == TRAVERSE_OUT) {
 
 	}
+
+	this->write(ss.str());
 
 	return 1;
 }

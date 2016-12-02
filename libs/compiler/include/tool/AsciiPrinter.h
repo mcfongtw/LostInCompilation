@@ -10,13 +10,15 @@
 
 #include "algorithm/tree/visitor/traversal/TreeWalker.h"
 #include "algorithm/tree/ast/ASTNode.h"
-#include "ASTPrinter.h"
+#include "tool/Printer.h"
 
-class ParseTreePrinter: public TreeWalker, ASTPrinter {
+class AsciiPrinter: public TreeWalker, public Printer {
 
-	ParseTreePrinter();
+	AsciiPrinter();
 
-	virtual ~ParseTreePrinter();
+	AsciiPrinter(AsciiPrinter& that);
+
+	virtual ~AsciiPrinter();
 
 	virtual int startWalking();
 

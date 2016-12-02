@@ -12,16 +12,18 @@
 
 #include "algorithm/tree/visitor/traversal/TreeWalker.h"
 #include "algorithm/tree/ast/ASTNode.h"
-#include "ASTPrinter.h"
+#include "tool/Printer.h"
 
 /**
  * DotPrinter attempts to print the abstract-syntax-tree in DOT language. User may
  * then view the tree structure. For details, please check DOT documentation.
  */
-class DotPrinter : public TreeWalker, ASTPrinter {
+class DotPrinter : public TreeWalker, public Printer {
 public:
 
-	DotPrinter(std::string fname);
+	DotPrinter();
+
+    DotPrinter(DotPrinter& that);
 
 	virtual ~DotPrinter();
 
@@ -31,10 +33,8 @@ public:
 
 	virtual int walk(VisitedTreeNodePtr ptr);
 
-private:
-	std::ofstream _fout;
-
-	int close();
+private :
+	int _nodeIdForDot = 1;
 
 };
 
