@@ -31,7 +31,10 @@ int AsciiPrinter::stopWalking() {
 	return 1;
 }
 
-int AsciiPrinter::walk(ASTNodePtr ptr) {
+//FIXME: does not work, due to unicode and font size
+int AsciiPrinter::walk(VisitedTreeNodePtr basePtr) {
+	ASTNodePtr ptr = std::dynamic_pointer_cast<ASTNode>(basePtr);
+
 	TraverseAction action = ptr->getState();
 
 	std::stringstream ss;

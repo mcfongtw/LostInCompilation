@@ -13,7 +13,7 @@
 #include "tool/Printer.h"
 
 class AsciiPrinter: public TreeWalker, public Printer {
-
+public:
 	AsciiPrinter();
 
 	AsciiPrinter(AsciiPrinter& that);
@@ -24,7 +24,7 @@ class AsciiPrinter: public TreeWalker, public Printer {
 
 	virtual int stopWalking();
 
-	virtual int walk(ASTNodePtr ptr);
+	virtual int walk(VisitedTreeNodePtr ptr);
 };
 
 #endif /* PARSETREEPRINTER_H_ */

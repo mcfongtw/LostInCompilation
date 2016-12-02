@@ -29,7 +29,7 @@ TEST(TOOL_APPENDER, Simple_String_Appender) {
     EXPECT_STREQ(appender->toString().c_str(), "Hello World");
 }
 
-TEST(TOOL_PRINTER, Simple_DotPrinter_Node_1) {
+TEST(TOOL_DOT_PRINTER, Simple_DotPrinter_Node_1) {
     VisitedTreeNodePtr root = std::make_shared<ASTNode>("1", 1);
 
     std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
@@ -51,7 +51,7 @@ TEST(TOOL_PRINTER, Simple_DotPrinter_Node_1) {
     EXPECT_STREQ(expected.c_str(), stringAppender->toString().c_str());
 }
 
-TEST(TOOL_PRINTER, Simple_DotPrinter_Tree_1) {
+TEST(TOOL_DOT_PRINTER, Simple_DotPrinter_Tree_1) {
     VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
     VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);
     VisitedTreeNodePtr right = std::make_shared<ASTNode>("2", 2);

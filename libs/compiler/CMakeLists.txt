@@ -105,8 +105,8 @@ set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTableStack.cpp
         ${MOD_TEST_DIR}/error/Test_ParseException.cpp
         ${MOD_TEST_DIR}/tool/Test_DotPrinter.cpp
+        ${MOD_TEST_DIR}/tool/Test_AsciiPrinter.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
-
         )
 
 include_directories(${GTEST_INCLUDE_DIR})

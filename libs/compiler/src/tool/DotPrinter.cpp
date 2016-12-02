@@ -2,7 +2,7 @@
  * ASTWalker.cpp
  *
  *  Created on: Mar 24, 2012
- *      Author: shannaracat
+ *      Author: Michael Fong
  */
 
 #include "tool/DotPrinter.h"
