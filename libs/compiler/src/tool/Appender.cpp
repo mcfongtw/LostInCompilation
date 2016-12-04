@@ -16,7 +16,7 @@ Appender::~Appender() {
 
 }
 
-void Appender::write(const std::string &msg) {
+void Appender::append(const std::string &msg) {
     this->internalWrite(msg);
 }
 

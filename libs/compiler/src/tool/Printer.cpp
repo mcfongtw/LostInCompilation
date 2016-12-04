@@ -22,7 +22,7 @@ void Printer::addAppender(AppenderPtr appender) {
 
 void Printer::write(const std::string& msg) {
     for(AppenderPtr appender : _appenderChain) {
-        appender->write(msg);
+        appender->append(msg);
     }
 }
 

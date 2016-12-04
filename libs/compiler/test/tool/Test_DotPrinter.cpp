@@ -12,19 +12,19 @@
 
 TEST(TOOL_APPENDER, Simple_Console_Appender) {
     std::shared_ptr<ConsoleAppender> appender = std::make_shared<ConsoleAppender>();
-    appender->write("Hello World");
+    appender->append("Hello World");
     appender->close();
 }
 
 TEST(TOOL_APPENDER, Simple_File_Appender) {
     std::shared_ptr<FileAppender> appender = std::make_shared<FileAppender>("test.txt");
-    appender->write("Hello World");
+    appender->append("Hello World");
     appender->close();
 }
 
 TEST(TOOL_APPENDER, Simple_String_Appender) {
     std::shared_ptr<StringAppender> appender = std::make_shared<StringAppender>();
-    appender->write("Hello World");
+    appender->append("Hello World");
     appender->close();
     EXPECT_STREQ(appender->toString().c_str(), "Hello World");
 }

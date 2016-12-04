@@ -20,6 +20,9 @@ class Appender;
 
 typedef std::shared_ptr<Appender> AppenderPtr;
 
+/**
+ * An Appender class is used to append a message to a type of destnation output.
+ */
 class Appender {
 public:
     Appender();
@@ -28,7 +31,7 @@ public:
 
     virtual ~Appender();
 
-    virtual void write(const std::string &msg);
+    virtual void append(const std::string &msg);
 
     virtual void close() = 0;
 
@@ -37,7 +40,9 @@ protected:
 
 };
 
-
+/**
+ * A ConsoleAppender is used to append message to stdout
+ */
 class ConsoleAppender : public Appender {
 public:
     ConsoleAppender();
@@ -52,6 +57,10 @@ protected:
     virtual void internalWrite(const std::string &msg);
 };
 
+
+/**
+ * A StringAppender is used to append message to an in-memory string object.
+ */
 class StringAppender : public Appender {
 public:
     StringAppender();
@@ -71,6 +80,10 @@ private:
     std::stringstream _ss;
 };
 
+
+/**
+ * A FileAppender is used to append message to a physical file output.
+ */
 class FileAppender : public Appender {
 public:
     FileAppender(const std::string& fname);
