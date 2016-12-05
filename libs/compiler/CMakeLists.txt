@@ -40,6 +40,7 @@ set(CORE_SOURCE_FILES
         ${MOD_INC_DIR}/algorithm/tree/ast/ASTNode.h
         ${MOD_INC_DIR}/algorithm/tree/ast/ASTUtils.h
         ${MOD_INC_DIR}/compile/Compilable.h
+        ${MOD_INC_DIR}/compile/SourceCodePosition.h
         ${MOD_INC_DIR}/compile/binding/DataBindingUtils.h
         ${MOD_INC_DIR}/compile/binding/RuntimeData.h
         ${MOD_INC_DIR}/compile/binding/ValueHolder.h
@@ -68,6 +69,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/algorithm/event/InternalEvent.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTNode.cpp
         ${MOD_SRC_DIR}/algorithm/tree/ast/ASTUtils.cpp
+        ${MOD_SRC_DIR}/compile/SourceCodePosition.cpp
         ${MOD_SRC_DIR}/compile/binding/DataBindingUtils.cpp
         ${MOD_SRC_DIR}/compile/binding/RuntimeData.cpp
         ${MOD_SRC_DIR}/compile/symtab/RuntimeStack.cpp
@@ -99,6 +101,7 @@ enable_testing()
 set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/algorithm/event/Test_InternalEvent.cpp
         ${MOD_TEST_DIR}/algorithm/tree/ast/Test_AST.cpp
+        ${MOD_TEST_DIR}/compile/Test_SourceCodePosition.cpp
         ${MOD_TEST_DIR}/compile/binding/Test_RuntimeData.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_RuntimeStack.cpp
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTable.cpp
