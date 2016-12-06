@@ -8,6 +8,11 @@
 #include "compile/eval/MathEvaluator.h"
 #include "compile/Interpretable.h"
 
+/**
+ * MathInterpretor inteprets math equations from string input
+ *
+ * @since 0.1
+ */
 class MathInterpretor: public Interpretable {
 public:
     MathInterpretor();

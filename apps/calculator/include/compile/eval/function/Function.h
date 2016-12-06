@@ -16,6 +16,11 @@ enum FunctionType {
     FUNCTION_CUSTOM
 };
 
+/**
+ * A pure abstract class that represents a math function, both built-in or custom
+ *
+ * @since 0.1
+ */
 class Function {
 public:
 

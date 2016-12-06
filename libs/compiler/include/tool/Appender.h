@@ -22,6 +22,8 @@ typedef std::shared_ptr<Appender> AppenderPtr;
 
 /**
  * An Appender class is used to append a message to a type of destnation output.
+ *
+ * @since 0.1
  */
 class Appender {
 public:

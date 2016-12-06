@@ -176,7 +176,7 @@ arguments:
                                 }
 	| exprStmt ',' arguments	{
                                     //TODO: Enhancement: maybe we can reduce AST via pulling the cascaded arguments TreeNode onto the same level of tree
-                                    ASTNode* current = ASTUtils::createAST("ARG", TOKEN_ARGS, $1, $3);
+                                    ASTNode* current = ASTUtils::createAST("ARGS", TOKEN_ARGS, $1, $3);
 
                                     $$ = current;
                                 }

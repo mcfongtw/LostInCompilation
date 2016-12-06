@@ -8,6 +8,11 @@
 
 #include "error/Exception.h"
 
+/**
+ * A generic exception to be thrown when any function related error occurs
+ *
+ * @since 0.1
+ */
 class InvalidFunctionException : public Exception {
 public:
     InvalidFunctionException(const std::string& msg) : Exception(msg) {

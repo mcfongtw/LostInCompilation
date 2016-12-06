@@ -15,6 +15,8 @@
  *
  * MathEvaluator inherits from Evaluator and implements the concrete functionalities for evaluate a math expression
  * represented by an abstract syntax tree
+ *
+ * @since 0.1
  */
 class MathEvaluator : public Evaluator {
 public:

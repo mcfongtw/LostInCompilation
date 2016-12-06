@@ -12,6 +12,8 @@
 
 /**
  * A simple Console class that realize the read-eval-print loop
+ *
+ * @since 0.1
  */
 class Console {
 public:

@@ -8,6 +8,11 @@
 #include <math.h>
 #include "compile/eval/function/Function.h"
 
+/**
+ * CMathFunction is a class that any function that can be implemented by CMath should inherit from
+ *
+ * @since 0.1
+ */
 class CMathFunction : public Function {
 public:
     CMathFunction(std::string name) : Function(name, FUNCTION_BUILT_IN_CMATH) {
@@ -21,6 +26,11 @@ public:
 };
 
 
+/**
+ * A built-in function that invokes CMath.sqrt(..)
+ *
+ * @since 0.1
+ */
 class CMathSqrtFunction : public CMathFunction {
 public:
     CMathSqrtFunction() : CMathFunction("sqrt") {
@@ -46,6 +56,11 @@ public:
     }
 };
 
+/**
+ * A built-in function that invokes CMath.pow(..)
+ *
+ * @since 0.1
+ */
 class CMathPowFunction : public CMathFunction {
 public:
     CMathPowFunction() : CMathFunction("pow") {

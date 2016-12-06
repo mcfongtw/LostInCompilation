@@ -8,6 +8,11 @@
 #include "compile/eval/function/CMathFunction.h"
 #include "compile/eval/function/InvalidFunctionException.h"
 
+/**
+ * A factory method that creates an associated Function object
+ *
+ * @since 0.1
+ */
 class FunctionFactory {
 public:
     static FunctionPtr getFunction(std::string funcName) {

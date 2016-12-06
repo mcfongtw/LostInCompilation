@@ -31,6 +31,8 @@ typedef RuntimeData (*MathOperation)( RuntimeData&, RuntimeData& );
  * Analyzer is a implementation of a visitor (out of visitor pattern) that walks through the AST
  * and perform specific task at each AST node. Such tasks involves with symbol resolving and call stack
  * operations.
+ *
+ * @since 0.1
  */
 class Analyzer: public ASTreeWalker {
 public:

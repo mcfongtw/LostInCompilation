@@ -17,6 +17,8 @@
 /**
  * DotPrinter attempts to print the abstract-syntax-tree in DOT language. User may
  * then view the tree structure. For details, please check DOT documentation.
+ *
+ * @since 0.1
  */
 class DotPrinter : public TreeWalker, public Printer {
 public:

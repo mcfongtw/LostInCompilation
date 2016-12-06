@@ -10,6 +10,8 @@
 
 /**
  * A Printer is an abstract class that append a form of message to a sequence of Appender(s)
+ *
+ * @since 0.1
  */
 class Printer {
 public:

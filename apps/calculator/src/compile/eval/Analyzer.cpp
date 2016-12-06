@@ -41,6 +41,18 @@ int Analyzer::stopWalking() {
 	return 1;
 }
 
+/**
+ *     MATH
+ *      |
+ * ------------
+ * |          |
+ * expr       expr
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_MATH(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode MATH");
 	TraverseAction action = ptr->getState();
@@ -88,6 +100,18 @@ int Analyzer::walk_MATH(ASTNodePtr ptr) {
 	return 1;
 }
 
+/**
+ *     ASSIGN
+ *       |
+ * ---------------
+ * |             |
+ * identifier    expr
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode ASSIGN");
 	TraverseAction action = ptr->getState();
@@ -120,6 +144,18 @@ int Analyzer::walk_ASSIGN(ASTNodePtr ptr) {
 	return 1;
 }
 
+/**
+ *      CALL
+ *       |
+ * ---------------
+ * |             |
+ * identifier    ARGS
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_CALL(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode CALL");
 	TraverseAction action = ptr->getState();
@@ -161,6 +197,18 @@ int Analyzer::walk_CALL(ASTNodePtr ptr) {
 	}
 }
 
+/**
+ *      ARGS
+ *       |
+ * ---------------
+ * |             |
+ * expr         ARGS
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_ARGS(ASTNodePtr ptr) {
     util::Conditions::requireNotNull(ptr, "node to walk ASTNode ARGS");
     TraverseAction action = ptr->getState();
@@ -177,6 +225,16 @@ int Analyzer::walk_ARGS(ASTNodePtr ptr) {
     }
 }
 
+
+/**
+ *     <integer>
+ *       |
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_INTEGER(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode INTEGER");
 	TraverseAction action = ptr->getState();
@@ -199,6 +257,15 @@ int Analyzer::walk_INTEGER(ASTNodePtr ptr) {
 	return 1;
 }
 
+/**
+ *    <number>
+ *       |
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_NUMBER(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode NUMBER");
 	TraverseAction action = ptr->getState();
@@ -221,6 +288,16 @@ int Analyzer::walk_NUMBER(ASTNodePtr ptr) {
 }
 
 //XXX: unimplemented
+
+/**
+ *    <literal>
+ *       |
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 int Analyzer::walk_LITERAL(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode LITERAL");
 	TraverseAction action = ptr->getState();
@@ -234,6 +311,16 @@ int Analyzer::walk_LITERAL(ASTNodePtr ptr) {
 
 	return 1;
 }
+
+/**
+ *   <identifier>
+ *       |
+ *
+ *
+ * @param ptr ASTNodePtr for current node
+ *
+ * @return result of traversing this node. 1 for success, and 0 for failure.
+ */
 
 int Analyzer::walk_ID(ASTNodePtr ptr) {
 	util::Conditions::requireNotNull(ptr, "node to walk ASTNode ID");

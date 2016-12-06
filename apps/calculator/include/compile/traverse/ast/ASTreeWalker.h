@@ -14,6 +14,8 @@
 /**
  * An abstract class of inheriting top-level TreeWalker.In ASTreeWalker, each node visiting is further
  * classified into different visiting function according to token type.
+ *
+ * @since 0.1
  */
 class ASTreeWalker : public TreeWalker {
 public:

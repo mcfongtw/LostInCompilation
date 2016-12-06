@@ -7,6 +7,11 @@
 
 #include "compile/Compilable.h"
 
+/**
+ * MathCompiler compiles a given math equations from soure input
+ *
+ * @since 0.1
+ */
 class MathCompiler : public Compilable {
 public:
     MathCompiler();

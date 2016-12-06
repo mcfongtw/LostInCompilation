@@ -8,6 +8,11 @@
 #include "algorithm/event/Event.h"
 #include "algorithm/event/ComponentType.h"
 
+/**
+ * InternalEvent is for internal compiler event
+ *
+ * @since 0.1
+ */
 class InternalEvent : public Event {
 public:
     InternalEvent(ComponentType comp, std::string val);
@@ -20,7 +25,11 @@ protected:
     ComponentType _component;
 };
 
-
+/**
+ * ParserEvent is for parsing related event
+ *
+ * @since 0.1
+ */
 class ParserEvent : public InternalEvent {
 public:
     ParserEvent(std::string val): InternalEvent(COMPONENT_PARSER, val) {
@@ -32,6 +41,11 @@ public:
     }
 };
 
+/**
+ * AnalyzerEvent is for analyzing related event
+ *
+ * @since 0.1
+ */
 class AnalyzerEvent : public InternalEvent {
 public:
     AnalyzerEvent(std::string val): InternalEvent(COMPONENT_ANALYZER, val) {
@@ -43,6 +57,11 @@ public:
     }
 };
 
+/**
+ * SymbolBindingEvent is for symbol related event
+ *
+ * @since 0.1
+ */
 class SymbolBindingEvent : public InternalEvent {
 public:
     SymbolBindingEvent(std::string val): InternalEvent(COMPONENT_BINDING, val) {
