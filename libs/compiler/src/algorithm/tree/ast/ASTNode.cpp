@@ -11,26 +11,23 @@
 #include <cstring>
 #include "algorithm/tree/visitor/VisitedTreeNode.h"
 
-ASTNode::ASTNode() :VisitedTreeNode() {
-	this->_text = nullptr;
-	this->_token = -1;
+ASTNode::ASTNode() : ASTNode("UNDEFINED", -1) {
 
-	LOG(Logger::LEVEL_TRACE,
-			"Creating <<" + util::Converts::numberToString(this) + ">>ASTNode('"
-			+ this->_text + "')");
 }
 
-ASTNode::ASTNode(const char* txt, int token) : VisitedTreeNode(){
-	util::Conditions::requireGreaterThan<int>(token, 0,
-			"ASTNode::ASTNode - token type");
+ASTNode::ASTNode(const char* txt, int token) : ASTNode(txt, token, SourceCodePosition()){
 
+}
+
+ASTNode::ASTNode(const char* txt, int token, SourceCodePosition position) : VisitedTreeNode() {
 	this->_text = (char*) malloc(sizeof(char) * strlen(txt));
 	strcpy(this->_text, txt);
-	this->_token = token;
+    this->_token = token;
+    this->_pos = position;
 
 	LOG(Logger::LEVEL_TRACE,
 			"Creating <<" + util::Converts::numberToString(this) + ">>ASTNode('"
-			+ this->_text + "')");
+			+ this->_text + " | " + this->_pos.toString() + "')");
 }
 
 ASTNode::~ASTNode() {
@@ -61,4 +58,8 @@ void ASTNode::setToken(int token) {
 
 int ASTNode::getToken() {
 	return this->_token;
+}
+
+SourceCodePosition ASTNode::getPosition() {
+	return this->_pos;
 }

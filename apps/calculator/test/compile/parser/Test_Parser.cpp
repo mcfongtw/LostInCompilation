@@ -10,10 +10,9 @@
 
 #include "gtest/gtest.h"
 
-#include "error/Exception.h"
+#include "compile/parser/grammar/GrammarLibs.h"
 #include "error/ParseException.h"
 #include "compile/parser/MathParser.h"
-#include "algorithm/tree/ast/ASTNode.h"
 
 TEST(PARSER, First_Test) {
 	std::string line = "1";
@@ -25,6 +24,8 @@ TEST(PARSER, First_Test) {
 	EXPECT_EQ((size_t )0, root->getNumOfChildren());
 	EXPECT_TRUE(root->isRoot());
 	EXPECT_TRUE(root->isLeaf());
+    EXPECT_EQ(1, root->getPosition().getRow());
+    EXPECT_EQ(1, root->getPosition().getCol());
 }
 
 TEST(PARSER, Simple) {
@@ -33,22 +34,29 @@ TEST(PARSER, Simple) {
 	MathParser parser;
 
 	parser.parse(root, line);
-	TreeNodePtr left = root->getChildAt(0);
-	TreeNodePtr right = root->getChildAt(1);
+    ASTNodePtr left = std::dynamic_pointer_cast<ASTNode>(root->getChildAt(0));
+    ASTNodePtr right = std::dynamic_pointer_cast<ASTNode>(root->getChildAt(1));
 
 	EXPECT_EQ((size_t )2, root->getNumOfChildren());
 	EXPECT_TRUE(root->isRoot());
 	EXPECT_FALSE(root->isLeaf());
+    EXPECT_EQ(1, root->getPosition().getRow());
+    EXPECT_EQ(3, root->getPosition().getCol());
+
 
 	EXPECT_EQ((size_t ) 0, left->getNumOfChildren());
 	EXPECT_FALSE(left->isRoot());
 	EXPECT_TRUE(left->isLeaf());
 	EXPECT_EQ(root.get(), left->getParent());
+    EXPECT_EQ(1, left->getPosition().getRow());
+    EXPECT_EQ(1, left->getPosition().getCol());
 
 	EXPECT_EQ((size_t ) 0, right->getNumOfChildren());
 	EXPECT_FALSE(right->isRoot());
 	EXPECT_TRUE(right->isLeaf());
 	EXPECT_EQ(root.get(), right->getParent());
+    EXPECT_EQ(1, right->getPosition().getRow());
+    EXPECT_EQ(5, right->getPosition().getCol());
 }
 
 TEST(PARSER, Moderate) {
@@ -63,35 +71,46 @@ TEST(PARSER, Moderate) {
     MathParser parser;
 
     parser.parse(root, line);
-    TreeNodePtr left = root->getChildAt(0);
-    TreeNodePtr right = root->getChildAt(1);
+    ASTNodePtr leftChild =  std::dynamic_pointer_cast<ASTNode>(root->getChildAt(0));
+    ASTNodePtr rightChild =  std::dynamic_pointer_cast<ASTNode>(root->getChildAt(1));
 
     EXPECT_EQ((size_t )2, root->getNumOfChildren());
     EXPECT_TRUE(root->isRoot());
     EXPECT_FALSE(root->isLeaf());
+    EXPECT_EQ(1, root->getPosition().getRow());
+    EXPECT_EQ(3, root->getPosition().getCol());
 
-    EXPECT_EQ((size_t ) 0, left->getNumOfChildren());
-    EXPECT_FALSE(left->isRoot());
-    EXPECT_TRUE(left->isLeaf());
-    EXPECT_EQ(root.get(), left->getParent());
 
-    EXPECT_EQ((size_t ) 2, right->getNumOfChildren());
-    EXPECT_FALSE(right->isRoot());
-    EXPECT_FALSE(right->isLeaf());
-    EXPECT_EQ(root.get(), right->getParent());
+    EXPECT_EQ((size_t ) 0, leftChild->getNumOfChildren());
+    EXPECT_FALSE(leftChild->isRoot());
+    EXPECT_TRUE(leftChild->isLeaf());
+    EXPECT_EQ(root.get(), leftChild->getParent());
+    EXPECT_EQ(1, leftChild->getPosition().getRow());
+    EXPECT_EQ(1, leftChild->getPosition().getCol());
 
-    TreeNodePtr leftGrandChild = right->getChildAt(0);
-    TreeNodePtr rightGrandChild = right->getChildAt(1);
+    EXPECT_EQ((size_t ) 2, rightChild->getNumOfChildren());
+    EXPECT_FALSE(rightChild->isRoot());
+    EXPECT_FALSE(rightChild->isLeaf());
+    EXPECT_EQ(root.get(), rightChild->getParent());
+    EXPECT_EQ(1, rightChild->getPosition().getRow());
+    EXPECT_EQ(7, rightChild->getPosition().getCol());
+
+    ASTNodePtr leftGrandChild =  std::dynamic_pointer_cast<ASTNode>(rightChild->getChildAt(0));
+    ASTNodePtr rightGrandChild =  std::dynamic_pointer_cast<ASTNode>(rightChild->getChildAt(1));
 
     EXPECT_EQ((size_t ) 0, leftGrandChild->getNumOfChildren());
     EXPECT_FALSE(leftGrandChild->isRoot());
     EXPECT_TRUE(leftGrandChild->isLeaf());
-    EXPECT_EQ(right.get(), leftGrandChild->getParent());
+    EXPECT_EQ(rightChild.get(), leftGrandChild->getParent());
+    EXPECT_EQ(1, leftGrandChild->getPosition().getRow());
+    EXPECT_EQ(5, leftGrandChild->getPosition().getCol());
 
     EXPECT_EQ((size_t ) 0, rightGrandChild->getNumOfChildren());
     EXPECT_FALSE(rightGrandChild->isRoot());
     EXPECT_TRUE(rightGrandChild->isLeaf());
-    EXPECT_EQ(right.get(), rightGrandChild->getParent());
+    EXPECT_EQ(rightChild.get(), rightGrandChild->getParent());
+    EXPECT_EQ(1, rightGrandChild->getPosition().getRow());
+    EXPECT_EQ(9, rightGrandChild->getPosition().getCol());
 }
 
 TEST(PARSER, Parser_Error) {
@@ -100,4 +119,5 @@ TEST(PARSER, Parser_Error) {
 	MathParser parser;
 
 	EXPECT_THROW(parser.parse(root, line), ParseException);
+    EXPECT_EQ(8, yy_custom_col);
 }

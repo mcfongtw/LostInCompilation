@@ -58,7 +58,11 @@ extern FILE *yyget_out  (yyscan_t yyscanner);
 
 extern int yyget_leng  (yyscan_t yyscanner);
 
-extern char *yyget_text  (yyscan_t yyscanner);;
+extern char *yyget_text  (yyscan_t yyscanner);
+
+extern void yyset_column (int  column_no , yyscan_t yyscanner);
+
+extern void yyset_lineno (int  line_number , yyscan_t yyscanner);
 
 /*
  * ***************************

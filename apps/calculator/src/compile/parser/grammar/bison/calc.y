@@ -29,6 +29,8 @@
 %code top {
 #include <iostream>
 #include "compile/parser/grammar/GrammarLibs.h"
+#include "compile/SourceCodePosition.h"
+
 
 #include "tool/DotPrinter.h"
 #include "tool/Appender.h"
@@ -148,7 +150,8 @@ declareExp:
 
 assignExp:
 	identifier TOKEN_OP_ASSIGN compoundExp		{ 
-									ASTNode* current = ASTUtils::createAST("=", TOKEN_OP_ASSIGN, $1, $3);
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+									ASTNode* current = ASTUtils::createAST("=", TOKEN_OP_ASSIGN, $1, $3, position);
 									
 									$$ = current;	
 								}
@@ -160,14 +163,16 @@ compoundExp:
 
 funcCallExp:
 	identifier '(' ')'			{
-                                    ASTNode* current = ASTUtils::createAST("CALL", TOKEN_CALL, $1);
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+                                    ASTNode* current = ASTUtils::createAST("CALL", TOKEN_CALL, $1, position);
 
                                     $$ = current;
                                 }
 	| identifier '(' arguments ')'
                                 {
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
                                     //TODO: Enhancement: maybe we can reduce AST via pulling the cascaded arguments TreeNode onto this level
-                                    ASTNode* current = ASTUtils::createAST("CALL", TOKEN_CALL, $1, $3);
+                                    ASTNode* current = ASTUtils::createAST("CALL", TOKEN_CALL, $1, $3, position);
 
                                     $$ = current;
                                 }
@@ -175,15 +180,17 @@ funcCallExp:
 
 arguments:
 	exprStmt					{
-                                    ASTNode* current = ASTUtils::createAST("ARGS", TOKEN_ARGS, $1);
+                                    SourceCodePosition position(@1.last_line, @1.last_column);
+                                    ASTNode* current = ASTUtils::createAST("ARGS", TOKEN_ARGS, $1, position);
 
                                     $$ = current;
                                 }
 	| exprStmt ',' arguments	{
+									SourceCodePosition position(@2.last_line, @2.last_column);
                                     //TODO: Enhancement: maybe we can reduce AST via pulling the cascaded arguments TreeNode onto the same level of tree
-                                    ASTNode* current = ASTUtils::createAST("ARGS", TOKEN_ARGS, $1, $3);
+									ASTNode* current = ASTUtils::createAST("ARGS", TOKEN_ARGS, $1, $3, position);
 
-                                    $$ = current;
+									$$ = current;
                                 }
 	;
 
@@ -194,33 +201,40 @@ mathExp:
 	;	
 
 arithmeticExp:	
-    mathExp TOKEN_OP_ADD mathExp 	{ 
-									ASTNode* current = ASTUtils::createAST("+", TOKEN_OP_ADD, $1, $3);									
+    mathExp TOKEN_OP_ADD mathExp 	{
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+									ASTNode* current = ASTUtils::createAST("+", TOKEN_OP_ADD, $1, $3, position);
 									
 									$$ = current;
 								}
-    | mathExp TOKEN_OP_SUB mathExp 	{ 
-    								ASTNode* current = ASTUtils::createAST("-", TOKEN_OP_SUB, $1, $3);
+    | mathExp TOKEN_OP_SUB mathExp 	{
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+    								ASTNode* current = ASTUtils::createAST("-", TOKEN_OP_SUB, $1, $3, position);
 									
 									$$ = current;
 								}
-    | mathExp TOKEN_OP_MUL mathExp 	{ 
-    								ASTNode* current = ASTUtils::createAST("*", TOKEN_OP_MUL, $1, $3);
+    | mathExp TOKEN_OP_MUL mathExp 	{
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+    								ASTNode* current = ASTUtils::createAST("*", TOKEN_OP_MUL, $1, $3, position);
 									
 									$$ = current;    
 								}
-    | mathExp TOKEN_OP_DIV mathExp 	{ 
-    								ASTNode* current = ASTUtils::createAST("/", TOKEN_OP_DIV, $1, $3);
+    | mathExp TOKEN_OP_DIV mathExp 	{
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+    								ASTNode* current = ASTUtils::createAST("/", TOKEN_OP_DIV, $1, $3, position);
 									
 									$$ = current;     
 								}
-    | mathExp TOKEN_OP_MOD mathExp 	{ 
-    								ASTNode* current = ASTUtils::createAST("%", TOKEN_OP_MOD, $1, $3);
+    | mathExp TOKEN_OP_MOD mathExp 	{
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+    								ASTNode* current = ASTUtils::createAST("%", TOKEN_OP_MOD, $1, $3, position);
 									
 									$$ = current;    
     							}
     | mathExp TOKEN_OP_POW mathExp {
-      								ASTNode* current = ASTUtils::createAST("%", TOKEN_OP_POW, $1, $3);
+                                    SourceCodePosition position(@2.last_line, @2.last_column);
+                                    //FIXME: % should be ^
+      								ASTNode* current = ASTUtils::createAST("%", TOKEN_OP_POW, $1, $3, position);
 									
 									$$ = current;     
 								}							
@@ -229,8 +243,9 @@ arithmeticExp:
 unaryExp:
 	atom						{ $$ = $1; }
 	|'(' compoundExp ')' 		{ $$ = $2; }
-    | TOKEN_OP_SUB term  %prec TOKEN_OP_NEG	{ 
-    								ASTNode* current = ASTUtils::createAST("Neg", TOKEN_OP_NEG, $2);
+    | TOKEN_OP_SUB term  %prec TOKEN_OP_NEG	{
+                                    SourceCodePosition position(@1.last_line, @1.last_column);
+    								ASTNode* current = ASTUtils::createAST("Neg", TOKEN_OP_NEG, $2, position);
     								
     								$$ = current;
     							}
@@ -248,16 +263,28 @@ term:
    	;	
 
 number:
-	TOKEN_NUMBER				{ $$ = ASTUtils::createAST($1, TOKEN_NUMBER);}
-	| TOKEN_INTEGER				{ $$ = ASTUtils::createAST($1, TOKEN_INTEGER);}
+	TOKEN_NUMBER				{
+                                    SourceCodePosition position(@1.last_line, @1.last_column);
+                                    $$ = ASTUtils::createAST($1, TOKEN_NUMBER, position);
+                                }
+	| TOKEN_INTEGER				{
+                                    SourceCodePosition position(@1.last_line, @1.last_column);
+                                    $$ = ASTUtils::createAST($1, TOKEN_INTEGER, position);
+                                }
 	;
 	
 string:
-	TOKEN_LITERAL				{ $$ = ASTUtils::createAST($1, TOKEN_LITERAL); }
+	TOKEN_LITERAL				{
+                                    SourceCodePosition position(@1.last_line, @1.last_column);
+                                    $$ = ASTUtils::createAST($1, TOKEN_LITERAL, position);
+                                }
 	;
 
 identifier:
-	TOKEN_ID 					{ $$ = ASTUtils::createAST($1, TOKEN_ID); }
+	TOKEN_ID 					{
+                                    SourceCodePosition position(@1.last_line, @1.last_column);
+                                    $$ = ASTUtils::createAST($1, TOKEN_ID, position);
+                                }
 	;
 %%
 /*================================================================

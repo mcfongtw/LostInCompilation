@@ -10,8 +10,22 @@
 
 #include "error/Exception.h"
 
-TEST(AST, UNIT_Simple_Node) {
-	VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
+TEST(AST, UNIT_Simple_Node_1) {
+    ASTNodePtr root = std::make_shared<ASTNode>();
+
+    EXPECT_STREQ("UNDEFINED", std::dynamic_pointer_cast<ASTNode>(root)->getText());
+    EXPECT_EQ(-1, std::dynamic_pointer_cast<ASTNode>(root)->getToken());
+    EXPECT_EQ(nullptr, root->getParent());
+    EXPECT_EQ((size_t) 0, root->getNumOfChildren());
+    EXPECT_THROW(root->getChildAt(0), IllegalStateException);
+    EXPECT_TRUE(root->isLeaf());
+    EXPECT_TRUE(root->isRoot());
+    EXPECT_EQ(1, root->getPosition().getRow());
+    EXPECT_EQ(1, root->getPosition().getCol());
+}
+
+TEST(AST, UNIT_Simple_Node_2) {
+    ASTNodePtr root = std::make_shared<ASTNode>("+", 1);
 
 	EXPECT_STREQ("+", std::dynamic_pointer_cast<ASTNode>(root)->getText());
 	EXPECT_EQ(1, std::dynamic_pointer_cast<ASTNode>(root)->getToken());
@@ -20,6 +34,22 @@ TEST(AST, UNIT_Simple_Node) {
 	EXPECT_THROW(root->getChildAt(0), IllegalStateException);
 	EXPECT_TRUE(root->isLeaf());
 	EXPECT_TRUE(root->isRoot());
+    EXPECT_EQ(1, root->getPosition().getRow());
+    EXPECT_EQ(1, root->getPosition().getCol());
+}
+
+TEST(AST, UNIT_Simple_Node_3) {
+    ASTNodePtr root = std::make_shared<ASTNode>("+", 1, SourceCodePosition(2, 3));
+
+    EXPECT_STREQ("+", std::dynamic_pointer_cast<ASTNode>(root)->getText());
+    EXPECT_EQ(1, std::dynamic_pointer_cast<ASTNode>(root)->getToken());
+    EXPECT_EQ(nullptr, root->getParent());
+    EXPECT_EQ((size_t) 0, root->getNumOfChildren());
+    EXPECT_THROW(root->getChildAt(0), IllegalStateException);
+    EXPECT_TRUE(root->isLeaf());
+    EXPECT_TRUE(root->isRoot());
+    EXPECT_EQ(2, root->getPosition().getRow());
+    EXPECT_EQ(3, root->getPosition().getCol());
 }
 
 TEST(AST, UNIT_Simple_Abstract_Syntax_Tree) {

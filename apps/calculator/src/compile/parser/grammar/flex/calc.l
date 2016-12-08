@@ -5,7 +5,7 @@
 
 %option noyywrap 
 %option nounput noinput
-%option nodefault 
+%option nodefault
 %option yylineno
 
 /* enable yylex(YYSTYPE*, ...) */
@@ -23,8 +23,37 @@
 char token_buffer[1024];
 char *token_buffer_ptr;
 
+//custom column no.
 size_t yy_custom_col = 0;
+size_t yy_custom_row = 0;
 
+//custom line / column for error positioning
+size_t yy_custom_first_line = 0;
+size_t yy_custom_last_line = 0;
+size_t yy_custom_first_column = 0;
+size_t yy_custom_last_column = 0;
+
+
+/*
+ * Since locations need to report the line and column range for errors, the lexer needs to track the current line and
+ * column each time it scans a token and return that information to the parser in yylloc. Fortunately, a little-known
+ * feature called YY_USER_ACTION makes that very simple. If you define the macro YY_USER_ACTION in the first part of
+ * your lexer, it will be invoked for each token recognized by yylex, before calling the action code. We define a new
+ * variable, yycolumn, to remember the current column number, and we define YY_USER_ACTION as follows in the definition
+ * section of the lexer:
+ */
+#define YY_USER_ACTION \
+    yylloc->first_line = yylloc->last_line = yylineno; \
+    yylloc->first_column = yycolumn; \
+    yylloc->last_column = yycolumn + yyleng; \
+    yycolumn += yyleng; \
+    \
+    yy_custom_first_line = yylineno;\
+    yy_custom_last_line = yylineno; \
+    yy_custom_first_column = yycolumn; \
+    yy_custom_last_column = yycolumn + yyleng; \
+    yy_custom_col = yycolumn; \
+    yy_custom_row = yylineno;
 %}
 
 /*================================================================
@@ -55,13 +84,13 @@ HEX_LETTER 	[a-fA-F0-9]
 	/* there needs to be a space/tab, other there will be an unrecognized rule error */
 
 	/* arithmetic operators */
-"+"  				{ yy_custom_col += 1; return TOKEN_OP_ADD; }
-"-"  				{ yy_custom_col += 1; return TOKEN_OP_SUB; }
-"*"  				{ yy_custom_col += 1; return TOKEN_OP_MUL; }
-"/"  				{ yy_custom_col += 1; return TOKEN_OP_DIV; }
-"%"					{ yy_custom_col += 1; return TOKEN_OP_MOD; }
-"^"					{ yy_custom_col += 1; return TOKEN_OP_POW; }
-"="  				{ yy_custom_col += 1; return TOKEN_OP_ASSIGN; }
+"+"  				{ return TOKEN_OP_ADD; }
+"-"  				{ return TOKEN_OP_SUB; }
+"*"  				{ return TOKEN_OP_MUL; }
+"/"  				{ return TOKEN_OP_DIV; }
+"%"					{ return TOKEN_OP_MOD; }
+"^"					{ return TOKEN_OP_POW; }
+"="  				{ return TOKEN_OP_ASSIGN; }
 
 "("  |
 ")"  | 
@@ -70,14 +99,13 @@ HEX_LETTER 	[a-fA-F0-9]
 ","	 |
 ":"	 |
 "{"  |
-"}"					{ yy_custom_col += 1; return yytext[0]; }
+"}"					{ return yytext[0]; }
 
 
 	/* alpha-numeric identifier -- can be used for file name*/
 {LETTER}+{ALPHA_NUM}*"."?{ALPHA_NUM}*	{ 
 						yylval->text= (char*) malloc(sizeof(char) * strlen(yytext));
 						strcpy((char*) yylval->text, yytext);
-						yy_custom_col += strlen(yytext); 
 	
 						return TOKEN_ID;
 					}
@@ -85,8 +113,7 @@ HEX_LETTER 	[a-fA-F0-9]
 	/* numeric data */
 "-"?[0-9]+"."[0-9]+ 	{ 	
 						yylval->text= (char*) malloc(sizeof(char) * strlen(yytext));
-						strcpy((char*) yylval->text, yytext); 
-						yy_custom_col += strlen(yytext);
+						strcpy((char*) yylval->text, yytext);
 	
 						return TOKEN_NUMBER; 
 					}
@@ -95,18 +122,16 @@ HEX_LETTER 	[a-fA-F0-9]
 "-"?[0-9]+			{ 	
 						yylval->text= (char*) malloc(sizeof(char) * strlen(yytext));
 						strcpy((char*) yylval->text, yytext);
-						yy_custom_col += strlen(yytext); 
 
 						return TOKEN_INTEGER; 
 					}	
 					
 	/* end of line */
-"\n"				{ 	
-						yy_custom_col = 0;
+"\n"				{
+						yy_custom_row += 1;
 					}
 										
-";"      			{  	
-						yy_custom_col += 1;
+";"      			{
 						return TOKEN_EOS; 
 					}
 					
@@ -186,7 +211,6 @@ HEX_LETTER 	[a-fA-F0-9]
 						
 						yylval->text= (char*) malloc(sizeof(char) * strlen(token_buffer));
 						strcpy((char*) yylval->text, token_buffer);
-						yy_custom_col += strlen(yytext); 
 						
 						/* return string constant token type and
 						 * value to parser
@@ -201,7 +225,6 @@ HEX_LETTER 	[a-fA-F0-9]
 						
 						yylval->text= (char*) malloc(sizeof(char) * strlen(token_buffer));
 						strcpy((char*) yylval->text, token_buffer);
-						yy_custom_col += strlen(yytext); 
 						
 						/* return string constant token type and
 						 * value to parser

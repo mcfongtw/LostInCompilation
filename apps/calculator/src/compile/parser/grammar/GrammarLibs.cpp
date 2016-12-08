@@ -20,7 +20,9 @@ static char* yyexpr;
 void yyerror(YYLTYPE *locp, ASTNodePtr& root, yyscan_t yyscanner, const char* error_msg, ...) {
 	std::cout << "Parse error:" << std::endl;
 	std::cout << yyexpr << std::endl;
-	for(size_t i = 0; i < yy_custom_col - 1; i++) {
+
+    //relocate to a step before the error position
+	for(size_t i = 0; i < yy_custom_col; i++) {
 		std::cout << " ";
 	}
 	std::cout << "^" << std::endl;;
@@ -61,6 +63,14 @@ int CompilerUtils::parseSingleLine(ASTNodePtr& root, const char* line) {
 	}
 
 	state = yy_scan_string(line, scanner);
+
+    //reinitialize row
+    yyset_lineno(1, scanner);
+
+    //reinitialize column
+    yyset_column(0, scanner);
+    yy_custom_col = 0;
+
 	LOG(Logger::LEVEL_TRACE, ">>>>>[yyparse] " + util::Converts::numberToString(root));
 	int parse_result = yyparse(root, scanner);
 	LOG(Logger::LEVEL_TRACE, "<<<<<[yyparse] " + util::Converts::numberToString(root));
@@ -68,5 +78,6 @@ int CompilerUtils::parseSingleLine(ASTNodePtr& root, const char* line) {
 	yylex_destroy(scanner);
 
 	LOG(Logger::LEVEL_DEBUG, "Parsing [" + std::string(line) + "] produces AST rooted at [" + root->getText() + "]");
+
 	return parse_result;
 }

@@ -11,6 +11,7 @@
 #include <string>
 
 #include "algorithm/tree/visitor/VisitedTreeNode.h"
+#include "compile/SourceCodePosition.h"
 
 class ASTNode;
 
@@ -27,6 +28,8 @@ public:
 
 	ASTNode(const char*, int token);
 
+	ASTNode(const char*, int token, SourceCodePosition position);
+
 	virtual ~ASTNode();
 
 	virtual void setImage(const char*);
@@ -39,10 +42,14 @@ public:
 
 	virtual int getToken();
 
+	virtual SourceCodePosition getPosition();
+
 protected:
 	char* _text;
 
 	int _token;
+
+	SourceCodePosition _pos;
 
 };
 

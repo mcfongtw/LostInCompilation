@@ -24,21 +24,21 @@ public:
 
 	static int reduceTree(VisitedTreeNodePtr oldNode, VisitedTreeNodePtr newNode);
 
-	static ASTNode* createAST(const char* txt, int tokenType) {
-		ASTNode* current = new ASTNode(txt, tokenType);
+	static ASTNode* createAST(const char* txt, int tokenType, SourceCodePosition position) {
+		ASTNode* current = new ASTNode(txt, tokenType, position);
 
 		return current;
 	}
 
-	static ASTNode* createAST(const char* txt, int tokenType, ASTNode* child) {
-		ASTNode* current = new ASTNode(txt, tokenType);
+	static ASTNode* createAST(const char* txt, int tokenType, ASTNode* child, SourceCodePosition position) {
+		ASTNode* current = new ASTNode(txt, tokenType, position);
 		current->insertChild(TreeNodePtr(child));
 
 		return current;
 	}
 
-	static ASTNode* createAST(const char* txt, int tokenType, ASTNode* child1, ASTNode* child2) {
-		ASTNode* current = new ASTNode(txt, tokenType);
+	static ASTNode* createAST(const char* txt, int tokenType, ASTNode* child1, ASTNode* child2, SourceCodePosition position) {
+		ASTNode* current = new ASTNode(txt, tokenType, position);
 		current->insertChild(TreeNodePtr(child1));
 		current->insertChild(TreeNodePtr(child2));
 
