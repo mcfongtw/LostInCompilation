@@ -117,6 +117,10 @@ TreeNodePtr TreeNode::getChildAt(size_t i) {
 	return this->_children[i];
 }
 
+void TreeNode::removeChildAt(size_t index) {
+    this->_children.erase(this->_children.begin() + index);
+}
+
 void TreeNode::replaceChildAt(size_t i, TreeNodePtr newPtr) {
 	util::Conditions::requireLessThan<int>(i, this->_children.size(),
 			"Tree children index ");
@@ -198,21 +202,69 @@ ParentNodePtr TreeNode::getParent() {
 void TreeNode::replace(TreeNodePtr thatPtr) {
 	util::Conditions::requireNotNull(thatPtr, "TreeNode::replace - new replaced AST Node");
 
-	//change member variable
+	//change member attributes
 	thatPtr->_depth = this->_depth;
 	thatPtr->_isRoot = this->_isRoot;
 
-	//change children node
-	thatPtr->insertChildren(this->_children);
-	this->_children.clear();
 
-	//change parent node
-	thatPtr->_parent = this->_parent;
-	if (this->_parent != nullptr) {
-		size_t index = this->_parent->getChildIndexOf(this->getThisPtr());
-		this->_parent->replaceChildAt(index, thatPtr);
+	if (this->_parent == thatPtr.get()) {
+		/*
+         * If the scenario is true
+         *
+         * thatPtr
+         *   |       =>  thatPtr
+         * this
+         */
+		for (size_t i = 0; i < this->_children.size(); i++) {
+			TreeNodePtr child = this->_children[i];
+            thatPtr->insertChild(child);
+		}
+		this->_children.clear();
+
+        //remove thisPtr out of thatPtr.children list
+		size_t this_index = thatPtr->getChildIndexOf(this->getThisPtr());
+        thatPtr->removeChildAt(this_index);
+	} else if(thatPtr->_parent == this) {
+		/*
+         * If the scenario is true
+         *
+         * this
+         *   |      => thatPtr
+         * thatPtr
+         */
+		for (size_t i = 0; i < this->_children.size(); i++) {
+			TreeNodePtr child = this->_children[i];
+			if (child != thatPtr) {
+				thatPtr->insertChild(child);
+			}
+		}
+		this->_children.clear();
+
+		//change parent node
+		thatPtr->_parent = this->_parent;
+
+		if (this->_parent != nullptr) {
+			size_t index = this->_parent->getChildIndexOf(this->getThisPtr());
+			this->_parent->replaceChildAt(index, thatPtr);
+		}
+	} else {
+		for (size_t i = 0; i < this->_children.size(); i++) {
+			TreeNodePtr child = this->_children[i];
+			thatPtr->insertChild(child);
+		}
+		this->_children.clear();
+
+		//change parent node
+		thatPtr->_parent = this->_parent;
+
+		if (this->_parent != nullptr) {
+			size_t index = this->_parent->getChildIndexOf(this->getThisPtr());
+			this->_parent->replaceChildAt(index, thatPtr);
+		}
 	}
+
 }
+
 
 TreeNodePtr TreeNode::searchParent(TreeNodePtr target) {
 	TreeNodePtr result = nullptr;

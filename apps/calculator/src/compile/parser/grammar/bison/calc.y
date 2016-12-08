@@ -30,6 +30,11 @@
 #include <iostream>
 #include "compile/parser/grammar/GrammarLibs.h"
 
+#include "tool/DotPrinter.h"
+#include "tool/Appender.h"
+#include "hack/DebugLib.h"
+#include <string>
+
 #define YYDEBUG 0
 }
 

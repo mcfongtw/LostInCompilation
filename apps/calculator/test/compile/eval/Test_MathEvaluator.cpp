@@ -9,6 +9,11 @@
 
 #include "gtest/gtest.h"
 
+#include "tool/DotPrinter.h"
+#include "tool/Appender.h"
+#include "hack/DebugLib.h"
+#include <string>
+
 class MATH_EVALUATOR : public ::testing::Test {
 public:
     // Per-test-case set-up.
@@ -41,6 +46,18 @@ public:
         ASTNodePtr root = nullptr;
         MathParser parser;
         parser.parse(root, line);
+
+        //////////////////////////
+
+//        std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+//        std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
+//        printer->addAppender(stringAppender);
+//
+//        root->apply(printer, DEPTH_FIRST);
+//        std::cout << stringAppender->toString() << std::endl;
+
+        //////////////////////////
+
         MATH_EVALUATOR::evaluator->doEval(std::shared_ptr<ASTNode>(root));
         result = MATH_EVALUATOR::evaluator->getLastAnswer();
 

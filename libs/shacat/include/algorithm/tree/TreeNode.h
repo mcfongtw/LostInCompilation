@@ -97,6 +97,8 @@ public:
      */
 	virtual TreeNodePtr getChildAt(size_t index);
 
+    virtual void removeChildAt(size_t);
+
 	virtual void replaceChildAt(size_t, TreeNodePtr);
 
 	virtual void removeAllChildren();
