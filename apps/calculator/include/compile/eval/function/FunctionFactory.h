@@ -15,15 +15,7 @@
  */
 class FunctionFactory {
 public:
-    static FunctionPtr getFunction(std::string funcName) {
-        if(util::Strings::equalsIgnoreCase(funcName, "sqrt")) {
-            return std::make_shared<CMathSqrtFunction>();
-        } else if(util::Strings::equalsIgnoreCase(funcName, "pow")) {
-            return std::make_shared<CMathPowFunction>();
-        } else {
-            throw InvalidFunctionException(funcName + " is not supported!");
-        }
-    }
+    static FunctionPtr getFunction(std::string funcName);
 };
 
 

@@ -272,6 +272,15 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Sqrt_2) {
     EXPECT_EQ(2, obj.get<double>());
 }
 
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Cbrt_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("cbrt(27)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_DOUBLE_EQ(3.0, obj.get<double>());
+}
+
 TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Pow_1) {
     RuntimeData obj = MATH_EVALUATOR::evaluate("pow(2, 3)");
 
@@ -279,4 +288,148 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Pow_1) {
     EXPECT_THROW(obj.get<int>(), TypeCastException);
     EXPECT_EQ(sizeof(double), obj.getSizeof());
     EXPECT_EQ(8, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Sin_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("sin(30 * 3.14159265 / 180)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_NEAR(0.5, obj.get<double>(), 0.00001);
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Tan_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("tan(45 * 3.14159265 / 180)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_NEAR(1, obj.get<double>(), 0.00001);
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Cos_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("cos(60 * 3.14159265 / 180)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_NEAR(0.5, obj.get<double>(), 0.00001);
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Exp_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("exp(0)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(1, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Log_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("log(1)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Log10_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("log10(1000)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(3.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Ceil_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("ceil(2.3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(3.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Ceil_2) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("ceil(-2.3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(-2.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Floor_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("floor(2.3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(2.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Floor_2) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("floor(-2.3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(-3.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Round_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("round(2.3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(2.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Round_2) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("round(2.8)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(3.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Round_3) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("round(-2.3)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(-2.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Round_4) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("round(-2.8)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_EQ(-3.0, obj.get<double>());
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Abs_1) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("abs(3.1415926)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_NEAR(3.1415926, obj.get<double>(), 0.001);
+}
+
+TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Abs_2) {
+    RuntimeData obj = MATH_EVALUATOR::evaluate("abs(-3.1415926)");
+
+    EXPECT_STREQ("d", obj.getType().name());
+    EXPECT_THROW(obj.get<int>(), TypeCastException);
+    EXPECT_EQ(sizeof(double), obj.getSizeof());
+    EXPECT_NEAR(3.1415926, obj.get<double>(), 0.001);
 }
