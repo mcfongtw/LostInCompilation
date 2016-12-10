@@ -5,6 +5,8 @@
 #include "gtest/gtest.h"
 #include "algorithm/event/Event.h"
 
+#include "common/Utils.h"
+#include "log/Logger.h"
 #include "hack/DebugLib.h"
 
 

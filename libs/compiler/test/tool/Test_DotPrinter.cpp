@@ -9,6 +9,10 @@
 
 #include <memory>
 
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 
 TEST(TOOL_APPENDER, Simple_Console_Appender) {
     std::shared_ptr<ConsoleAppender> appender = std::make_shared<ConsoleAppender>();

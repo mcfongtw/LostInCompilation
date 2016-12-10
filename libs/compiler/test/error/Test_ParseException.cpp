@@ -7,6 +7,10 @@
 #include "gtest/gtest.h"
 
 #include "error/ParseException.h"
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 
 void throwParseException() {
 	throw ParseException("parse error!");

@@ -4,6 +4,8 @@
 
 #include "gtest/gtest.h"
 #include "compile/SourceCodePosition.h"
+#include "common/Utils.h"
+#include "log/Logger.h"
 #include "hack/DebugLib.h"
 
 TEST(SCP, Unit_Simple_SCP_1) {

@@ -14,6 +14,14 @@
 #include "error/ParseException.h"
 #include "compile/parser/MathParser.h"
 
+#include "tool/AsciiPrinter.h"
+#include "tool/DotPrinter.h"
+#include "tool/Appender.h"
+
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 TEST(PARSER, First_Test) {
 	std::string line = "1";
 	ASTNodePtr root = 0;

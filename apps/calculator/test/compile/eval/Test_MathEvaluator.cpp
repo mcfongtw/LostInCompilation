@@ -9,10 +9,13 @@
 
 #include "gtest/gtest.h"
 
+#include "tool/AsciiPrinter.h"
 #include "tool/DotPrinter.h"
 #include "tool/Appender.h"
+
+#include "common/Utils.h"
+#include "log/Logger.h"
 #include "hack/DebugLib.h"
-#include <string>
 
 class MATH_EVALUATOR : public ::testing::Test {
 public:

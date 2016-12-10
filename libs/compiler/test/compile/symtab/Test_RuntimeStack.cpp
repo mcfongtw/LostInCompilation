@@ -9,7 +9,9 @@
 #include <compile/symtab/RuntimeStack.h>
 #include "gtest/gtest.h"
 
-#include <typeinfo>
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
 
 
 TEST(RUN_TIME_STACK, UNIT_Simple) {

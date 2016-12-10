@@ -9,6 +9,10 @@
 
 #include <memory>
 
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 TEST(TOOL_ASCII_PRINTER, Simple_Ascii_Printer_1) {
     VisitedTreeNodePtr root = std::make_shared<ASTNode>("+", 1);
     VisitedTreeNodePtr left = std::make_shared<ASTNode>("1", 2);

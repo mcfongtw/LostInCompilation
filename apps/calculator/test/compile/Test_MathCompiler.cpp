@@ -7,6 +7,13 @@
 
 #include "gtest/gtest.h"
 
+#include "tool/AsciiPrinter.h"
+#include "tool/DotPrinter.h"
+#include "tool/Appender.h"
+
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
 TEST(MATH_COMPILER, UNIT_compile_empty_input) {
     MathCompiler compiler;
 

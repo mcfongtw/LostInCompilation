@@ -10,6 +10,14 @@
 
 #include "error/Exception.h"
 
+#include "tool/AsciiPrinter.h"
+#include "tool/DotPrinter.h"
+#include "tool/Appender.h"
+
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 TEST(AST, UNIT_Simple_Node_1) {
     ASTNodePtr root = std::make_shared<ASTNode>();
 

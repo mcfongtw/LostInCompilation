@@ -5,6 +5,9 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
 #include "BlueAndRedVisitedObject.h"
 
 TEST(Visitor, UNIT_Test_Count) {

@@ -11,6 +11,14 @@
 #include "compile/parser/MathParser.h"
 #include "compile/eval/Analyzer.h"
 
+#include "tool/AsciiPrinter.h"
+#include "tool/DotPrinter.h"
+#include "tool/Appender.h"
+
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 TEST(ANALYZER, Functional_Const_Expr) {
 	MathParser parser;
 	ASTNodePtr root;

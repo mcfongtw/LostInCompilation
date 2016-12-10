@@ -4,6 +4,8 @@
 #include "gtest/gtest.h"
 #include "algorithm/event/InternalEvent.h"
 
+#include "common/Utils.h"
+#include "log/Logger.h"
 #include "hack/DebugLib.h"
 
 TEST(INTERNAL_EVENT, UNIT_Simple_Parser_Event) {

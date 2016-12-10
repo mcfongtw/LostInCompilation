@@ -7,6 +7,8 @@
 #include "algorithm/event/listener/EventListener.h"
 #include "algorithm/event/dispatcher/EventDispatcher.h"
 
+#include "common/Utils.h"
+#include "log/Logger.h"
 #include "hack/DebugLib.h"
 
 static int numOfReceived = 0;

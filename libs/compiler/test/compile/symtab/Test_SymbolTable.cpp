@@ -15,6 +15,9 @@
 
 #include <typeinfo>
 #include "compile/symtab/visitor/SimpleSymbolTableVisitor.h"
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
 
 
 TEST(SYMBOL_TABLE, UNIT_Simple_Symbol) {

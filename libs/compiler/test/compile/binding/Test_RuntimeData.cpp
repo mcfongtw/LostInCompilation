@@ -16,6 +16,10 @@
 #include "compile/binding/RuntimeData.h"
 #include "compile/symtab/RuntimeStack.h"
 
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 TEST(RUNTIME_DATA, UNIT_Null_Object) {
     RuntimeData data1;
     EXPECT_TRUE(data1.isNull());

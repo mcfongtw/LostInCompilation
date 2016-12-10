@@ -13,6 +13,10 @@
 #include <typeinfo>
 #include "compile/symtab/visitor/SimpleSymbolTableVisitor.h"
 
+#include "common/Utils.h"
+#include "log/Logger.h"
+#include "hack/DebugLib.h"
+
 TEST(Symbol_Table_Stack, FUNCTIONAL_Simple) {
 SymbolTableStack stack(ST_Simple);
 
