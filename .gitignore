@@ -1,6 +1,7 @@
 debug*.log
 .idea/
 build/
+cmake-build-debug/
 
 #Flex/Bison generated files
 calc.*.cpp

@@ -175,7 +175,8 @@ if(BUILD_DOCUMENTATION)
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
 
+    add_dependencies(CalculatorDoc CalculatorTest)
 #    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/html DESTINATION share/doc)
 endif()
-add_dependencies(CalculatorDoc CalculatorTest)
+
 
