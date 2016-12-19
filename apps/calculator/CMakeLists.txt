@@ -28,13 +28,12 @@ message("MOD_DOC_DIR : ${MOD_DOC_DIR}")
 message("================================================")
 
 ######################################################################
-# Code Generation
+# Scanner Code Generation
 ######################################################################
-FIND_PACKAGE(BISON REQUIRED)
-FIND_PACKAGE(FLEX REQUIRED)
+# Create target for the scanner and parser
+ADD_CUSTOM_TARGET(ParserCodeGen echo "Creating scanner and parser")
 
-# Create target for the parser
-ADD_CUSTOM_TARGET(ParserCodeGen echo "Creating parser.c")
+FIND_PACKAGE(FLEX REQUIRED)
 
 SET(FLEX_OUTPUT_DIR "${MOD_SRC_DIR}/compile/parser/grammar/flex")
 # Create custom command for flex/lex (note the outputs)
@@ -46,6 +45,30 @@ ADD_CUSTOM_COMMAND(
         OUTPUTS ${FLEX_OUTPUT_DIR}/calc.lex.cpp
         COMMENT "Generating calc.lex.cpp"
 )
+
+# Add scanner code to the list of sources
+SET(CORE_SOURCE_FILES
+        ${CORE_SOURCE_FILES}
+        ${FLEX_OUTPUT_DIR}/calc.lex.cpp
+        )
+
+# Since the following cpp/hpp do not exists yet when cmake is run, mark it as generated
+SET_SOURCE_FILES_PROPERTIES(${FLEX_OUTPUT_DIR}/calc.lex.cpp GENERATED)
+
+IF(${FLEX_VERSION} VERSION_GREATER 2.5.35)
+    # flex >= 2.5.36 uses a nonstandard type for yyleng
+    add_definitions(-DYYLENG_RETURNS_SIZE_T=1)
+    message(INFO, "Flex Ver : ${FLEX_VERSION}, yyleng() returns size_t")
+else()
+    add_definitions(-DYYLENG_RETURNS_SIZE_T=0)
+    message(INFO, "Flex Ver : ${FLEX_VERSION}, yyleng() returns int")
+endif()
+
+######################################################################
+# Parser Code Generation
+######################################################################
+
+FIND_PACKAGE(BISON REQUIRED)
 
 SET(BISON_OUTPUT_DIR "${MOD_SRC_DIR}/compile/parser/grammar/bison")
 # Create custom command for bison/yacc (note the DEPENDS)
@@ -61,10 +84,9 @@ ADD_CUSTOM_COMMAND(
         COMMENT "Generating calc.tab.cpp / calc.tab.hpp"
 )
 
-# Add parser.c to the list of sources
+# Add parser code to the list of sources
 SET(CORE_SOURCE_FILES
         ${CORE_SOURCE_FILES}
-        ${FLEX_OUTPUT_DIR}/calc.lex.cpp
         ${BISON_OUTPUT_DIR}/calc.tab.cpp
         ${BISON_OUTPUT_DIR}/calc.tab.hpp
         )
@@ -72,10 +94,7 @@ SET(CORE_SOURCE_FILES
 # Since the following cpp/hpp do not exists yet when cmake is run, mark it as generated
 SET_SOURCE_FILES_PROPERTIES(${BISON_OUTPUT_DIR}/calc.tab.cpp GENERATED)
 SET_SOURCE_FILES_PROPERTIES(${BISON_OUTPUT_DIR}/calc.tab.hpp GENERATED)
-SET_SOURCE_FILES_PROPERTIES(${FLEX_OUTPUT_DIR}/calc.lex.cpp GENERATED)
 
-# Include binary directory to include lexer.c in parser.c
-#INCLUDE_DIRECTORIES(${Foo_BINARY_DIR}/src)
 ######################################################################
 # Build Core
 ######################################################################

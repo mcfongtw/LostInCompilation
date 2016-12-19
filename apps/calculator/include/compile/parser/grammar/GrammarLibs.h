@@ -56,7 +56,14 @@ extern FILE *yyget_in  (yyscan_t yyscanner);
 
 extern FILE *yyget_out  (yyscan_t yyscanner);
 
+#ifdef YYLENG_RETURNS_SIZE_T
+//flex >= 2.5.36
+extern size_t yyget_leng  (yyscan_t yyscanner);
+typedef size_t YYLENG_RETURN_TYPE ;
+#else
 extern int yyget_leng  (yyscan_t yyscanner);
+typedef int YYLENG_RETURN_TYPE ;
+#endif
 
 extern char *yyget_text  (yyscan_t yyscanner);
 
