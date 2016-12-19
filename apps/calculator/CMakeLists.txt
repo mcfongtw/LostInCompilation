@@ -57,10 +57,9 @@ SET_SOURCE_FILES_PROPERTIES(${FLEX_OUTPUT_DIR}/calc.lex.cpp GENERATED)
 
 IF(${FLEX_VERSION} VERSION_GREATER 2.5.35)
     # flex >= 2.5.36 uses a nonstandard type for yyleng
-    add_definitions(-DYYLENG_RETURNS_SIZE_T=1)
+    add_definitions(-DYYLENG_RETURNS_SIZE_T)
     message(INFO, "Flex Ver : ${FLEX_VERSION}, yyleng() returns size_t")
 else()
-    add_definitions(-DYYLENG_RETURNS_SIZE_T=0)
     message(INFO, "Flex Ver : ${FLEX_VERSION}, yyleng() returns int")
 endif()
 
