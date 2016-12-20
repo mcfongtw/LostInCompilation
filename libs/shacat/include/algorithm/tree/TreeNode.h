@@ -12,6 +12,8 @@
 class TreeNode;
 
 typedef std::shared_ptr<TreeNode> TreeNodePtr;
+
+//TODO: Unify NodePtr type for parent node
 typedef TreeNode* ParentNodePtr;
 
 

@@ -60,7 +60,7 @@ set(CORE_SOURCE_FILES
         ${MOD_INC_DIR}/error/ParseException.h
         ${MOD_INC_DIR}/error/ArithmeticException.h
         ${MOD_INC_DIR}/tool/DotPrinter.h
-        ${MOD_INC_DIR}/tool/AsciiPrinter.h
+        ${MOD_INC_DIR}/tool/AsciiTreePrinter.h
         ${MOD_INC_DIR}/tool/Printer.h
         ${MOD_INC_DIR}/tool/Appender.h
         #################################################################
@@ -81,7 +81,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/error/ParseException.cpp
         ${MOD_SRC_DIR}/error/ArithmeticException.cpp
         ${MOD_SRC_DIR}/tool/DotPrinter.cpp
-        ${MOD_SRC_DIR}/tool/AsciiPrinter.cpp
+        ${MOD_SRC_DIR}/tool/AsciiTreePrinter.cpp
         ${MOD_SRC_DIR}/tool/Appender.cpp
         ${MOD_SRC_DIR}/tool/Printer.cpp
         )
@@ -108,7 +108,7 @@ set(TEST_SOURCE_FILES
         ${MOD_TEST_DIR}/compile/symtab/Test_SymbolTableStack.cpp
         ${MOD_TEST_DIR}/error/Test_ParseException.cpp
         ${MOD_TEST_DIR}/tool/Test_DotPrinter.cpp
-        ${MOD_TEST_DIR}/tool/Test_AsciiPrinter.cpp
+        ${MOD_TEST_DIR}/tool/Test_AsciiTreePrinter.cpp
         ${MOD_TEST_DIR}/TestMain.cpp
         )
 

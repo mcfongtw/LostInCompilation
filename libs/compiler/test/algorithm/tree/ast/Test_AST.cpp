@@ -10,7 +10,7 @@
 
 #include "error/Exception.h"
 
-#include "tool/AsciiPrinter.h"
+#include "tool/AsciiTreePrinter.h"
 #include "tool/DotPrinter.h"
 #include "tool/Appender.h"
 
