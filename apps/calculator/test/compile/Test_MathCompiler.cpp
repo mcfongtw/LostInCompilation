@@ -8,7 +8,7 @@
 #include "gtest/gtest.h"
 
 #include "tool/AsciiTreePrinter.h"
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
 #include "tool/Appender.h"
 
 #include "common/Utils.h"

@@ -3,7 +3,7 @@
 //
 
 #include "algorithm/tree/ast/ASTNode.h"
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
 #include "tool/Appender.h"
 #include "gtest/gtest.h"
 
@@ -36,7 +36,7 @@ TEST(TOOL_APPENDER, Simple_String_Appender) {
 TEST(TOOL_DOT_PRINTER, Simple_DotPrinter_Node_1) {
     VisitedTreeNodePtr root = std::make_shared<ASTNode>("1", 1);
 
-    std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+    std::shared_ptr<DotTreePrinter> printer = std::make_shared<DotTreePrinter>();
     std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
     printer->addAppender(stringAppender);
 
@@ -63,7 +63,7 @@ TEST(TOOL_DOT_PRINTER, Simple_DotPrinter_Tree_1) {
     root->insertChild(left);
     root->insertChild(right);
 
-    std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+    std::shared_ptr<DotTreePrinter> printer = std::make_shared<DotTreePrinter>();
     std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
     printer->addAppender(stringAppender);
 

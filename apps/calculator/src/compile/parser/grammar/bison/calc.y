@@ -31,8 +31,8 @@
 #include "compile/parser/grammar/GrammarLibs.h"
 #include "compile/SourceCodePosition.h"
 
-
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
+#include "tool/AsciiTreePrinter.h"
 #include "tool/Appender.h"
 #include "hack/DebugLib.h"
 #include <string>

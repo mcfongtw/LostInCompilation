@@ -11,7 +11,7 @@
 #include "error/Exception.h"
 
 #include "tool/AsciiTreePrinter.h"
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
 #include "tool/Appender.h"
 
 #include "common/Utils.h"
@@ -215,7 +215,7 @@ TEST(AST, UNIT_AST_Utils_Reduce_2) {
 }
 
 
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
 #include "tool/Appender.h"
 #include "hack/DebugLib.h"
 #include <string>
@@ -253,7 +253,7 @@ TEST(AST, UNIT_Abstract_Syntax_Tree_Replace_With_Direct_Hierarchy_1) {
 	 *
 	 */
 
-	std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+	std::shared_ptr<DotTreePrinter> printer = std::make_shared<DotTreePrinter>();
 	std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
 	printer->addAppender(stringAppender);
 
@@ -305,7 +305,7 @@ TEST(AST, UNIT_Abstract_Syntax_Tree_Replace_With_Direct_Hierarchy_2) {
 	 *
 	 */
 
-	std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+	std::shared_ptr<DotTreePrinter> printer = std::make_shared<DotTreePrinter>();
 	std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
 	printer->addAppender(stringAppender);
 
@@ -378,7 +378,7 @@ TEST(AST, UNIT_Abstract_Syntax_Tree_Replace_With_Direct_Hierarchy_3) {
 	 * 1   2  3
 	 */
 
-	std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+	std::shared_ptr<DotTreePrinter> printer = std::make_shared<DotTreePrinter>();
 	std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
 	printer->addAppender(stringAppender);
 

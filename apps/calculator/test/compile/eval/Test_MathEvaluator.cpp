@@ -10,7 +10,7 @@
 #include "gtest/gtest.h"
 
 #include "tool/AsciiTreePrinter.h"
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
 #include "tool/Appender.h"
 
 #include "common/Utils.h"
@@ -52,7 +52,7 @@ public:
 
         //////////////////////////
 
-//        std::shared_ptr<DotPrinter> printer = std::make_shared<DotPrinter>();
+//        std::shared_ptr<DotTreePrinter> printer = std::make_shared<DotTreePrinter>();
 //        std::shared_ptr<StringAppender> stringAppender = std::make_shared<StringAppender>();
 //        printer->addAppender(stringAppender);
 //

@@ -5,7 +5,7 @@
  *      Author: Michael Fong
  */
 
-#include "tool/DotPrinter.h"
+#include "tool/DotTreePrinter.h"
 #include "log/Logger.h"
 #include "common/Utils.h"
 
@@ -13,19 +13,19 @@
 
 using namespace std;
 
-DotPrinter::DotPrinter() : TreeWalker(), Printer() {
+DotTreePrinter::DotTreePrinter() : TreeWalker(), Printer() {
 
 }
 
-DotPrinter::DotPrinter(DotPrinter& that) {
+DotTreePrinter::DotTreePrinter(DotTreePrinter& that) {
 
 }
 
-DotPrinter::~DotPrinter() {
+DotTreePrinter::~DotTreePrinter() {
 
 }
 
-int DotPrinter::startWalking() {
+int DotTreePrinter::startWalking() {
     LOG(Logger::LEVEL_DEBUG, "Start walking");
 
 	this->write("digraph G {\n");
@@ -34,7 +34,7 @@ int DotPrinter::startWalking() {
 	return 1;
 }
 
-int DotPrinter::stopWalking() {
+int DotTreePrinter::stopWalking() {
     this->write("}");
 
     LOG(Logger::LEVEL_DEBUG, "Stop walking");
@@ -42,7 +42,7 @@ int DotPrinter::stopWalking() {
     this->closeAppenders();
 }
 
-int DotPrinter::walk(VisitedTreeNodePtr basePtr) {
+int DotTreePrinter::walk(VisitedTreeNodePtr basePtr) {
 	util::Conditions::requireNotNull(basePtr, "AST Node");
 
 	ASTNodePtr ptr = std::dynamic_pointer_cast<ASTNode>(basePtr);

@@ -15,19 +15,19 @@
 #include "tool/Printer.h"
 
 /**
- * DotPrinter attempts to print the abstract-syntax-tree in DOT language. User may
+ * DotTreePrinter attempts to print the abstract-syntax-tree in DOT language. User may
  * then view the tree structure. For details, please check DOT documentation.
  *
  * @since 0.1
  */
-class DotPrinter : public TreeWalker, public Printer {
+class DotTreePrinter : public TreeWalker, public Printer {
 public:
 
-	DotPrinter();
+	DotTreePrinter();
 
-    DotPrinter(DotPrinter& that);
+    DotTreePrinter(DotTreePrinter& that);
 
-	virtual ~DotPrinter();
+	virtual ~DotTreePrinter();
 
 	virtual int startWalking();
 

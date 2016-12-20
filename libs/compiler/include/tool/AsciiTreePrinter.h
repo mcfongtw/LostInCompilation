@@ -7,7 +7,7 @@
 #include "tool/Printer.h"
 
 /**
- * AsciiPrinter is a linux command 'tree'-like ascii text tree traversal algorithm
+ * AsciiTreePrinter is a linux command 'tree'-like ascii text tree traversal algorithm
  *
  * Linux 'tree' command : http://mama.indstate.edu/users/ice/tree/
  *
