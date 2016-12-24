@@ -11,6 +11,17 @@ set(VERSION_MINOR   1   CACHE STRING "Project minor version number.")
 set(VERSION_PATCH   0   CACHE STRING "Project patch version number.")
 mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 
+#Set the default CMAKE_BUILD_TYPE if it has not been set.
+if( NOT CMAKE_BUILD_TYPE )
+    SET(CMAKE_BUILD_TYPE Debug CACHE STRING
+            "Choose the type of build, options are: None Debug Release RelWithDebInfo
+MinSizeRel."
+            FORCE )
+ENDIF()
+message("================================================")
+message("CMAKE_BUILD_TYPE : ${CMAKE_BUILD_TYPE}")
+message("================================================")
+
 # Global Var : binary directory
 set(PRJ_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 file(MAKE_DIRECTORY ${PRJ_BIN_DIR})
@@ -25,7 +36,11 @@ message("PRJ_ROOT_DIR : ${PRJ_ROOT_DIR}")
 message("================================================")
 
 # Global var : doc directory
-set(PRJ_DOC_DIR "${CMAKE_BINARY_DIR}/doc")
+IF(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+    SET(PRJ_DOC_DIR "${CMAKE_SOURCE_DIR}/docs/doxygen")
+ELSE()
+    set(PRJ_DOC_DIR "${CMAKE_BINARY_DIR}/docs")
+ENDIF()
 file(MAKE_DIRECTORY ${PRJ_DOC_DIR})
 message("================================================")
 message("PRJ_DOC_DIR : ${PRJ_DOC_DIR}")
