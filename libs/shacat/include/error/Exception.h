@@ -18,11 +18,20 @@ public:
 
 	Exception(const std::string& prefix, const std::string& msg);
 
+	Exception(const std::string& prefix, const std::string& msg, const bool includeStackTrace);
+
 	virtual ~Exception() throw ();
 
 	virtual const char* what() const throw ();
 
+	virtual std::string getTrace();
+
 protected:
+    //TODO: Might not need to keep _cause as member var
+	std::string _cause;
+
+	std::string _trace;
+
 	std::string _message;
 };
 

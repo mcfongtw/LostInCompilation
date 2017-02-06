@@ -7,8 +7,6 @@
 
 #include <iostream>
 #include <cstring>
-#include "stdarg.h"
-#include "stdio.h"
 
 #include "compile/parser/grammar/GrammarLibs.h"
 
@@ -18,36 +16,27 @@
 static char* yyexpr;
 
 void yyerror(YYLTYPE *locp, ASTNodePtr& root, yyscan_t yyscanner, const char* error_msg, ...) {
-	std::cout << "Parse error:" << std::endl;
-	std::cout << yyexpr << std::endl;
+	std::stringstream ss;
+
+	ss << "Parse error:" << std::endl;
+	ss << yyexpr << std::endl;
 
     //relocate to a step before the error position
 	for(size_t i = 0; i < yy_custom_col; i++) {
-		std::cout << " ";
+		ss << " ";
 	}
-	std::cout << "^" << std::endl;;
-	std::cout << "Possible reason: ";
+	ss << "^" << std::endl;;
+	ss << "Possible reason: ";
 
-	va_list args;
-	va_start(args, error_msg);
-	vfprintf(stdout, error_msg, args);
+	ss << error_msg << std::endl;
 
-	std::cout << std::endl;
+    ParseExceptionTranslator::translate(std::string(error_msg), ss.str());
 
-	/*
-	 * 	//fprintf(stderr, "Parser error from <%d,%d> to <%d,%d> \n",
-		//	@1.first_line, @1.first_column, @1.last_line, @1.last_column);
-	 */
-
-	// use YYLTYPE
-//	if (locp) {
-//		/*
-//		 * (:%d.%d -> :%d.%d)
-//		 *
-//		 * 						locp->first_line, locp->first_column,
-//						locp->last_line,  locp->last_column
-//		 */
-//	  }
+//	va_list args;
+//	va_start(args, error_msg);
+//	vfprintf(stdout, error_msg, args);
+//
+//	std::cout << std::endl;
 }
 
 int CompilerUtils::parseSingleLine(ASTNodePtr& root, const char* line) {

@@ -8,27 +8,33 @@
 #include "error/StackTraceUtils.h"
 
 Exception::Exception() {
-	this->_message = "<No Message>";
+	this->_cause = "<No Message>";
 }
 
-Exception::Exception(const std::string& prefix) {
-	this->_message = prefix + StackTraceUtils::getStackTraceMessage();
+Exception::Exception(const std::string& prefix): Exception(prefix, "") {
+
 }
 
-Exception::Exception(const std::string& prefix, const std::string& msg) {
-//	this->_message = new char[msg.size() + 1];
-//	strcpy(this->_message, msg.c_str());
-//	this->_message[msg.size()] = '\0';
-	this->_message = prefix + msg + StackTraceUtils::getStackTraceMessage();
+Exception::Exception(const std::string& prefix, const std::string& msg) : Exception(prefix, msg, true) {
+}
+
+Exception::Exception(const std::string& prefix, const std::string& msg, const bool includeStackTrace) {
+	this->_cause = prefix + msg;
+    this->_trace = StackTraceUtils::getStackTraceMessage();
+    this->_message = includeStackTrace ? this->_cause + this->_trace : this->_cause;
 }
 
 Exception::~Exception() throw (){
-//	delete [] (char*) this->_message;
+
 }
 
 const char* Exception::what() const throw (){
     return this->_message.c_str();
- }
+}
+
+std::string Exception::getTrace() {
+    return this->_trace;
+}
 //////////////////////////////////////////////////////////////////////
 
 NullPointerException::NullPointerException(const std::string& msg) : Exception("NullPointerException : ", msg) {

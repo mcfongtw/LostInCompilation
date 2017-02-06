@@ -58,6 +58,7 @@ set(CORE_SOURCE_FILES
         ${MOD_INC_DIR}/compile/symtab/visitor/VisitedSymbolTable.h
         ${MOD_INC_DIR}/compile/Interpretable.h
         ${MOD_INC_DIR}/error/ParseException.h
+        ${MOD_INC_DIR}/error/SyntaxError.h
         ${MOD_INC_DIR}/error/ArithmeticException.h
         ${MOD_INC_DIR}/tool/DotTreePrinter.h
         ${MOD_INC_DIR}/tool/AsciiTreePrinter.h
@@ -79,6 +80,7 @@ set(CORE_SOURCE_FILES
         ${MOD_SRC_DIR}/compile/symtab/SymbolTableStack.cpp
         ${MOD_SRC_DIR}/compile/symtab/visitor/SimpleSymbolTableVisitor.cpp
         ${MOD_SRC_DIR}/error/ParseException.cpp
+        ${MOD_SRC_DIR}/error/SyntaxError.cpp
         ${MOD_SRC_DIR}/error/ArithmeticException.cpp
         ${MOD_SRC_DIR}/tool/DotTreePrinter.cpp
         ${MOD_SRC_DIR}/tool/AsciiTreePrinter.cpp

@@ -17,9 +17,18 @@
  */
 class ParseException: public Exception {
 public:
+	ParseException(const std::string& prefix, const std::string& msg, const bool includeStackTrace);
+
+    ParseException(const std::string& msg, const bool includeStackTrace);
+
 	ParseException(const std::string& msg);
 
 	virtual ~ParseException() throw ();
+};
+
+class ParseExceptionTranslator {
+public:
+	static void translate(const std::string& hint, const std::string& message);
 };
 
 #endif /* PARSEEXCEPTION_H_ */

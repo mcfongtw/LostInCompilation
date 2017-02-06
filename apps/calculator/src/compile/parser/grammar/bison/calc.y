@@ -119,14 +119,14 @@ input:
 									}
 									
 									YYACCEPT;
-        						}		        						
-	| error  					{ 
+        						}
+	| error  					{
 									//yyerror(result, "<Parser> error at (input) '%s'\n", yytext);
-    								
+
     								std::string cause = std::string("Parse Exception for input '")  + std::string("'");
     								throw ParseException(cause);
-    								YYABORT;  								
-								}		
+    								YYABORT;
+								}
 	;
 	
 statement: 	 				

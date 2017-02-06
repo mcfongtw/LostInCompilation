@@ -11,14 +11,9 @@
 #include "gtest/gtest.h"
 
 #include "compile/parser/grammar/GrammarLibs.h"
-#include "error/ParseException.h"
+#include "error/SyntaxError.h"
 #include "compile/parser/MathParser.h"
 
-#include "tool/AsciiTreePrinter.h"
-#include "tool/DotTreePrinter.h"
-#include "tool/Appender.h"
-
-#include "common/Utils.h"
 #include "log/Logger.h"
 #include "hack/DebugLib.h"
 
@@ -121,11 +116,32 @@ TEST(PARSER, Moderate) {
     EXPECT_EQ(9, rightGrandChild->getPosition().getCol());
 }
 
-TEST(PARSER, Parser_Error) {
+TEST(PARSE_ERROR, Parser_Error_1) {
 	std::string line = "1 + 2 + ";
 	ASTNodePtr root;
 	MathParser parser;
 
-	EXPECT_THROW(parser.parse(root, line), ParseException);
+	EXPECT_THROW(parser.parse(root, line), SyntaxError);
     EXPECT_EQ(8, yy_custom_col);
+}
+
+TEST(PARSE_ERROR, Parser_Error_2) {
+    std::string line = "1 + 2 + ";
+    ASTNodePtr root;
+    MathParser parser;
+
+    try {
+        parser.parse(root, line);
+    } catch(SyntaxError e) {
+        std::cout << e.what() << std::endl;
+    }
+    EXPECT_EQ(8, yy_custom_col);
+}
+
+TEST(PARSE_ERROR, ParseExceptionTranslator_1) {
+    EXPECT_THROW(ParseExceptionTranslator::translate("syntax error", "error message"), SyntaxError);
+}
+
+TEST(PARSE_ERROR, ParseExceptionTranslator_2) {
+    EXPECT_THROW(ParseExceptionTranslator::translate("other error", "error message"), ParseException);
 }
