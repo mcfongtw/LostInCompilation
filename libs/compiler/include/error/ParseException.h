@@ -26,6 +26,12 @@ public:
 	virtual ~ParseException() throw ();
 };
 
+
+/**
+ * A utility function to throw coresponding exception depending on the context.
+ *
+ * @since 0.1
+ */
 class ParseExceptionTranslator {
 public:
 	static void translate(const std::string& hint, const std::string& message);
