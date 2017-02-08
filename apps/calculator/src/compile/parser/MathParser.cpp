@@ -30,9 +30,10 @@ void MathParser::parse(ASTNodePtr& root, std::string line) {
 	try {
 		CompilerUtils::parseSingleLine(root, line.c_str());
 		util::Conditions::requireNotNull(root, "AST root after parsing");
-	} catch(Exception e) {
+	} catch(ParseException e) {
 		LOG(Logger::LEVEL_ERROR, "Error during parsing [" + line + "]");
 		LOG(Logger::LEVEL_ERROR, e.what());
+        throw e;
 	}
 	LOG(Logger::LEVEL_TRACE, "<<<<<[math parser] " + util::Converts::numberToString(root));
 

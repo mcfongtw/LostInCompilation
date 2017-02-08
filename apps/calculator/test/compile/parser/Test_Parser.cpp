@@ -121,7 +121,7 @@ TEST(PARSE_ERROR, Parser_Error_1) {
 	ASTNodePtr root;
 	MathParser parser;
 
-	EXPECT_THROW(parser.parse(root, line), SyntaxError);
+	EXPECT_THROW(parser.parse(root, line), ParseException);
     EXPECT_EQ(8, yy_custom_col);
 }
 
@@ -132,7 +132,7 @@ TEST(PARSE_ERROR, Parser_Error_2) {
 
     try {
         parser.parse(root, line);
-    } catch(SyntaxError e) {
+    } catch(ParseException e) {
         std::cout << e.what() << std::endl;
     }
     EXPECT_EQ(8, yy_custom_col);
