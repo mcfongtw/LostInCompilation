@@ -88,7 +88,7 @@ extern void yyerror(YYLTYPE*, ASTNodePtr&, yyscan_t, const char*, ...);
 
 class CompilerUtils {
 public:
-	static int parseSingleLine(ASTNodePtr& root, const char* line);
+	static void parseSingleLine(ASTNodePtr &root, const char *line);
 };
 
 #endif /* GRAMMARLIBS_H_ */

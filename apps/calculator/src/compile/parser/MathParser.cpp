@@ -27,29 +27,14 @@ void MathParser::parse(ASTNodePtr& root, std::string line) {
 	util::Conditions::requireNotEmpty(line, "user input expression at parser::parse()");
 
 	LOG(Logger::LEVEL_TRACE, ">>>>>[math parser] " + util::Converts::numberToString(root));
-	int ret_yyparse = CompilerUtils::parseSingleLine(root, line.c_str());
-	LOG(Logger::LEVEL_TRACE, "<<<<<[math parser] " + util::Converts::numberToString(root));
-
-	util::Conditions::requireNotNull(root, "AST root after parsing");
-	switch (ret_yyparse) {
-	case 0:
-		LOG(Logger::LEVEL_DEBUG, "Parsed successfully.");
-		break;
-	case 1:
-		throw IllegalStateException("Parsed failed; Invalid input.");
-		break;
-	case 2:
-		throw OutOfMemoryException("Parsed failed; Memory exhaustion.");
-		break;
-	case -1:
-		throw IllegalStateException("Scanner initialized failed.");
-		break;
-	default:
-		std::string reason = "Unknown value returned by yyparse() : "
-				+ util::Converts::numberToString<int>(ret_yyparse);
-		throw IllegalStateException(reason);
-		break;
+	try {
+		CompilerUtils::parseSingleLine(root, line.c_str());
+		util::Conditions::requireNotNull(root, "AST root after parsing");
+	} catch(Exception e) {
+		LOG(Logger::LEVEL_ERROR, "Error during parsing [" + line + "]");
+		LOG(Logger::LEVEL_ERROR, e.what());
 	}
+	LOG(Logger::LEVEL_TRACE, "<<<<<[math parser] " + util::Converts::numberToString(root));
 
 	return;
 }
