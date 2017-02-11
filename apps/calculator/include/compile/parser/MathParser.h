@@ -9,6 +9,8 @@
 #define MATHPARSER_H_
 
 #include "compile/parser/Parser.h"
+#include "algorithm/event/dispatcher/EventDispatcher.h"
+#include "cli/MetricsManager.h"
 
 /**
  *
@@ -17,7 +19,7 @@
  *
  * @since 0.1
  */
-class MathParser: public Parsable {
+class MathParser: public Parsable, public EventDispatcher {
 public:
 	MathParser();
 
@@ -26,6 +28,7 @@ public:
 	virtual void parse(ASTNodePtr& root, std::string line);
 
 	virtual void parse(std::ifstream inFile);
+
 };
 
 #endif /* MATHPARSER_H_ */

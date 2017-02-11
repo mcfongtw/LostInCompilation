@@ -10,12 +10,13 @@
 #include "error/Exception.h"
 #include "common/Utils.h"
 #include "log/Logger.h"
+#include "algorithm/event/InternalEvent.h"
 
 #include "compile/parser/grammar/GrammarLibs.h"
 
 MathParser::MathParser() :
 		Parsable() {
-
+    this->addListener(MetricsManager::getInstance());
 }
 
 MathParser::~MathParser() {
@@ -33,6 +34,7 @@ void MathParser::parse(ASTNodePtr& root, std::string line) {
 	} catch(ParseException e) {
 		LOG(Logger::LEVEL_ERROR, "Error during parsing [" + line + "]");
 		LOG(Logger::LEVEL_ERROR, e.what());
+        this->sendMessage(ParserEvent(std::string(e.what())), EVENT_RECEIVED);
         throw e;
 	}
 	LOG(Logger::LEVEL_TRACE, "<<<<<[math parser] " + util::Converts::numberToString(root));

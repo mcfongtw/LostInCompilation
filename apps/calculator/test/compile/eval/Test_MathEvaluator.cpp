@@ -6,6 +6,8 @@
 #include "compile/parser/MathParser.h"
 #include "compile/eval/MathEvaluator.h"
 #include "compile/eval/function/InvalidFunctionException.h"
+#include "cli/MetricsManager.h"
+#include "error/ParseException.h"
 
 #include "gtest/gtest.h"
 
@@ -25,6 +27,7 @@ public:
     static void SetUpTestCase() {
         MATH_EVALUATOR::stStack =  std::make_shared<SymbolTableStack>(ST_Simple);
         MATH_EVALUATOR::evaluator = new MathEvaluator(MATH_EVALUATOR::stStack);
+        MATH_EVALUATOR::metrics = MetricsManager::getInstance();
     }
 
     // Per-test-case tear-down.
@@ -64,17 +67,25 @@ public:
         MATH_EVALUATOR::evaluator->doEval(std::shared_ptr<ASTNode>(root));
         result = MATH_EVALUATOR::evaluator->getLastAnswer();
 
+        if(result != nullptr) {
+            double value = result.get<double>();
+            LOG(Logger::LEVEL_INFO, "ANS : "  + util::Converts::numberToString(value));
+        }
+
         return result;
     }
 
     static SymTabStackPtr stStack;
     // Some expensive resource shared by all tests.
     static MathEvaluator* evaluator;
+
+    static EventListenerPtr metrics;
 };
 
 
 MathEvaluator* MATH_EVALUATOR::evaluator = nullptr;
 SymTabStackPtr MATH_EVALUATOR::stStack;
+EventListenerPtr MATH_EVALUATOR::metrics;
 
 
 TEST_F(MATH_EVALUATOR, INTEGRATION_Start_and_Stop) {
@@ -435,4 +446,9 @@ TEST_F(MATH_EVALUATOR, INTEGRATION_Evaluate_Built_In_Abs_2) {
     EXPECT_THROW(obj.get<int>(), TypeCastException);
     EXPECT_EQ(sizeof(double), obj.getSizeof());
     EXPECT_NEAR(3.1415926, obj.get<double>(), 0.001);
+}
+
+TEST_F(MATH_EVALUATOR, Error_Handling_Parser_Error_1) {
+    EXPECT_THROW(MATH_EVALUATOR::evaluate("1 + 2 + "), ParseException);
+    EXPECT_EQ(1, std::dynamic_pointer_cast<MetricsManager>(MATH_EVALUATOR::metrics)->getParsingErrorCount());
 }

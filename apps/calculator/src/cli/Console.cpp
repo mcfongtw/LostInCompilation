@@ -17,7 +17,7 @@
 #include "compile/eval/MathEvaluator.h"
 
 Console::Console() {
-
+	this->_metrics = MetricsManager::getInstance();
 }
 
 Console::~Console() {
@@ -52,6 +52,10 @@ void Console::loop() {
                 double value = answer.get<double>();
                 std::cout << "ANS : " << util::Converts::numberToString(value) << std::endl;
             }
+
+			LOG(Logger::LEVEL_DEBUG, std::dynamic_pointer_cast<MetricsManager>(this->_metrics)->toString());
+		} catch(ParseException& e) {
+			LOG(Logger::LEVEL_WARN, std::dynamic_pointer_cast<MetricsManager>(this->_metrics)->toString());
 		} catch (Exception& e) {
 			LOG_ERROR(e.what());
 		}

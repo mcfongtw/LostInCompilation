@@ -103,6 +103,7 @@ set(CORE_SOURCE_FILES
         # Header
         ##################################################################
         ${MOD_INC_DIR}/cli/Console.h
+        ${MOD_INC_DIR}/cli/MetricsManager.h
         ${MOD_INC_DIR}/compile/MathCompiler.h
         ${MOD_INC_DIR}/compile/MathInterpretor.h
         ${MOD_INC_DIR}/compile/eval/Analyzer.h
@@ -119,6 +120,7 @@ set(CORE_SOURCE_FILES
         #################################################################
         ${CORE_SOURCE_FILES}
         ${MOD_SRC_DIR}/cli/Console.cpp
+        ${MOD_SRC_DIR}/cli/MetricsManager.cpp
         ${MOD_SRC_DIR}/compile/MathCompiler.cpp
         ${MOD_SRC_DIR}/compile/MathInterpretor.cpp
         ${MOD_SRC_DIR}/compile/eval/Analyzer.cpp

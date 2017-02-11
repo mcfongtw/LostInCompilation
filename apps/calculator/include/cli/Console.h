@@ -8,6 +8,7 @@
 #ifndef CONSOLE_H_
 #define CONSOLE_H_
 
+#include "MetricsManager.h"
 #include <string>
 
 /**
@@ -24,6 +25,8 @@ public:
 
 private:
 	void loop();
+
+	EventListenerPtr _metrics;
 };
 
 #endif /* CONSOLE_H_ */
