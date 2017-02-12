@@ -12,7 +12,9 @@
 
 TEST(EVENT, UNIT_Simple_Literal_Event) {
     std::string message ="parser event";
-    Event event(message);
+    std::string summary = "summary";
+    Event event(summary, message);
 
-    ASSERT_EQ(message, event.getValue());
+    ASSERT_EQ(summary, event.getSummary());
+    ASSERT_EQ(message, event.getMessage());
 }

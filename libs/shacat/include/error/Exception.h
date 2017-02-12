@@ -14,11 +14,11 @@ class Exception : public std::exception {
 public:
 	Exception();
 
-	Exception(const std::string& prefix);
+	Exception(const std::string& summary);
 
-	Exception(const std::string& prefix, const std::string& msg);
+	Exception(const std::string& summary, const std::string& msg);
 
-	Exception(const std::string& prefix, const std::string& msg, const bool includeStackTrace);
+	Exception(const std::string& summary, const std::string& msg, const bool includeStackTrace);
 
 	virtual ~Exception() throw ();
 
@@ -26,9 +26,10 @@ public:
 
 	virtual std::string getTrace();
 
+	virtual std::string getShortDescrption();
+
 protected:
-    //TODO: Might not need to keep _cause as member var
-	std::string _cause;
+	std::string _shortDesc;
 
 	std::string _trace;
 

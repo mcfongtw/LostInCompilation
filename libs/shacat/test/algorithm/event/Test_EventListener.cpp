@@ -58,7 +58,8 @@ public:
 
 TEST_F(EVENT_LISTENER, UNIT_Simple_EventReceivedListener) {
     std::string message ="random message";
-    Event event(message);
+    std::string summary = "a summary";
+    Event event(summary, message);
 
     EventDispatcher dispatcher;
     EventListenerPtr listener = std::make_shared<TestEventReceivedListener>();
@@ -81,7 +82,8 @@ TEST_F(EVENT_LISTENER, UNIT_Simple_EventReceivedListener) {
 
 TEST_F(EVENT_LISTENER, UNIT_Simple_EventSentListener) {
     std::string message ="random message";
-    Event event(message);
+    std::string summary = "a summary";
+    Event event(summary, message);
 
     EventDispatcher dispatcher;
     EventListenerPtr listener = std::make_shared<TestEventSentListener>();
@@ -129,7 +131,8 @@ TEST_F(EVENT_LISTENER, UNIT_Simple_Remove_Unexisted_EventSentListener) {
 
 TEST_F(EVENT_LISTENER, UNIT_Simple_All_Listener) {
     std::string message ="random message";
-    Event event( message);
+    std::string summary = "a summary";
+    Event event(summary, message);
 
     EventDispatcher dispatcher;
     EventListenerPtr listener1 = std::make_shared<TestEventSentListener>();

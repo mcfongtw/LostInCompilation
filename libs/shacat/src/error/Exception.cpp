@@ -8,20 +8,20 @@
 #include "error/StackTraceUtils.h"
 
 Exception::Exception() {
-	this->_cause = "<No Message>";
+	this->_shortDesc = "<No Message>";
 }
 
-Exception::Exception(const std::string& prefix): Exception(prefix, "") {
+Exception::Exception(const std::string& summary): Exception(summary, "") {
 
 }
 
-Exception::Exception(const std::string& prefix, const std::string& msg) : Exception(prefix, msg, true) {
+Exception::Exception(const std::string& summary, const std::string& msg) : Exception(summary, msg, true) {
 }
 
-Exception::Exception(const std::string& prefix, const std::string& msg, const bool includeStackTrace) {
-	this->_cause = prefix + msg;
+Exception::Exception(const std::string& summary, const std::string& msg, const bool includeStackTrace) {
+	this->_shortDesc = summary;
     this->_trace = StackTraceUtils::getStackTraceMessage();
-    this->_message = includeStackTrace ? this->_cause + this->_trace : this->_cause;
+    this->_message = includeStackTrace ? summary + " : " + msg + this->_trace : summary + " : " + msg;
 }
 
 Exception::~Exception() throw (){
@@ -34,6 +34,10 @@ const char* Exception::what() const throw (){
 
 std::string Exception::getTrace() {
     return this->_trace;
+}
+
+std::string Exception::getShortDescrption() {
+    return this->_shortDesc;
 }
 //////////////////////////////////////////////////////////////////////
 

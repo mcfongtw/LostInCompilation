@@ -15,7 +15,7 @@
  */
 class InternalEvent : public Event {
 public:
-    InternalEvent(ComponentType comp, std::string val);
+    InternalEvent(ComponentType comp, std::string summary, std::string msg);
 
     virtual ~InternalEvent();
 
@@ -32,7 +32,7 @@ protected:
  */
 class ParserEvent : public InternalEvent {
 public:
-    ParserEvent(std::string val): InternalEvent(COMPONENT_PARSER, val) {
+    ParserEvent(std::string summary, std::string msg): InternalEvent(COMPONENT_PARSER, summary, msg) {
 
     }
 
@@ -48,7 +48,7 @@ public:
  */
 class AnalyzerEvent : public InternalEvent {
 public:
-    AnalyzerEvent(std::string val): InternalEvent(COMPONENT_ANALYZER, val) {
+    AnalyzerEvent(std::string summary, std::string msg): InternalEvent(COMPONENT_ANALYZER, summary, msg) {
 
     }
 
@@ -64,7 +64,7 @@ public:
  */
 class SymbolBindingEvent : public InternalEvent {
 public:
-    SymbolBindingEvent(std::string val): InternalEvent(COMPONENT_BINDING, val) {
+    SymbolBindingEvent(std::string summary, std::string msg): InternalEvent(COMPONENT_BINDING, summary, msg) {
 
     }
 

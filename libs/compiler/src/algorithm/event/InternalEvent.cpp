@@ -4,7 +4,7 @@
 
 #include "algorithm/event/InternalEvent.h"
 
-InternalEvent::InternalEvent(ComponentType comp, std::string val): _component(comp), Event(val) {
+InternalEvent::InternalEvent(ComponentType comp, std::string summary, std::string msg): _component(comp), Event(summary, msg) {
 
 }
 

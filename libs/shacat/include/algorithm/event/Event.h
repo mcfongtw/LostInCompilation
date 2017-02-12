@@ -17,14 +17,18 @@
 //TODO:Make it a template
 class Event {
 public:
-    Event(std::string val);
+    Event(std::string summary, std::string message);
 
     virtual ~Event();
 
-    virtual std::string getValue();
+    virtual std::string getMessage();
+
+    virtual std::string getSummary();
 
 protected:
-    std::string _val;
+    std::string _summary;
+
+    std::string _message;
 };
 
 

@@ -9,7 +9,7 @@
 #include "error/ParseException.h"
 #include "common/Utils.h"
 
-ParseException::ParseException(const std::string& msg, const bool includeStackTrace) : ParseException("ParseException : ", msg, includeStackTrace) {
+ParseException::ParseException(const std::string& msg, const bool includeStackTrace) : ParseException("ParseException", msg, includeStackTrace) {
 
 }
 

@@ -34,7 +34,8 @@ void MathParser::parse(ASTNodePtr& root, std::string line) {
 	} catch(ParseException e) {
 		LOG(Logger::LEVEL_ERROR, "Error during parsing [" + line + "]");
 		LOG(Logger::LEVEL_ERROR, e.what());
-        this->sendMessage(ParserEvent(std::string(e.what())), EVENT_RECEIVED);
+		LOG(Logger::LEVEL_DEBUG, "Sending Event w/ summarized reason: [" + e.getShortDescrption() + "]");
+        this->sendMessage(ParserEvent(e.getShortDescrption(), std::string(e.what())), EVENT_RECEIVED);
         throw e;
 	}
 	LOG(Logger::LEVEL_TRACE, "<<<<<[math parser] " + util::Converts::numberToString(root));
