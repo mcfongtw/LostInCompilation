@@ -17,7 +17,6 @@
 #      REVISION: 0.1
 #===============================================================================
 
-set -o nounset                              # Treat unset variables as an error
 
 rm -rf ./build/
 mkdir -p ./build/

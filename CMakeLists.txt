@@ -14,8 +14,7 @@ mark_as_advanced(VERSION_MAJOR VERSION_MINOR VERSION_PATCH)
 #Set the default CMAKE_BUILD_TYPE if it has not been set.
 if( NOT CMAKE_BUILD_TYPE )
     SET(CMAKE_BUILD_TYPE Debug CACHE STRING
-            "Choose the type of build, options are: None Debug Release RelWithDebInfo
-MinSizeRel."
+            "Choose the type of build, options are: Debug Release"
             FORCE )
 ENDIF()
 message("================================================")
