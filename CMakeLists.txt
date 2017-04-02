@@ -37,6 +37,11 @@ message("================================================")
 # Global var : doc directory
 IF(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
     SET(PRJ_DOC_DIR "${CMAKE_SOURCE_DIR}/docs/doxygen")
+
+    # Need to remove all generated files so that no old links will linger.
+    # Rem -rf docs/doxygen
+    message("Remove -rf docs/doxygen")
+    file(REMOVE_RECURSE "${CMAKE_SOURCE_DIR}/docs/doxygen")
 ELSE()
     set(PRJ_DOC_DIR "${CMAKE_BINARY_DIR}/docs")
 ENDIF()
