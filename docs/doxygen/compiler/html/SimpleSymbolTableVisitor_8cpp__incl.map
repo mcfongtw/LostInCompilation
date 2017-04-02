@@ -1,0 +1,15 @@
+<map id="src/compile/symtab/visitor/SimpleSymbolTableVisitor.cpp" name="src/compile/symtab/visitor/SimpleSymbolTableVisitor.cpp">
+<area shape="rect" id="node2" href="$SimpleSymbolTableVisitor_8h.html" title="compile/symtab/visitor\l/SimpleSymbolTableVisitor.h" alt="" coords="583,109,773,151"/>
+<area shape="rect" id="node3" href="$SymbolTableVisitor_8h.html" title="compile/symtab/visitor\l/SymbolTableVisitor.h" alt="" coords="601,199,755,240"/>
+<area shape="rect" id="node4" href="$ScopedSymbolTable_8h.html" title="compile/symtab/ScopedSymbol\lTable.h" alt="" coords="464,288,671,329"/>
+<area shape="rect" id="node20" href="/home/shannaracat/dev/gitlab/workspace_oss/LostInCompilation/docs/doxygen/shacat/shacat.tag$Visitor_8h.html" title="algorithm/visitor/Visitor.h" alt="" coords="700,295,867,322"/>
+<area shape="rect" id="node5" href="$SymbolRepository_8h.html" title="compile/symtab/SymbolRepository.h" alt="" coords="444,385,680,411"/>
+<area shape="rect" id="node6" href="$Symbol_8h.html" title="compile/symtab/Symbol.h" alt="" coords="406,467,579,493"/>
+<area shape="rect" id="node8" href="$RuntimeData_8h.html" title="compile/binding/RuntimeData.h" alt="" coords="391,541,595,568"/>
+<area shape="rect" id="node11" href="$DataBindingUtils_8h.html" title="compile/binding/DataBinding\lUtils.h" alt="" coords="326,616,513,657"/>
+<area shape="rect" id="node15" href="$ValueHolder_8h.html" title="compile/binding/ValueHolder.h" alt="" coords="619,623,817,650"/>
+<area shape="rect" id="node17" href="/home/shannaracat/dev/gitlab/workspace_oss/LostInCompilation/docs/doxygen/shacat/shacat.tag$Utils_8h.html" title="common/Utils.h" alt="" coords="70,623,185,650"/>
+<area shape="rect" id="node18" href="/home/shannaracat/dev/gitlab/workspace_oss/LostInCompilation/docs/doxygen/shacat/shacat.tag$Logger_8h.html" title="log/Logger.h" alt="" coords="209,623,302,650"/>
+<area shape="rect" id="node14" href="/home/shannaracat/dev/gitlab/workspace_oss/LostInCompilation/docs/doxygen/shacat/shacat.tag$Exception_8h.html" title="error/Exception.h" alt="" coords="195,705,316,732"/>
+<area shape="rect" id="node21" href="/home/shannaracat/dev/gitlab/workspace_oss/LostInCompilation/docs/doxygen/shacat/shacat.tag$VisitedObject_8h.html" title="algorithm/visitor/Visited\lObject.h" alt="" coords="704,377,863,419"/>
+</map>

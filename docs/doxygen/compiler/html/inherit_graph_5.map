@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="/home/shannaracat/dev/gitlab/workspace_oss/LostInCompilation/docs/doxygen/shacat/shacat.tag$classEvent.html" title="Event" alt="" coords="5,56,61,83"/>
+<area shape="rect" id="node2" href="$classInternalEvent.html" title="InternalEvent" alt="" coords="109,56,208,83"/>
+<area shape="rect" id="node3" href="$classAnalyzerEvent.html" title="AnalyzerEvent" alt="" coords="274,5,381,32"/>
+<area shape="rect" id="node4" href="$classParserEvent.html" title="ParserEvent" alt="" coords="280,56,375,83"/>
+<area shape="rect" id="node5" href="$classSymbolBindingEvent.html" title="SymbolBindingEvent" alt="" coords="256,107,399,133"/>
+</map>
